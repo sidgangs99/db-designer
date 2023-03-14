@@ -1,15 +1,9 @@
 import { useEffect, useRef } from 'react';
 import Split from 'split.js';
+import CodeEditorContainer from '../common/code-editor/container';
 import { ILayoutComponentProps } from './types';
 
 export default function LayoutComponent(props: ILayoutComponentProps) {
-    function C1() {
-        return (
-            <div className="border border-red-400">
-                Component 1 {Date.now()}
-            </div>
-        );
-    }
     function C2() {
         return (
             <div className="border border-black">Component 2 {Date.now()}</div>
@@ -30,12 +24,9 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
     }, []);
 
     return (
-        <div
-            className="flex w-full border border-green-400"
-            ref={splitContainer}
-        >
+        <div className="flex w-full" ref={splitContainer}>
             <div id="left-pane">
-                <C1 />
+                <CodeEditorContainer />
             </div>
             <div id="right-pane">
                 <C2 />
@@ -43,18 +34,3 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
         </div>
     );
 }
-
-// return (
-//     <Split
-//         className="split-container"
-//         sizes={[50, 50]}
-//         minSize={100}
-//         gutterSize={10}
-//         direction="horizontal"
-//         // onDragEnd={handleResize}
-//     >
-//         <C1 />
-//         <C2 />
-//     </Split>
-// );
-// }
