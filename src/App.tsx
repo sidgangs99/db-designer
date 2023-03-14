@@ -4,7 +4,7 @@ import LayoutContainer from './components/layout/container';
 function App() {
     return (
         <div className="flex h-screen w-screen">
-            <LayoutContainer />;
+            <LayoutContainer />
         </div>
     );
 }
