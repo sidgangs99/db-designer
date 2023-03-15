@@ -21,6 +21,7 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
                 direction: 'horizontal'
             });
         }
+        console.log(splitContainer.current);
     }, []);
 
     return (
