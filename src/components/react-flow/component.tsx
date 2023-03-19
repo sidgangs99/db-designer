@@ -1,6 +1,7 @@
-import ReactFlow, { Controls, MiniMap } from 'reactflow';
+import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 
 import 'reactflow/dist/style.css';
+import { nodeTypes } from './constants';
 import { IReactFlowComponentProps } from './types';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
@@ -13,9 +14,12 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                fitView
+                nodeTypes={nodeTypes}
             >
                 <MiniMap />
                 <Controls />
+                <Background />
             </ReactFlow>
         </>
     );
