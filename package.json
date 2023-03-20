@@ -26,7 +26,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "commit": "cz"
+        "commit": "cz",
+        "deploy": "yarn && yarn build && firebase deploy"
     },
     "eslintConfig": {
         "extends": [

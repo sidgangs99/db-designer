@@ -3,7 +3,7 @@ import 'reactflow/dist/style.css';
 import SQLDatatypeComponent from '../sql-types/component';
 
 const CustomPrimaryColumnNodeComponent = ({ data }: { data: any }) => {
-    const { name, dataType, refSource, refTarget } = data;
+    const { name, refSource, refTarget } = data;
     return (
         <>
             <div className="mx-2 mb-6 flex h-8 w-80 items-center bg-chelsea-cucumber-100 px-4 pt-2">
