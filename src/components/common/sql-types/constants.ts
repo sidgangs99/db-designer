@@ -1,0 +1,23 @@
+export const sqlTypes = [
+    { name: 'VARCHAR', type: 'string' },
+    { name: 'CHAR', type: 'string' },
+    { name: 'TEXT', type: 'string' },
+    { name: 'INT', type: 'numeric' },
+    { name: 'BIGINT', type: 'numeric' },
+    { name: 'TINYINT', type: 'numeric' },
+    { name: 'FLOAT', type: 'numeric' },
+    { name: 'REAL', type: 'numeric' },
+    { name: 'DATE', type: 'dateTime' },
+    { name: 'TIME', type: 'dateTime' },
+    { name: 'DATETIME', type: 'dateTime' },
+    { name: 'NCHAR', type: 'unicodeString' },
+    { name: 'NVARCHAR', type: 'unicodeString' },
+    { name: 'NTEXT', type: 'unicodeString' },
+    { name: 'BINARY', type: 'binary' },
+    { name: 'VARBINARY', type: 'binary' },
+    { name: 'CLOB', type: 'misc' },
+    { name: 'BLOB', type: 'misc' },
+    { name: 'XML', type: 'misc' },
+    { name: 'CURSOR', type: 'misc' },
+    { name: 'TABLE', type: 'misc' }
+];
