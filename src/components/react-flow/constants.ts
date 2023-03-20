@@ -1,7 +1,7 @@
 import { Edge, MarkerType, Node, Position } from 'reactflow';
 import CustomColumnNodeComponent from '../common/customNode/column-node';
 import CustomTableNodeComponent from '../common/customNode/table-node';
-import { ECustomNodeTypes } from './types';
+import { ECustomEdgeTypes, ECustomNodeTypes } from './types';
 
 export const initialNodes: Node<any, string | undefined>[] = [
     {
@@ -79,7 +79,8 @@ export const initialEdges: Edge<any>[] = [
         target: 'designation.employeeId',
         animated: true,
         markerEnd: { type: MarkerType.ArrowClosed },
-        zIndex: 10
+        zIndex: 10,
+        type: ECustomEdgeTypes.ReferenceKey
     }
 ];
 

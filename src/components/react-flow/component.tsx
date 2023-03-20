@@ -2,10 +2,11 @@ import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { nodeTypes } from './constants';
-import { IReactFlowComponentProps } from './types';
+import { customEdgeTypes, IReactFlowComponentProps } from './types';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = props;
+
     return (
         <>
             <ReactFlow
@@ -16,6 +17,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 onConnect={onConnect}
                 fitView
                 nodeTypes={nodeTypes}
+                edgeTypes={customEdgeTypes}
             >
                 <MiniMap />
                 <Controls />
