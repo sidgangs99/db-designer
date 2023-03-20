@@ -15,7 +15,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
         draggable: false,
         position: { x: 0, y: 50 },
         data: {
-            name: 'Name of empoloyeeee sc lBDCDSHJ FVDJSVHJSD SJDAVJ',
+            name: 'Employee Name',
             dataType: 'varchar'
         },
         sourcePosition: Position.Right,
