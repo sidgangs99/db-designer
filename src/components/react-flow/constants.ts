@@ -14,7 +14,10 @@ export const initialNodes: Node<any, string | undefined>[] = [
         id: 'employee.name',
         draggable: false,
         position: { x: 0, y: 50 },
-        data: { name: 'Name', dataType: 'varchar' },
+        data: {
+            name: 'Name of empoloyeeee sc lBDCDSHJ FVDJSVHJSD SJDAVJ',
+            dataType: 'varchar'
+        },
         sourcePosition: Position.Right,
         parentNode: 'employee',
         extent: 'parent',
@@ -44,7 +47,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
     {
         id: 'designation',
         type: ECustomNodeTypes.TableNode,
-        position: { x: 700, y: 500 },
+        position: { x: 1000, y: 500 },
         data: { tableName: 'Designation' }
     },
     {
