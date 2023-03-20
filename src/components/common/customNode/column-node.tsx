@@ -1,10 +1,18 @@
 import { useState } from 'react';
 import { Handle, Position } from 'reactflow';
+
 import 'reactflow/dist/style.css';
+import { useIsASourceEdge, useIsATargetEdge } from '../../../store/edges/hooks';
 import SQLDatatypeComponent from '../sql-types/component';
 
-const CustomPrimaryColumnNodeComponent = ({ data }: { data: any }) => {
-    const { name, refSource, refTarget } = data;
+const CustomPrimaryColumnNodeComponent = ({
+    data,
+    id
+}: {
+    data: any;
+    id: string;
+}) => {
+    const { name } = data;
     const [columnName, setColumnName] = useState<string>(name);
 
     return (
@@ -15,7 +23,9 @@ const CustomPrimaryColumnNodeComponent = ({ data }: { data: any }) => {
                         <input
                             type="text"
                             value={columnName}
-                            className="cursor-text bg-chelsea-cucumber-100 outline-none hover:text-chelsea-cucumber-600"
+                            className={`cursor-text bg-chelsea-cucumber-100 outline-none hover:text-chelsea-cucumber-600 ${
+                                useIsASourceEdge(id) && 'text-orange-500'
+                            } ${useIsATargetEdge(id) && 'text-orange-500'}`}
                             onChange={({ target }: any) =>
                                 setColumnName(target.value)
                             }
@@ -26,20 +36,20 @@ const CustomPrimaryColumnNodeComponent = ({ data }: { data: any }) => {
                     </div>
                 </div>
             </div>
-            {refSource && (
-                <Handle
-                    type="source"
-                    position={Position.Right}
-                    className="!bg-orange-500 align-middle"
-                />
-            )}
-            {refTarget && (
-                <Handle
-                    type="target"
-                    position={Position.Left}
-                    className="!bg-yellow-300"
-                />
-            )}
+            <Handle
+                type="source"
+                position={Position.Right}
+                className={`p-1 ${
+                    useIsASourceEdge(id) ? 'bg-orange-500' : 'bg-slate-600'
+                }`}
+            />
+            <Handle
+                type="target"
+                position={Position.Left}
+                className={` p-1 ${
+                    useIsATargetEdge(id) ? 'bg-yellow-300' : 'bg-slate-600'
+                }`}
+            />
         </>
     );
 };

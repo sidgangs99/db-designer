@@ -1,3 +1,5 @@
+import CustomCancelEdge from '../common/customEdge/cancel-edge';
+
 export interface IReactFlowContainerProps {}
 
 export interface IReactFlowComponentProps extends IReactFlowContainerProps {
@@ -11,6 +13,13 @@ export interface IReactFlowComponentProps extends IReactFlowContainerProps {
 
 export enum ECustomNodeTypes {
     TableNode = 'tableNode',
-    ColumnNode = 'columnNode',
-    PrimaryColumnNode = 'primaryColumnNode'
+    ColumnNode = 'columnNode'
 }
+
+export enum ECustomEdgeTypes {
+    ReferenceKey = 'refKey'
+}
+
+export const customEdgeTypes = {
+    [ECustomEdgeTypes.ReferenceKey]: CustomCancelEdge
+};
