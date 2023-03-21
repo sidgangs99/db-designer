@@ -37,7 +37,7 @@ export default function CustomCancelEdge({
             <path
                 id={id}
                 style={style}
-                className="react-flow__edge-path"
+                className="react-flow__edge-path group"
                 d={edgePath}
                 markerEnd={markerEnd}
             />
@@ -51,9 +51,7 @@ export default function CustomCancelEdge({
                 <div>
                     <button
                         onClick={(event) => onEdgeClick(event, id)}
-                        className={
-                            'rounded-full bg-corduroy-100 p-1.5 text-xs shadow-2xl'
-                        }
+                        className={'rounded-full bg-corduroy-100 p-1.5 text-xs'}
                     >
                         <RxCross2 />
                     </button>
