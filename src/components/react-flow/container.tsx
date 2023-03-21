@@ -25,7 +25,16 @@ export default function ReactFlowContainer() {
             source: source,
             target: target,
             animated: true,
-            markerEnd: { type: MarkerType.ArrowClosed },
+            markerEnd: {
+                type: MarkerType.ArrowClosed,
+                width: 15,
+                height: 15,
+                color: '#fb7185'
+            },
+            style: {
+                strokeWidth: 1.5,
+                stroke: '#fb7185'
+            },
             zIndex: 10,
             type: ECustomEdgeTypes.ReferenceKey
         };

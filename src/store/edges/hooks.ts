@@ -10,3 +10,7 @@ export const useIsATargetEdge = (id: string) => {
     return edges.some((edge: any) => edge.target === id);
 };
 
+export const useIsASourceOrTargetEdge = (id: string) => {
+    const edges = useEdges((state: any) => state.edges);
+    return edges.some((edge: any) => edge.target === id || edge.source === id);
+};
