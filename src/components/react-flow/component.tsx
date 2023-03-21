@@ -1,4 +1,9 @@
-import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
+import ReactFlow, {
+    Background,
+    Controls,
+    MiniMap,
+    ReactFlowProvider
+} from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { nodeTypes } from './constants';
@@ -8,7 +13,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = props;
 
     return (
-        <>
+        <ReactFlowProvider>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -23,6 +28,6 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 <Controls />
                 <Background />
             </ReactFlow>
-        </>
+        </ReactFlowProvider>
     );
 }

@@ -1,18 +1,25 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
 import { sqlTypes } from './constants';
 
-export default function Example() {
-    const [selected, setSelected] = useState(sqlTypes[0]);
+export default function SQLDataTypesDropdown(props: any) {
+    const { setValue, watch } = props;
+    const dataType = watch('dataType');
+
+    useEffect(() => {
+        setValue('dataType', sqlTypes[0].name);
+    }, []);
+
+    const setSelectedDataType = (value: any) => {
+        setValue('dataType', value.name);
+    };
 
     return (
-        <Listbox value={selected} onChange={setSelected}>
+        <Listbox value={dataType} onChange={setSelectedDataType}>
             <div className="relative align-middle">
                 <Listbox.Button className="relative flex w-full cursor-pointer justify-between rounded-lg bg-white py-1 pl-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-corduroy-300 ">
-                    <div className="block truncate text-xs">
-                        {selected.name}
-                    </div>
+                    <div className="block truncate text-xs">{dataType}</div>
                     <div className="flex h-full  pr-1 pt-0.5 text-xs">
                         <div className="rotate-90 align-middle">
                             <RiCodeSLine />

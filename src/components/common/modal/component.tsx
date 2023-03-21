@@ -4,16 +4,15 @@ import { IModalComponentProps } from './types';
 
 export default function ModalComponent(props: IModalComponentProps) {
     const { open, onClose, Header, Body, Buttons } = props;
-    console.log(Buttons);
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 as="div"
-                className="fixed inset-0 z-10 overflow-y-auto"
+                className="z-1000 fixed inset-0 overflow-y-auto"
                 onClose={onClose}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-70 transition-opacity" />
-                <div className="min-h-screen px-4 text-center">
+                <div className="h-full px-4 text-center">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"

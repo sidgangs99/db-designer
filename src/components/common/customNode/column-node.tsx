@@ -8,7 +8,7 @@ import {
     useIsASourceOrTargetEdge,
     useIsATargetEdge
 } from '../../../store/edges/hooks';
-import { useGetTableNameFromNodeName } from '../../../store/nodes/hooks';
+import { ITableData } from '../../../store/nodes/types';
 import ModalContainer from '../modal/container';
 import {
     ConfigureColumnNodeBody,
@@ -20,14 +20,15 @@ const CustomPrimaryColumnNodeComponent = ({
     data,
     id
 }: {
-    data: any;
+    data: ITableData;
     id: string;
 }) => {
-    const { name } = data;
+    const { columnName, tableName, dataType } = data;
     const [openModal, setOpenModal] = useState(false);
 
-    const handleOnNodeClick = () => setOpenModal(!openModal);
-    const getTableName = useGetTableNameFromNodeName(id);
+    const handleOnNodeClick = () => {
+        setOpenModal(!openModal);
+    };
 
     return (
         <>
@@ -41,11 +42,10 @@ const CustomPrimaryColumnNodeComponent = ({
                     } `}
                 >
                     <div className="font-semibol flex w-2/3 items-center overflow-hidden text-ellipsis bg-chelsea-cucumber-100">
-                        {name}
+                        {columnName}
                     </div>
                     <div className="flex w-1/3 items-center justify-around ">
-                        varchar
-                        {/* <SQLDatatypeComponent /> */}
+                        {dataType}
                     </div>
                 </div>
                 <div className="absolute -mt-4 flex h-full w-full items-start justify-end opacity-0 group-hover:opacity-100">
@@ -71,10 +71,14 @@ const CustomPrimaryColumnNodeComponent = ({
                 <ModalContainer
                     open={openModal}
                     setOpen={setOpenModal}
-                    Header={
-                        <ConfigureColumnNodeHeader tableName={getTableName} />
+                    Header={<ConfigureColumnNodeHeader tableName={tableName} />}
+                    Body={
+                        <ConfigureColumnNodeBody
+                            data={data}
+                            id={id}
+                            setOpenModal={setOpenModal}
+                        />
                     }
-                    Body={<ConfigureColumnNodeBody />}
                     Buttons={configureColumnNodeButtons}
                 />
             )}
