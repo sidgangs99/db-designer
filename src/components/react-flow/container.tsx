@@ -2,21 +2,24 @@ import { useCallback, useEffect } from 'react';
 import { MarkerType, useEdgesState, useNodesState } from 'reactflow';
 
 import { useEdges } from '../../store/edges/state';
-import { useTables } from '../../store/nodes/state';
+import { useNodes } from '../../store/nodes/state';
 import ReactFlowComponent from './component';
 import { isValidEdge } from './helperFunctions';
-import { ECustomEdgeTypes } from './types';
 
 export default function ReactFlowContainer() {
-    const nodesState = useTables((state: any) => state);
-    const edgesState = useEdges((state: any) => state);
+    const { nodes: nodesState } = useNodes((state: any) => state);
+    const { edges: edgesState, addEdge } = useEdges((state: any) => state);
 
-    const [nodes, setNodes, onNodesChange] = useNodesState(nodesState.nodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState(edgesState.edges);
+    const [nodes, setNodes, onNodesChange] = useNodesState(nodesState);
+    const [edges, setEdges, onEdgesChange] = useEdgesState(edgesState);
 
     useEffect(() => {
-        setEdges(edgesState.edges);
-    }, [edgesState.edges]);
+        setEdges(edgesState);
+    }, [edgesState]);
+
+    useEffect(() => {
+        setNodes(nodesState);
+    }, [nodesState]);
 
     const onConnect = useCallback((params: any) => {
         const { source, target } = params;
@@ -34,12 +37,11 @@ export default function ReactFlowContainer() {
             style: {
                 strokeWidth: 1.5,
                 stroke: '#fb7185'
-            },
-            type: ECustomEdgeTypes.ReferenceKey
+            }
         };
 
         if (isValidEdge(source, target)) {
-            edgesState.addEdge(newEdge);
+            addEdge(newEdge);
         } else {
             console.error(
                 'Adding Primary key to same table is not possible, please brush up your basics ;)'
