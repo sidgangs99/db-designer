@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { Handle, Position } from 'reactflow';
 
@@ -7,6 +8,13 @@ import {
     useIsASourceOrTargetEdge,
     useIsATargetEdge
 } from '../../../store/edges/hooks';
+import { useGetTableNameFromNodeName } from '../../../store/nodes/hooks';
+import ModalContainer from '../modal/container';
+import {
+    ConfigureColumnNodeBody,
+    configureColumnNodeButtons,
+    ConfigureColumnNodeHeader
+} from './configure-column-node';
 
 const CustomPrimaryColumnNodeComponent = ({
     data,
@@ -16,23 +24,23 @@ const CustomPrimaryColumnNodeComponent = ({
     id: string;
 }) => {
     const { name } = data;
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOnNodeClick = () => setOpenModal(!openModal);
+    const getTableName = useGetTableNameFromNodeName(id);
 
     return (
         <>
             <div
                 className="group relative flex h-8 w-80 items-center rounded-lg border-chelsea-cucumber-600 bg-chelsea-cucumber-100 hover:border"
-                onClick={() => {
-                    console.log('Hi');
-                }}
+                onClick={handleOnNodeClick}
             >
                 <div
                     className={`mb-2 flex w-full items-center justify-between space-x-4 px-4 pt-2 text-chelsea-cucumber-500 ${
                         useIsASourceOrTargetEdge(id) && 'text-rose-400'
                     } `}
                 >
-                    <div
-                        className={`flex w-2/3 items-center overflow-hidden text-ellipsis bg-chelsea-cucumber-100 font-semibold`}
-                    >
+                    <div className="font-semibol flex w-2/3 items-center overflow-hidden text-ellipsis bg-chelsea-cucumber-100">
                         {name}
                     </div>
                     <div className="flex w-1/3 items-center justify-around ">
@@ -58,6 +66,18 @@ const CustomPrimaryColumnNodeComponent = ({
                     useIsATargetEdge(id) ? 'bg-amber-500' : 'bg-slate-600'
                 }`}
             />
+
+            {openModal && (
+                <ModalContainer
+                    open={openModal}
+                    setOpen={setOpenModal}
+                    Header={
+                        <ConfigureColumnNodeHeader tableName={getTableName} />
+                    }
+                    Body={<ConfigureColumnNodeBody />}
+                    Buttons={configureColumnNodeButtons}
+                />
+            )}
         </>
     );
 };

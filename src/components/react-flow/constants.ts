@@ -7,6 +7,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
     {
         id: 'employee',
         position: { x: 500, y: 500 },
+        zIndex: 20,
         data: { tableName: 'Employee' },
         type: ECustomNodeTypes.TableNode
     },
@@ -20,6 +21,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
         },
         sourcePosition: Position.Right,
         parentNode: 'employee',
+        zIndex: 20,
         extent: 'parent',
         type: ECustomNodeTypes.ColumnNode,
         expandParent: true
@@ -30,6 +32,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
         position: { x: 0, y: 100 },
         data: { name: 'Id', dataType: 'varchar', refSource: true },
         parentNode: 'employee',
+        zIndex: 20,
         type: ECustomNodeTypes.ColumnNode,
         extent: 'parent',
         expandParent: true
@@ -42,13 +45,15 @@ export const initialNodes: Node<any, string | undefined>[] = [
         type: ECustomNodeTypes.ColumnNode,
         parentNode: 'employee',
         extent: 'parent',
+        zIndex: 20,
         expandParent: true
     },
     {
         id: 'designation',
         type: ECustomNodeTypes.TableNode,
         position: { x: 1000, y: 500 },
-        data: { tableName: 'Designation' }
+        data: { tableName: 'Designation' },
+        zIndex: 20
     },
     {
         id: 'designation.employeeId',
@@ -57,6 +62,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
         position: { x: 0, y: 50 },
         data: { name: 'Id', dataType: 'varchar', refTarget: true },
         parentNode: 'designation',
+        zIndex: 20,
         extent: 'parent',
         expandParent: true
     },
@@ -66,6 +72,7 @@ export const initialNodes: Node<any, string | undefined>[] = [
         type: ECustomNodeTypes.ColumnNode,
         position: { x: 0, y: 100 },
         data: { name: 'Position', dataType: 'varchar' },
+        zIndex: 20,
         parentNode: 'designation',
         extent: 'parent',
         expandParent: true
@@ -79,7 +86,6 @@ export const initialEdges: Edge<any>[] = [
         target: 'designation.employeeId',
         animated: true,
         markerEnd: { type: MarkerType.ArrowClosed },
-        zIndex: 10,
         type: ECustomEdgeTypes.ReferenceKey
     }
 ];
