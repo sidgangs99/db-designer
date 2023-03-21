@@ -35,7 +35,6 @@ export default function ReactFlowContainer() {
                 strokeWidth: 1.5,
                 stroke: '#fb7185'
             },
-            zIndex: 10,
             type: ECustomEdgeTypes.ReferenceKey
         };
 
