@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { Handle, Position } from 'reactflow';
 
@@ -16,13 +16,7 @@ import {
     ConfigureColumnNodeHeader
 } from './configure-column-node';
 
-const CustomPrimaryColumnNodeComponent = ({
-    data,
-    id
-}: {
-    data: ITableData;
-    id: string;
-}) => {
+export default memo(({ data, id }: { data: ITableData; id: string }) => {
     const { columnName, tableName, dataType } = data;
     const [openModal, setOpenModal] = useState(false);
 
@@ -41,7 +35,7 @@ const CustomPrimaryColumnNodeComponent = ({
                         useIsASourceOrTargetEdge(id) && 'text-rose-400'
                     } `}
                 >
-                    <div className="font-semibol flex w-2/3 items-center overflow-hidden text-ellipsis bg-chelsea-cucumber-100">
+                    <div className="flex w-2/3 items-center bg-chelsea-cucumber-100 font-semibold line-clamp-1">
                         {columnName}
                     </div>
                     <div className="flex w-1/3 items-center justify-around ">
@@ -84,6 +78,4 @@ const CustomPrimaryColumnNodeComponent = ({
             )}
         </>
     );
-};
-
-export default CustomPrimaryColumnNodeComponent;
+});

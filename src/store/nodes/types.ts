@@ -1,3 +1,4 @@
+import { XYPosition } from 'reactflow';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
 
 export interface ITableData {
@@ -5,13 +6,14 @@ export interface ITableData {
     dataType?: string;
     tableName: string;
     tableStyle?: any;
+    updateNode?: any;
 }
 
 export interface INode {
     id: string;
     draggable?: boolean;
     type?: ECustomNodeTypes;
-    position?: { x: number; y: number };
+    position?: XYPosition;
     data: ITableData;
     zIndex?: number;
     parentNode?: string;

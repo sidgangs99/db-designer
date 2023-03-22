@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useNodes } from '../../../store/nodes/state';
 import { ITableData } from '../../../store/nodes/types';
 import ButtonContainer from '../buttons/container';
 import SQLDataTypesDropdown from '../sql-types/component';
@@ -24,8 +23,6 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
     const { data, id, setOpenModal } = node;
     const { columnName, dataType } = data;
 
-    const { updateNode } = useNodes((state: any) => state);
-
     const { register, watch, getValues, setValue, handleSubmit } = useForm({
         mode: 'onChange',
         defaultValues: { columnName, dataType }
@@ -34,7 +31,7 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
     const onSubmit: any = (_data: any) => {
         const newNode = { ...data, ..._data };
         setOpenModal(false);
-        updateNode(newNode, id);
+        newNode.updateNode(newNode, id);
     };
 
     return (
