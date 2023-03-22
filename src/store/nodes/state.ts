@@ -1,7 +1,6 @@
 import { create } from 'zustand';
-
 import { ECustomNodeTypes } from '../../components/react-flow/types';
-import { INode, ITableData } from './types';
+import { INode } from './types';
 
 export const initialNodes: INode[] = [
     {
@@ -100,15 +99,5 @@ export const initialNodes: INode[] = [
 ];
 
 export const useNodes = create((set) => ({
-    nodes: initialNodes,
-
-    updateNode: (data: ITableData, id: string) =>
-        set(({ nodes }: any) => {
-            nodes.forEach((_node: INode) => {
-                if (_node.id === id) {
-                    _node.data = data;
-                }
-            });
-            return { nodes: [...nodes] };
-        })
+    nodes: initialNodes
 }));

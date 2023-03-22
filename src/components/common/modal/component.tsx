@@ -49,9 +49,9 @@ export default function ModalComponent(props: IModalComponentProps) {
                                 {Header}
                             </Dialog.Title>
                             <div className="mt-2">
-                                <p className="border-t pt-2 text-sm text-gray-500">
+                                <div className="border-t pt-2 text-sm text-gray-500">
                                     {Body}
-                                </p>
+                                </div>
                             </div>
 
                             <div className="mt-4">

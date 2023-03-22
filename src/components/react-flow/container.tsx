@@ -3,6 +3,7 @@ import { MarkerType, useEdgesState, useNodesState } from 'reactflow';
 
 import { useEdges } from '../../store/edges/state';
 import { useNodes } from '../../store/nodes/state';
+import { INode } from '../../store/nodes/types';
 import ReactFlowComponent from './component';
 import { isValidEdge } from './helperFunctions';
 
@@ -14,12 +15,34 @@ export default function ReactFlowContainer() {
     const [edges, setEdges, onEdgesChange] = useEdgesState(edgesState);
 
     useEffect(() => {
-        setEdges(edgesState);
-    }, [edgesState]);
+        const updateNode = (data: any, id: string) => {
+            setNodes((_nodes) =>
+                _nodes.map((_node) => {
+                    if (_node.id === id) {
+                        return {
+                            ..._node,
+                            data: {
+                                ..._node.data,
+                                ...data
+                            }
+                        };
+                    }
 
-    useEffect(() => {
+                    return _node;
+                })
+            );
+        };
+
+        nodesState.forEach((node: INode) => {
+            node.data.updateNode = updateNode;
+        });
+
         setNodes(nodesState);
-    }, [nodesState]);
+    }, []);
+
+    // useEffect(() => {
+    //     setNodes(nodesState);
+    // }, [nodesState]);
 
     const onConnect = useCallback((params: any) => {
         const { source, target } = params;

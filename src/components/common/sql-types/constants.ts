@@ -1,23 +1,86 @@
 export const sqlTypes = [
-    { name: 'VARCHAR', type: 'string' },
-    { name: 'CHAR', type: 'string' },
-    { name: 'TEXT', type: 'string' },
-    { name: 'INT', type: 'numeric' },
-    { name: 'BIGINT', type: 'numeric' },
-    { name: 'TINYINT', type: 'numeric' },
-    { name: 'FLOAT', type: 'numeric' },
-    { name: 'REAL', type: 'numeric' },
-    { name: 'DATE', type: 'dateTime' },
-    { name: 'TIME', type: 'dateTime' },
-    { name: 'DATETIME', type: 'dateTime' },
-    { name: 'NCHAR', type: 'unicodeString' },
-    { name: 'NVARCHAR', type: 'unicodeString' },
-    { name: 'NTEXT', type: 'unicodeString' },
-    { name: 'BINARY', type: 'binary' },
-    { name: 'VARBINARY', type: 'binary' },
-    { name: 'CLOB', type: 'misc' },
-    { name: 'BLOB', type: 'misc' },
-    { name: 'XML', type: 'misc' },
-    { name: 'CURSOR', type: 'misc' },
-    { name: 'TABLE', type: 'misc' }
+    {
+        name: 'varchar',
+        type: 'string'
+    },
+    {
+        name: 'char',
+        type: 'string'
+    },
+    {
+        name: 'text',
+        type: 'string'
+    },
+    {
+        name: 'int',
+        type: 'numeric'
+    },
+    {
+        name: 'bigint',
+        type: 'numeric'
+    },
+    {
+        name: 'tinyint',
+        type: 'numeric'
+    },
+    {
+        name: 'float',
+        type: 'numeric'
+    },
+    {
+        name: 'real',
+        type: 'numeric'
+    },
+    {
+        name: 'date',
+        type: 'dateTime'
+    },
+    {
+        name: 'time',
+        type: 'dateTime'
+    },
+    {
+        name: 'datetime',
+        type: 'dateTime'
+    },
+    {
+        name: 'nchar',
+        type: 'unicodeString'
+    },
+    {
+        name: 'nvarchar',
+        type: 'unicodeString'
+    },
+    {
+        name: 'ntext',
+        type: 'unicodeString'
+    },
+    {
+        name: 'binary',
+        type: 'binary'
+    },
+    {
+        name: 'varbinary',
+        type: 'binary'
+    },
+    {
+        name: 'clob',
+        type: 'misc'
+    },
+    {
+        name: 'blob',
+        type: 'misc'
+    },
+    {
+        name: 'xml',
+        type: 'misc'
+    },
+    {
+        name: 'cursor',
+        type: 'misc'
+    },
+    {
+        name: 'table',
+        type: 'misc'
+    }
 ];

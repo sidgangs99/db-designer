@@ -1,6 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { Fragment, useEffect } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
+import { uuid } from '../../../util/helper';
 import { sqlTypes } from './constants';
 
 export default function SQLDataTypesDropdown(props: any) {
@@ -33,9 +34,9 @@ export default function SQLDataTypesDropdown(props: any) {
                     leaveTo="opacity-0"
                 >
                     <Listbox.Options className="absolute mt-1 h-64 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-xs shadow-lg ring-1 ring-black ring-opacity-5">
-                        {sqlTypes.map((sqlType, personIdx) => (
+                        {sqlTypes.map((sqlType) => (
                             <Listbox.Option
-                                key={personIdx}
+                                key={uuid()}
                                 className={({ active }) =>
                                     `relative cursor-pointer select-none p-2 ${
                                         active
