@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { IModalComponentProps } from './types';
 
 export default function ModalComponent(props: IModalComponentProps) {
-    const { open, onClose, Header, Body, Buttons } = props;
+    const { open, onClose, Header, Body, Footer } = props;
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
@@ -54,9 +54,7 @@ export default function ModalComponent(props: IModalComponentProps) {
                                 </div>
                             </div>
 
-                            <div className="mt-4">
-                                {Buttons.map((Button: any) => Button)}
-                            </div>
+                            <div className="mt-4">{Footer}</div>
                         </div>
                     </Transition.Child>
                 </div>

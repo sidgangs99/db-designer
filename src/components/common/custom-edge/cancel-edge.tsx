@@ -1,10 +1,9 @@
 import { RxCross2 } from 'react-icons/rx';
 import { getBezierPath } from 'reactflow';
 
-import { useEdges } from '../../../store/edges/state';
+import { useEdgesStore } from '../../../store/edges/state';
 
-const foreignObjectSize = 40;
-
+const foreignObjectSize = 24;
 export default function CustomCancelEdge({
     id,
     sourceX,
@@ -25,7 +24,7 @@ export default function CustomCancelEdge({
         targetPosition
     });
 
-    const state: any = useEdges();
+    const state: any = useEdgesStore();
 
     const onEdgeClick = (evt: any, id: any) => {
         evt.stopPropagation();
@@ -44,8 +43,8 @@ export default function CustomCancelEdge({
             <foreignObject
                 width={foreignObjectSize}
                 height={foreignObjectSize}
-                x={labelX - foreignObjectSize / 3}
-                y={labelY - foreignObjectSize / 3}
+                x={labelX - foreignObjectSize / 2}
+                y={labelY - foreignObjectSize / 2}
                 requiredExtensions="http://www.w3.org/1999/xhtml"
             >
                 <div>

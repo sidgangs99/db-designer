@@ -6,7 +6,6 @@ export const initialNodes: INode[] = [
     {
         id: 'employee',
         position: { x: 500, y: 500 },
-        zIndex: 20,
         data: {
             tableName: 'employee',
             tableStyle:
@@ -24,7 +23,6 @@ export const initialNodes: INode[] = [
             tableName: 'employee'
         },
         parentNode: 'employee',
-        zIndex: 20,
         extent: 'parent',
         type: ECustomNodeTypes.ColumnNode,
         expandParent: true
@@ -36,10 +34,9 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Id',
             dataType: 'varchar',
-            tableName: 'designation'
+            tableName: 'employee'
         },
         parentNode: 'employee',
-        zIndex: 20,
         type: ECustomNodeTypes.ColumnNode,
         extent: 'parent',
         expandParent: true
@@ -52,7 +49,16 @@ export const initialNodes: INode[] = [
         type: ECustomNodeTypes.ColumnNode,
         parentNode: 'employee',
         extent: 'parent',
-        zIndex: 20,
+        expandParent: true
+    },
+    {
+        id: 'employee.add',
+        draggable: false,
+        position: { x: 0, y: 200 },
+        data: { tableName: 'employee' },
+        type: ECustomNodeTypes.AddColumnNode,
+        parentNode: 'employee',
+        extent: 'parent',
         expandParent: true
     },
     {
@@ -60,11 +66,10 @@ export const initialNodes: INode[] = [
         type: ECustomNodeTypes.TableNode,
         position: { x: 1000, y: 500 },
         data: {
-            tableName: 'Designation',
+            tableName: 'designation',
             tableStyle:
                 'flex h-full w-full justify-center rounded-md bg-chelsea-cucumber-100 py-2 px-2 text-lg font-bold uppercase text-chelsea-cucumber-600 shadow-lg outline-2 outline-stone-400'
-        },
-        zIndex: 20
+        }
     },
     {
         id: 'designation.id',
@@ -77,7 +82,6 @@ export const initialNodes: INode[] = [
             tableName: 'designation'
         },
         parentNode: 'designation',
-        zIndex: 20,
         extent: 'parent',
         expandParent: true
     },
@@ -89,15 +93,24 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Position',
             dataType: 'varchar',
-            tableName: "'designation'"
+            tableName: 'designation'
         },
-        zIndex: 20,
+        parentNode: 'designation',
+        extent: 'parent',
+        expandParent: true
+    },
+    {
+        id: 'designation.add',
+        draggable: false,
+        position: { x: 0, y: 150 },
+        data: { tableName: 'designation' },
+        type: ECustomNodeTypes.AddColumnNode,
         parentNode: 'designation',
         extent: 'parent',
         expandParent: true
     }
 ];
 
-export const useNodes = create((set) => ({
+export const useNodesStore = create((set) => ({
     nodes: initialNodes
 }));

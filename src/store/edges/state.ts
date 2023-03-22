@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 import { initialEdges } from '../../components/react-flow/constants';
 
-export const useEdges = create((set) => ({
+export const useEdgesStore = create((set) => ({
     edges: initialEdges,
 
     removeEdge: (id: string) =>

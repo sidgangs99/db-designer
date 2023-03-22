@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { ITableData } from '../../../store/nodes/types';
-import ButtonContainer from '../buttons/container';
-import SQLDataTypesDropdown from '../sql-types/component';
+import { ITableData } from '../../../../store/nodes/types';
+import SQLDataTypesDropdown from '../../sql-types/component';
 
 // Header
 export function ConfigureColumnNodeHeader({
@@ -31,7 +30,7 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
     const onSubmit: any = (_data: any) => {
         const newNode = { ...data, ..._data };
         setOpenModal(false);
-        newNode.updateNode(newNode, id);
+        newNode.onUpdateNode(newNode, id);
     };
 
     return (
@@ -58,14 +57,3 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
         </form>
     );
 }
-
-// Buttons
-export const configureColumnNodeButtons = [
-    <ButtonContainer
-        label={'Save'}
-        onClose={() => {}}
-        type={'submit'}
-        form={'editTableColumn'}
-    />,
-    <ButtonContainer label={'Cancel'} onClose={() => {}} />
-];
