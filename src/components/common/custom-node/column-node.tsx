@@ -1,6 +1,6 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, useNodes } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import {
@@ -9,16 +9,19 @@ import {
     useIsATargetEdge
 } from '../../../store/edges/hooks';
 import { ITableData } from '../../../store/nodes/types';
+import ButtonContainer from '../button/container';
 import ModalContainer from '../modal/container';
 import {
     ConfigureColumnNodeBody,
-    configureColumnNodeButtons,
     ConfigureColumnNodeHeader
-} from './configure-column-node';
+} from './helper/configure-column-node';
 
 export default memo(({ data, id }: { data: ITableData; id: string }) => {
-    const { columnName, tableName, dataType } = data;
+    const { columnName, tableName, dataType, onDelete } = data;
     const [openModal, setOpenModal] = useState(false);
+    const nodes = useNodes();
+
+    useEffect(() => {}, [nodes]);
 
     const handleOnNodeClick = () => {
         setOpenModal(!openModal);
@@ -73,7 +76,19 @@ export default memo(({ data, id }: { data: ITableData; id: string }) => {
                             setOpenModal={setOpenModal}
                         />
                     }
-                    Buttons={configureColumnNodeButtons}
+                    Footer={
+                        <div className="flex items-center justify-between space-x-4">
+                            <ButtonContainer
+                                label={'Delete'}
+                                onClick={() => onDelete(id)}
+                            />
+                            <ButtonContainer
+                                label={'Update'}
+                                type={'submit'}
+                                form={'editTableColumn'}
+                            />
+                        </div>
+                    }
                 />
             )}
         </>

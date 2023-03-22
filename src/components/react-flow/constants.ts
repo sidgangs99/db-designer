@@ -1,6 +1,7 @@
 import { Edge, MarkerType } from 'reactflow';
-import CustomColumnNodeComponent from '../common/customNode/column-node';
-import CustomTableNodeComponent from '../common/customNode/table-node';
+import CustomAddNodeComponent from '../common/custom-node/add-column-node';
+import CustomColumnNodeComponent from '../common/custom-node/column-node';
+import CustomTableNodeComponent from '../common/custom-node/table-node';
 import { ECustomEdgeTypes, ECustomNodeTypes } from './types';
 
 export const initialEdges: Edge<any>[] = [
@@ -25,5 +26,6 @@ export const initialEdges: Edge<any>[] = [
 
 export const nodeTypes = {
     [ECustomNodeTypes.TableNode]: CustomTableNodeComponent,
-    [ECustomNodeTypes.ColumnNode]: CustomColumnNodeComponent
+    [ECustomNodeTypes.ColumnNode]: CustomColumnNodeComponent,
+    [ECustomNodeTypes.AddColumnNode]: CustomAddNodeComponent
 };

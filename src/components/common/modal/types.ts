@@ -3,7 +3,7 @@ export interface IModalContainerProps {
     setOpen: Function;
     Header: any;
     Body: any;
-    Buttons: any[];
+    Footer: any;
 }
 
 export interface IModalComponentProps extends IModalContainerProps {

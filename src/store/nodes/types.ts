@@ -6,7 +6,9 @@ export interface ITableData {
     dataType?: string;
     tableName: string;
     tableStyle?: any;
-    updateNode?: any;
+    onUpdateNode?: any;
+    onDelete?: any;
+    addNewNode?: any;
 }
 
 export interface INode {
