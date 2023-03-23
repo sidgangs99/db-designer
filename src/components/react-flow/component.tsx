@@ -28,7 +28,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 fitView
                 nodeTypes={nodeTypes}
                 edgeTypes={customEdgeTypes}
-                proOptions={{ hideAttribution: false }}
+                proOptions={{ hideAttribution: true }}
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 onInit={setReactFlowInstance}
