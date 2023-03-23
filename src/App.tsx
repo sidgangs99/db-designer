@@ -1,10 +1,14 @@
+import { ReactFlowProvider } from 'reactflow';
+
 import LayoutContainer from './components/layout/container';
 
 function App() {
     return (
-        <div className="flex h-screen w-screen">
-            <LayoutContainer />
-        </div>
+        <ReactFlowProvider>
+            <div className="flex h-screen w-full">
+                <LayoutContainer />
+            </div>
+        </ReactFlowProvider>
     );
 }
 

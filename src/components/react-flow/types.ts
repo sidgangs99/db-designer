@@ -9,6 +9,10 @@ export interface IReactFlowComponentProps extends IReactFlowContainerProps {
     onNodesChange: any;
     onEdgesChange: any;
     edges: any;
+    reactFlowWrapper: any;
+    onDrop: any;
+    onDragOver: any;
+    setReactFlowInstance: any;
 }
 
 export enum ECustomNodeTypes {
