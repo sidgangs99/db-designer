@@ -4,6 +4,7 @@ export interface IButtonContainerProps {
     form?: string;
     key?: string;
     onClick?: any;
+    disabled?: boolean;
 }
 
 export interface IButtonComponentProps extends IButtonContainerProps {}
