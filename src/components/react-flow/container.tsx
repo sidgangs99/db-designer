@@ -82,6 +82,7 @@ export default function ReactFlowContainer() {
 
     const onDeleteTable = (id: string) => {
         const deletedNodes = new Set<string>();
+
         setNodes((_nodes) =>
             _nodes.filter((_node) => {
                 if (_node.data.tableDetails.id === id)
@@ -168,6 +169,7 @@ export default function ReactFlowContainer() {
             node.data.onDeleteNode = onDeleteNode;
             node.data.addNewNode = addNewNode;
             node.data.deleteEdgeFromEdgeId = deleteEdgeFromEdgeId;
+            node.data.onDeleteTable = onDeleteTable;
         });
 
         // setNodes(nodesState);

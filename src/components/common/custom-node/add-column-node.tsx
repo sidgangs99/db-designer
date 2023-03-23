@@ -13,7 +13,7 @@ const CustomAddNodeComponent = ({
     data: INodeDetails;
     id: string;
 }) => {
-    const { addNewNode, tableDetails } = data;
+    const { addNewNode, tableDetails, onDeleteTable } = data;
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 
@@ -38,9 +38,9 @@ const CustomAddNodeComponent = ({
                     open={openModal}
                     setOpen={setOpenModal}
                     Header={
-                        <h4 className="flex whitespace-nowrap">
+                        <div className="flex whitespace-nowrap">
                             Are you sure you want to delete ?
-                        </h4>
+                        </div>
                     }
                     Body={
                         <div className="flex space-x-2">
@@ -53,20 +53,23 @@ const CustomAddNodeComponent = ({
                             />
                             <p>
                                 I agree to delete the table{' '}
-                                {tableDetails.name.toUpperCase()}
+                                {tableDetails.name.toUpperCase()}.
                             </p>
                         </div>
                     }
                     Footer={
                         <div className="flex items-center justify-between space-x-4">
                             <ButtonContainer
-                                label={'Delete'}
-                                onClick={() => {}}
-                                disabled={!deleteEnabled}
-                            />
-                            <ButtonContainer
                                 label={'Cancel'}
                                 onClick={() => setOpenModal(false)}
+                            />
+                            <ButtonContainer
+                                label={'Delete'}
+                                onClick={() => {
+                                    onDeleteTable(tableDetails.id);
+                                    setOpenModal(false);
+                                }}
+                                disabled={!deleteEnabled}
                             />
                         </div>
                     }
