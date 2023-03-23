@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
     MarkerType,
     useEdgesState,
@@ -57,19 +57,19 @@ export default function ReactFlowContainer() {
             })
         );
 
+        console.log({ deletedNodes, deletedNode });
         deleteEdgeFromNodes(deletedNodes);
         updatePosition(deletedNode);
     };
 
     const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
-        setEdges((_edges) => {
-            return _edges.filter((_edge) => {
-                return (
-                    deletedNode.has(_edge.source) &&
-                    deletedNode.has(_edge.target)
-                );
-            });
-        });
+        setEdges((_edges) =>
+            _edges.filter(
+                (_edge) =>
+                    !deletedNode.has(_edge.source) &&
+                    !deletedNode.has(_edge.target)
+            )
+        );
     };
 
     const deleteEdgeFromEdgeId = (id: any) => {
@@ -134,8 +134,7 @@ export default function ReactFlowContainer() {
                 data: {
                     ...data,
                     columnName: 'New Column',
-                    dataType: 'varchar',
-                    tableDetails: data.tableDetails
+                    dataType: 'varchar'
                 },
                 parentNode: id,
                 extent: 'parent',
@@ -163,6 +162,11 @@ export default function ReactFlowContainer() {
         });
     };
 
+    const onReset = () => {
+        setNodes(() => []);
+        setEdges(() => []);
+    };
+
     useEffect(() => {
         nodesState.forEach((node: INode) => {
             node.data.onUpdateNode = onUpdateNode;
@@ -170,6 +174,7 @@ export default function ReactFlowContainer() {
             node.data.addNewNode = addNewNode;
             node.data.deleteEdgeFromEdgeId = deleteEdgeFromEdgeId;
             node.data.onDeleteTable = onDeleteTable;
+            node.data.onReset = onReset;
         });
 
         // setNodes(nodesState);
@@ -212,6 +217,69 @@ export default function ReactFlowContainer() {
         setEdges(edgesState);
     }, [edgesState]);
 
+    let id = 0;
+
+    const reactFlowWrapper = useRef<any>();
+    const [reactFlowInstance, setReactFlowInstance] = useState<any>();
+
+    const onDragOver = useCallback((event: any) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+    }, []);
+
+    const onDrop = useCallback(
+        (event: any) => {
+            event.preventDefault();
+
+            const reactFlowBounds =
+                reactFlowWrapper.current.getBoundingClientRect();
+            const type = event.dataTransfer.getData('application/reactflow');
+
+            // check if the dropped element is valid
+            if (typeof type === 'undefined' || !type) {
+                return;
+            }
+
+            const position = reactFlowInstance.project({
+                x: event.clientX - reactFlowBounds.left,
+                y: event.clientY - reactFlowBounds.top
+            });
+
+            const uid = uuid();
+            const newTable = {
+                id: uid,
+                type: ECustomNodeTypes.TableNode,
+                position,
+                data: { tableDetails: { name: 'New Table', id: uid } }
+            };
+
+            const customNode = {
+                id: uid + '.add',
+                draggable: false,
+                position: { x: 0, y: 50 },
+                data: {
+                    tableDetails: {
+                        name: 'New Table',
+                        id: uid
+                    },
+                    onUpdateNode,
+                    onDeleteNode,
+                    addNewNode,
+                    deleteEdgeFromEdgeId,
+                    onDeleteTable,
+                    onReset
+                },
+                type: ECustomNodeTypes.AddColumnNode,
+                parentNode: uid,
+                extent: 'parent',
+                expandParent: true
+            };
+
+            setNodes((nds) => nds.concat([newTable, customNode]));
+        },
+        [reactFlowInstance]
+    );
+
     return (
         <ReactFlowComponent
             onConnect={onConnect}
@@ -220,6 +288,10 @@ export default function ReactFlowContainer() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             edges={edges}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            setReactFlowInstance={setReactFlowInstance}
+            reactFlowWrapper={reactFlowWrapper}
         />
     );
 }

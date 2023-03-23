@@ -16,6 +16,7 @@ export interface INodeDetails {
     addNewNode?: any;
     deleteEdgeFromEdgeId?: any;
     onDeleteTable?: any;
+    onReset?: any;
 }
 
 export interface INode {

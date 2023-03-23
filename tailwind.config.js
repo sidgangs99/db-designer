@@ -3,6 +3,10 @@ module.exports = {
     content: ['./src/**/*.{ts,tsx}'],
     theme: {
         extend: {
+            height: {
+                '1/20': '5%',
+                '19/20': '95%'
+            },
             colors: {
                 corduroy: {
                     50: '#f6f7f6',
