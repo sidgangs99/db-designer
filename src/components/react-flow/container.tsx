@@ -3,13 +3,13 @@ import {
     MarkerType,
     useEdgesState,
     useNodesState,
-    useReactFlow,
     XYPosition
 } from 'reactflow';
+import { Set } from 'typescript';
 
 import { useEdgesStore } from '../../store/edges/state';
 import { useNodesStore } from '../../store/nodes/state';
-import { INode, ITableData } from '../../store/nodes/types';
+import { INode, INodeDetails } from '../../store/nodes/types';
 import { uuid } from '../../util/helper';
 import ReactFlowComponent from './component';
 import { isValidEdge } from './helper-functions';
@@ -22,11 +22,9 @@ export default function ReactFlowContainer() {
     const [nodes, setNodes, onNodesChange] = useNodesState(nodesState);
     const [edges, setEdges, onEdgesChange] = useEdgesState(edgesState);
 
-    const { getNodes } = useReactFlow();
-
     const addEdge = (newEdge: any) => {
-        setEdges((_edges: any) => [..._edges, newEdge])
-    }
+        setEdges((_edges: any) => [..._edges, newEdge]);
+    };
 
     const onUpdateNode = (data: any, id: string) => {
         setNodes((_nodes) =>
@@ -46,24 +44,31 @@ export default function ReactFlowContainer() {
         );
     };
 
-    const onDelete = (id: string) => {
-        const allNodes = getNodes();
-        const deletedNode = allNodes.filter((_node) => _node.id === id)[0];
-        setNodes((_nodes) => _nodes.filter((_node) => _node.id !== id));
+    const onDeleteNode = (id: string) => {
+        const deletedNodes = new Set<string>();
+        let deletedNode = {};
+        setNodes((_nodes) =>
+            _nodes.filter((_node) => {
+                if (_node.id === id) {
+                    deletedNodes.add(_node.id);
+                    deletedNode = _node;
+                }
+                return _node.id !== id;
+            })
+        );
 
-        deleteEdgeFromNode(deletedNode);
+        deleteEdgeFromNodes(deletedNodes);
         updatePosition(deletedNode);
     };
 
-    const deleteEdgeFromNode = (deletedNode: any) => {
+    const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
         setEdges((_edges) => {
-            const newEdges = _edges.filter((_edge) => {
+            return _edges.filter((_edge) => {
                 return (
-                    _edge.source !== deletedNode.id &&
-                    _edge.target !== deletedNode.id
+                    deletedNode.has(_edge.source) &&
+                    deletedNode.has(_edge.target)
                 );
             });
-            return newEdges;
         });
     };
 
@@ -76,17 +81,23 @@ export default function ReactFlowContainer() {
     };
 
     const onDeleteTable = (id: string) => {
-        const allNodes = getNodes();
-        const deletedNode = allNodes.filter((_node) => _node.id === id)[0];
-        setNodes((_nodes) => _nodes.filter((_node) => _node.id !== id));
-        updatePosition(deletedNode);
+        const deletedNodes = new Set<string>();
+        setNodes((_nodes) =>
+            _nodes.filter((_node) => {
+                if (_node.data.tableDetails.id === id)
+                    deletedNodes.add(_node.id);
+                return _node.data.tableDetails.id !== id;
+            })
+        );
+        deleteEdgeFromNodes(deletedNodes);
     };
 
     const updatePosition = (deletedNode: any) => {
         setNodes((_nodes) =>
             _nodes.map((_node) => {
                 if (
-                    deletedNode.data.tableName === _node.data.tableName &&
+                    deletedNode.data.tableDetails.id ===
+                        _node.data.tableDetails.id &&
                     _node.type !== ECustomNodeTypes.TableNode &&
                     deletedNode.position.y < _node.position.y
                 ) {
@@ -103,12 +114,12 @@ export default function ReactFlowContainer() {
         );
     };
 
-    const addNewNode = (data: ITableData) => {
+    const addNewNode = (data: INodeDetails, id: string) => {
         setNodes((_nodes: any[]) => {
             let positionAddNode: XYPosition = { x: 0, y: 0 };
             _nodes.forEach((_node) => {
                 if (
-                    _node.data.tableName === data.tableName &&
+                    _node.data.tableDetails === data.tableDetails &&
                     _node.type === ECustomNodeTypes.AddColumnNode
                 ) {
                     positionAddNode = _node.position;
@@ -123,9 +134,9 @@ export default function ReactFlowContainer() {
                     ...data,
                     columnName: 'New Column',
                     dataType: 'varchar',
-                    tableName: data.tableName
+                    tableDetails: data.tableDetails
                 },
-                parentNode: data.tableName,
+                parentNode: id,
                 extent: 'parent',
                 type: ECustomNodeTypes.ColumnNode,
                 expandParent: true
@@ -135,7 +146,7 @@ export default function ReactFlowContainer() {
 
             return _nodes.map((_node) => {
                 if (
-                    data.tableName === _node.data.tableName &&
+                    data.tableDetails === _node.data.tableDetails &&
                     _node.type === ECustomNodeTypes.AddColumnNode
                 ) {
                     return {
@@ -151,11 +162,10 @@ export default function ReactFlowContainer() {
         });
     };
 
-
     useEffect(() => {
         nodesState.forEach((node: INode) => {
             node.data.onUpdateNode = onUpdateNode;
-            node.data.onDelete = onDelete;
+            node.data.onDeleteNode = onDeleteNode;
             node.data.addNewNode = addNewNode;
             node.data.deleteEdgeFromEdgeId = deleteEdgeFromEdgeId;
         });

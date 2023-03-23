@@ -7,9 +7,7 @@ export const initialNodes: INode[] = [
         id: 'employee',
         position: { x: 500, y: 500 },
         data: {
-            tableName: 'employee',
-            tableStyle:
-                'flex h-full w-full justify-center rounded-md bg-chelsea-cucumber-100 py-2 px-2 text-lg font-bold uppercase text-chelsea-cucumber-600 shadow-lg outline-2 outline-stone-400'
+            tableDetails: { name: 'employee', id: 'employee' }
         },
         type: ECustomNodeTypes.TableNode
     },
@@ -20,7 +18,7 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Employee name',
             dataType: 'varchar',
-            tableName: 'employee'
+            tableDetails: { name: 'employee', id: 'employee' }
         },
         parentNode: 'employee',
         extent: 'parent',
@@ -34,7 +32,7 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Id',
             dataType: 'varchar',
-            tableName: 'employee'
+            tableDetails: { name: 'employee', id: 'employee' }
         },
         parentNode: 'employee',
         type: ECustomNodeTypes.ColumnNode,
@@ -45,7 +43,11 @@ export const initialNodes: INode[] = [
         id: 'employee.salary',
         draggable: false,
         position: { x: 0, y: 150 },
-        data: { columnName: 'Salary', dataType: 'int', tableName: 'employee' },
+        data: {
+            columnName: 'Salary',
+            dataType: 'int',
+            tableDetails: { name: 'employee', id: 'employee' }
+        },
         type: ECustomNodeTypes.ColumnNode,
         parentNode: 'employee',
         extent: 'parent',
@@ -55,7 +57,7 @@ export const initialNodes: INode[] = [
         id: 'employee.add',
         draggable: false,
         position: { x: 0, y: 200 },
-        data: { tableName: 'employee' },
+        data: { tableDetails: { name: 'employee', id: 'employee' } },
         type: ECustomNodeTypes.AddColumnNode,
         parentNode: 'employee',
         extent: 'parent',
@@ -66,9 +68,7 @@ export const initialNodes: INode[] = [
         type: ECustomNodeTypes.TableNode,
         position: { x: 1000, y: 500 },
         data: {
-            tableName: 'designation',
-            tableStyle:
-                'flex h-full w-full justify-center rounded-md bg-chelsea-cucumber-100 py-2 px-2 text-lg font-bold uppercase text-chelsea-cucumber-600 shadow-lg outline-2 outline-stone-400'
+            tableDetails: { name: 'designation', id: 'designation' }
         }
     },
     {
@@ -79,7 +79,7 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Id',
             dataType: 'varchar',
-            tableName: 'designation'
+            tableDetails: { name: 'designation', id: 'designation' }
         },
         parentNode: 'designation',
         extent: 'parent',
@@ -93,7 +93,7 @@ export const initialNodes: INode[] = [
         data: {
             columnName: 'Position',
             dataType: 'varchar',
-            tableName: 'designation'
+            tableDetails: { name: 'designation', id: 'designation' }
         },
         parentNode: 'designation',
         extent: 'parent',
@@ -103,7 +103,7 @@ export const initialNodes: INode[] = [
         id: 'designation.add',
         draggable: false,
         position: { x: 0, y: 150 },
-        data: { tableName: 'designation' },
+        data: { tableDetails: { name: 'designation', id: 'designation' } },
         type: ECustomNodeTypes.AddColumnNode,
         parentNode: 'designation',
         extent: 'parent',

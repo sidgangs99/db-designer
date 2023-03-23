@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form';
-import { ITableData } from '../../../../store/nodes/types';
+import { INodeDetails, ITableDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
 
 // Header
 export function ConfigureColumnNodeHeader({
-    tableName
+    tableDetails
 }: {
-    tableName: string;
+    tableDetails: ITableDetails;
 }) {
-    return <div className="uppercase">{tableName}</div>;
+    return <div className="uppercase">{tableDetails.name}</div>;
 }
 
 interface IConfigureColumnNodeBodyP {
-    data: ITableData;
+    data: INodeDetails;
     id: string;
     setOpenModal: Function;
 }
