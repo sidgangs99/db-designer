@@ -3,6 +3,7 @@ import { AiOutlineClear } from 'react-icons/ai';
 import { SiMetrodelaciudaddemexico } from 'react-icons/si';
 import { useNodes } from 'reactflow';
 import ButtonContainer from '../common/button/container';
+import DownloadButton from '../common/downloadHTML/component';
 import ModalContainer from '../common/modal/container';
 
 import { ISidebarComponentProps } from './types';
@@ -17,7 +18,15 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
     return (
         <>
             <div className="flex w-full items-center justify-between px-6">
-                <div></div>
+                <div className="flex space-x-4">
+                    <div
+                        className="cursor-pointer rounded-lg bg-neutral-800 font-bold"
+                        onClick={() => setOpenModal(true)}
+                        draggable
+                    >
+                        <AiOutlineClear className="m-2 fill-chelsea-cucumber-500 text-lg" />
+                    </div>
+                </div>
 
                 <div className="flex space-x-4">
                     <div
@@ -29,12 +38,8 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     </div>
                 </div>
                 <div className="flex space-x-4">
-                    <div
-                        className="cursor-pointer rounded-lg bg-neutral-800 font-bold"
-                        onClick={() => setOpenModal(true)}
-                        draggable
-                    >
-                        <AiOutlineClear className="m-2 fill-chelsea-cucumber-500 text-lg" />
+                    <div className="cursor-pointer rounded-lg bg-neutral-800  font-bold">
+                        <DownloadButton />
                     </div>
                     <div className="cursor-pointer rounded-lg border border-neutral-800 px-4 py-1 ">
                         Login
