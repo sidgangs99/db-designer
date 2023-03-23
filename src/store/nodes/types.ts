@@ -1,13 +1,18 @@
 import { XYPosition } from 'reactflow';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
 
-export interface ITableData {
+export interface ITableDetails {
+    name: string;
+    id: string;
+}
+
+export interface INodeDetails {
     columnName?: string;
     dataType?: string;
-    tableName: string;
+    tableDetails: ITableDetails;
     tableStyle?: any;
     onUpdateNode?: any;
-    onDelete?: any;
+    onDeleteNode?: any;
     addNewNode?: any;
     deleteEdgeFromEdgeId?: any;
 }
@@ -17,7 +22,7 @@ export interface INode {
     draggable?: boolean;
     type?: ECustomNodeTypes;
     position?: XYPosition;
-    data: ITableData;
+    data: INodeDetails;
     zIndex?: number;
     parentNode?: string;
     extent?: string;

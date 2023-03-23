@@ -3,7 +3,7 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { Handle, Position, useEdges, useNodes } from 'reactflow';
 
 import 'reactflow/dist/style.css';
-import { ITableData } from '../../../store/nodes/types';
+import { INodeDetails } from '../../../store/nodes/types';
 import ButtonContainer from '../button/container';
 import ModalContainer from '../modal/container';
 import {
@@ -11,16 +11,14 @@ import {
     ConfigureColumnNodeHeader
 } from './helper/configure-column-node';
 
-export default memo(({ data, id }: { data: ITableData; id: string }) => {
-    const { columnName, tableName, dataType, onDelete } = data;
+export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
+    const { columnName, tableDetails, dataType, onDeleteNode } = data;
     const [openModal, setOpenModal] = useState(false);
 
     const nodes = useNodes();
     const edges = useEdges();
 
-    useEffect(() => {
-        console.log(edges);
-    }, [nodes, edges]);
+    useEffect(() => {}, [nodes, edges]);
 
     const handleOnNodeClick = () => {
         setOpenModal(!openModal);
@@ -72,7 +70,11 @@ export default memo(({ data, id }: { data: ITableData; id: string }) => {
                 <ModalContainer
                     open={openModal}
                     setOpen={setOpenModal}
-                    Header={<ConfigureColumnNodeHeader tableName={tableName} />}
+                    Header={
+                        <ConfigureColumnNodeHeader
+                            tableDetails={tableDetails}
+                        />
+                    }
                     Body={
                         <ConfigureColumnNodeBody
                             data={data}
@@ -84,7 +86,7 @@ export default memo(({ data, id }: { data: ITableData; id: string }) => {
                         <div className="flex items-center justify-between space-x-4">
                             <ButtonContainer
                                 label={'Delete'}
-                                onClick={() => onDelete(id)}
+                                onClick={() => onDeleteNode(id)}
                             />
                             <ButtonContainer
                                 label={'Update'}

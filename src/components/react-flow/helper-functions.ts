@@ -1,4 +1,4 @@
-import { INode, ITableData } from '../../store/nodes/types';
+import { INode, INodeDetails } from '../../store/nodes/types';
 import { uuid } from '../../util/helper';
 
 export const isValidEdge = (source: string, target: string) => {
@@ -7,8 +7,8 @@ export const isValidEdge = (source: string, target: string) => {
     return sourceDb !== targetDb;
 };
 
-export const generateNewNode = (data: ITableData, oldNode: INode) => {
-    const { columnName, dataType, tableName } = data;
+export const generateNewNode = (data: INodeDetails, oldNode: INode) => {
+    const { columnName, dataType, tableDetails } = data;
     const { position, type, zIndex, parentNode, extent, expandParent } =
         oldNode;
 
@@ -17,7 +17,7 @@ export const generateNewNode = (data: ITableData, oldNode: INode) => {
         draggable: false,
         type,
         position: position,
-        data: { columnName, dataType, tableName },
+        data: { columnName, dataType, tableDetails },
         zIndex,
         parentNode,
         extent,

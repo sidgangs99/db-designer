@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { TfiPlus } from 'react-icons/tfi';
 
-import { ITableData } from '../../../store/nodes/types';
+import { INodeDetails } from '../../../store/nodes/types';
 import ButtonContainer from '../button/container';
 import ModalContainer from '../modal/container';
 
-const CustomAddNodeComponent = ({ data }: { data: ITableData }) => {
-    const { addNewNode, tableName } = data;
+const CustomAddNodeComponent = ({
+    data,
+    id
+}: {
+    data: INodeDetails;
+    id: string;
+}) => {
+    const { addNewNode, tableDetails } = data;
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 
@@ -16,7 +22,7 @@ const CustomAddNodeComponent = ({ data }: { data: ITableData }) => {
             <div className="mx-4 flex h-full w-72 justify-center space-x-4">
                 <div
                     className="w-4/5 rounded-md border border-dashed border-chelsea-cucumber-500 bg-chelsea-cucumber-100 py-2 text-lg bg-blend-darken hover:border-solid hover:shadow-2xl"
-                    onClick={() => addNewNode(data)}
+                    onClick={() => addNewNode(data, tableDetails.id)}
                 >
                     <TfiPlus className="w-full fill-chelsea-cucumber-700 align-middle text-xs" />
                 </div>
@@ -47,7 +53,7 @@ const CustomAddNodeComponent = ({ data }: { data: ITableData }) => {
                             />
                             <p>
                                 I agree to delete the table{' '}
-                                {tableName.toUpperCase()}
+                                {tableDetails.name.toUpperCase()}
                             </p>
                         </div>
                     }
