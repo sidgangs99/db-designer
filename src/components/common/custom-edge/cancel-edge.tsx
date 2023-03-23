@@ -1,20 +1,20 @@
 import { RxCross2 } from 'react-icons/rx';
-import { getBezierPath } from 'reactflow';
-
-import { useEdgesStore } from '../../../store/edges/state';
+import { getBezierPath, useReactFlow } from 'reactflow';
 
 const foreignObjectSize = 24;
-export default function CustomCancelEdge({
-    id,
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourcePosition,
-    targetPosition,
-    style = {},
-    markerEnd
-}: any) {
+export default function CustomCancelEdge(props: any) {
+    const {
+        id,
+        sourceX,
+        sourceY,
+        targetX,
+        targetY,
+        sourcePosition,
+        targetPosition,
+        style = {},
+        markerEnd
+    } = props;
+
     const [edgePath, labelX, labelY] = getBezierPath({
         sourceX,
         sourceY,
@@ -24,11 +24,14 @@ export default function CustomCancelEdge({
         targetPosition
     });
 
-    const state: any = useEdgesStore();
+    const { setEdges } = useReactFlow();
 
-    const onEdgeClick = (evt: any, id: any) => {
-        evt.stopPropagation();
-        state.removeEdge(id);
+    const onDeleteButtonClick = (evt: any, id: any) => {
+        setEdges((_edges) => {
+            return _edges.filter((_edge) => {
+                return _edge.id !== id;
+            });
+        });
     };
 
     return (
@@ -49,7 +52,7 @@ export default function CustomCancelEdge({
             >
                 <div>
                     <button
-                        onClick={(event) => onEdgeClick(event, id)}
+                        onClick={(event) => onDeleteButtonClick(event, id)}
                         className={'rounded-full bg-corduroy-100 p-1.5 text-xs'}
                     >
                         <RxCross2 />

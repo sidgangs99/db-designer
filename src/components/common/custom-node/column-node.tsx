@@ -1,13 +1,8 @@
 import { memo, useEffect, useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { Handle, Position, useNodes } from 'reactflow';
+import { Handle, Position, useEdges, useNodes } from 'reactflow';
 
 import 'reactflow/dist/style.css';
-import {
-    useIsASourceEdge,
-    useIsASourceOrTargetEdge,
-    useIsATargetEdge
-} from '../../../store/edges/hooks';
 import { ITableData } from '../../../store/nodes/types';
 import ButtonContainer from '../button/container';
 import ModalContainer from '../modal/container';
@@ -19,9 +14,13 @@ import {
 export default memo(({ data, id }: { data: ITableData; id: string }) => {
     const { columnName, tableName, dataType, onDelete } = data;
     const [openModal, setOpenModal] = useState(false);
-    const nodes = useNodes();
 
-    useEffect(() => {}, [nodes]);
+    const nodes = useNodes();
+    const edges = useEdges();
+
+    useEffect(() => {
+        console.log(edges);
+    }, [nodes, edges]);
 
     const handleOnNodeClick = () => {
         setOpenModal(!openModal);
@@ -35,7 +34,8 @@ export default memo(({ data, id }: { data: ITableData; id: string }) => {
             >
                 <div
                     className={`mb-2 flex w-full items-center justify-between space-x-4 px-4 pt-2 text-chelsea-cucumber-500 ${
-                        useIsASourceOrTargetEdge(id) && 'text-rose-400'
+                        edges.some((e) => e.source === id || e.target === id) &&
+                        'text-rose-400'
                     } `}
                 >
                     <div className="flex w-2/3 items-center bg-chelsea-cucumber-100 font-semibold line-clamp-1">
@@ -53,14 +53,18 @@ export default memo(({ data, id }: { data: ITableData; id: string }) => {
                 type="source"
                 position={Position.Right}
                 className={`p-1 ${
-                    useIsASourceEdge(id) ? 'bg-rose-400' : 'bg-slate-600'
+                    edges.some((e) => e.source === id)
+                        ? 'bg-rose-400'
+                        : 'bg-slate-600'
                 }`}
             />
             <Handle
                 type="target"
                 position={Position.Left}
                 className={` p-1 ${
-                    useIsATargetEdge(id) ? 'bg-amber-500' : 'bg-slate-600'
+                    edges.some((e) => e.target === id)
+                        ? 'bg-amber-500'
+                        : 'bg-slate-600'
                 }`}
             />
 

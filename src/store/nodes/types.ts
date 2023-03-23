@@ -9,6 +9,7 @@ export interface ITableData {
     onUpdateNode?: any;
     onDelete?: any;
     addNewNode?: any;
+    deleteEdgeFromEdgeId?: any;
 }
 
 export interface INode {
