@@ -4,8 +4,9 @@ module.exports = {
     theme: {
         extend: {
             height: {
-                '1/20': '5%',
-                '19/20': '95%'
+                '5/100': '5%',
+                '90/100': '91%',
+                '4/100': '4%'
             },
             colors: {
                 corduroy: {

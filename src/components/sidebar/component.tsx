@@ -24,25 +24,27 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         onClick={() => setOpenModal(true)}
                         draggable
                     >
-                        <AiOutlineClear className="m-2 fill-chelsea-cucumber-500 text-lg" />
+                        <AiOutlineClear className="m-1.5 fill-chelsea-cucumber-500 text-base" />
                     </div>
                 </div>
 
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg bg-neutral-800  font-bold"
+                        className="cursor-pointer rounded-lg bg-neutral-800 font-bold"
                         onDragStart={(event) => onDragStart(event, 'Table')}
                         draggable
                     >
-                        <SiMetrodelaciudaddemexico className=" m-2 fill-chelsea-cucumber-500 text-lg" />
+                        <SiMetrodelaciudaddemexico className="m-1.5 fill-chelsea-cucumber-500 text-base" />
                     </div>
                 </div>
                 <div className="flex space-x-4">
-                    <div className="cursor-pointer rounded-lg bg-neutral-800  font-bold">
+                    <div className="cursor-pointer rounded-lg bg-neutral-800 font-bold">
                         <DownloadButton />
                     </div>
-                    <div className="cursor-pointer rounded-lg border border-neutral-800 px-4 py-1 ">
-                        Login
+                    <div className="cursor-pointer rounded-lg border border-neutral-800 px-4 flex items-center">
+                        <p className='text-sm'>
+                            Login
+                        </p>
                     </div>
                 </div>
             </div>

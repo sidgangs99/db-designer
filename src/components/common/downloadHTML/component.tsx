@@ -35,9 +35,7 @@ function DownloadButton() {
     };
 
     return (
-        <div onClick={onClick}>
-            <RiCamera3Fill className=" m-2 fill-chelsea-cucumber-500 text-lg" />
-        </div>
+            <RiCamera3Fill className="m-1.5 fill-chelsea-cucumber-500 text-base" onClick={onClick}/>
     );
 }
 
