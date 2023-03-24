@@ -11,8 +11,15 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
             <div className="flex h-90/100 w-full ">
                 <HomeContainer />
             </div>
-            <a className="flex justify-center items-center h-4/100 w-full bg-chelsea-cucumber-100" href={"https://sidgangs99.github.io/resume/"}>
-                <p className='text-chelsea-cucumber-800 text-sm'>Made with ❤️ by Siddharth Gangwar 🚀</p>
+            <a
+                className="flex h-4/100 w-full items-center justify-center bg-chelsea-cucumber-100"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={'https://sidgangs99.github.io/resume/'}
+            >
+                <p className="text-sm text-chelsea-cucumber-800">
+                    Made with ❤️ by Siddharth Gangwar 🚀
+                </p>
             </a>
         </div>
     );
