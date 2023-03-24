@@ -13,13 +13,18 @@ Run npm install or yarn to install the project dependencies.
 Run npm start or yarn start to start the development server.
 Once the development server is running, you can access the application by navigating to `http://localhost:4000` in your web browser.
 
-Shareable link: `https://db-designer-381205.web.app`
+
 
 #### Features
 1. Drag-and-drop interface for creating and connecting tables
 2. Tools for adding and editing columns, keys, and other database objects
 3. Export designs to SQL files or images with one click
 4. Easy to use and intuitive interface
+
+
+#### Quick Links
+1. Trello: `https://trello.com/b/Z4cRe34Y/features`
+2. Deployment: `https://db-designer-381205.web.app`
 
 
 #### Technologies
