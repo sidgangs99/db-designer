@@ -73,6 +73,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                     Header={
                         <ConfigureColumnNodeHeader
                             tableDetails={tableDetails}
+                            data={data}
                         />
                     }
                     Body={
@@ -83,7 +84,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                         />
                     }
                     Footer={
-                        <div className="flex items-center justify-between space-x-4">
+                        <div className="mt-10 flex items-center justify-between space-x-4">
                             <ButtonContainer
                                 label={'Delete'}
                                 onClick={() => onDeleteNode(id)}

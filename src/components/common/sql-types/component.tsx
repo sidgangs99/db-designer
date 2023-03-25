@@ -1,6 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { Fragment, useEffect } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
+
 import { uuid } from '../../../util/helper';
 import { sqlTypes } from './constants';
 
@@ -19,12 +20,10 @@ export default function SQLDataTypesDropdown(props: any) {
     return (
         <Listbox value={dataType} onChange={setSelectedDataType}>
             <div className="relative align-middle">
-                <Listbox.Button className="relative flex w-full cursor-pointer justify-between rounded-lg bg-white py-1 pl-2 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-corduroy-300 ">
-                    <div className="block truncate text-xs">{dataType}</div>
-                    <div className="flex h-full  pr-1 pt-0.5 text-xs">
-                        <div className="rotate-90 align-middle">
-                            <RiCodeSLine />
-                        </div>
+                <Listbox.Button className="relative flex h-full w-full cursor-pointer justify-between rounded-lg border  border-chelsea-cucumber-400 bg-white py-1 pl-2 text-left shadow-lg focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-corduroy-300 ">
+                    <div className="block truncate text-sm">{dataType}</div>
+                    <div className="flex h-full rotate-90 items-center justify-center px-2 py-1 text-xs">
+                        <RiCodeSLine />
                     </div>
                 </Listbox.Button>
                 <Transition

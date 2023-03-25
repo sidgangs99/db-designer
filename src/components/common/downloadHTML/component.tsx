@@ -35,7 +35,10 @@ function DownloadButton() {
     };
 
     return (
-            <RiCamera3Fill className="m-1.5 fill-chelsea-cucumber-500 text-base" onClick={onClick}/>
+        <RiCamera3Fill
+            className="m-1.5 fill-chelsea-cucumber-700 text-base "
+            onClick={onClick}
+        />
     );
 }
 
