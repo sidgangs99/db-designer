@@ -16,13 +16,13 @@ import {
 import { createStore } from 'zustand';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDLYUArKcbfDSZJbBdX9iy78-3s_vtCvrI',
-    authDomain: 'db-designer-381205.firebaseapp.com',
-    projectId: 'db-designer-381205',
-    storageBucket: 'db-designer-381205.appspot.com',
-    messagingSenderId: '1092126992824',
-    appId: '1:1092126992824:web:28341e739760f40ff2874d',
-    measurementId: 'G-CH1WGSYYNP'
+    apiKey: process.env.REACT_APP_FIRESTORE_API_KEY,
+    authDomain: process.env.REACT_APP_FIRESTORE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIRESTORE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIRESTORE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIRESTORE_MESSEGING_SENDER_FILE,
+    appId: process.env.REACT_APP_FIRESTORE_APP_ID,
+    measurementId: process.env.REACT_APP_FIRESTORE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
