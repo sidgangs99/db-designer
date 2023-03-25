@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { SiMetrodelaciudaddemexico } from 'react-icons/si';
 import { useNodes } from 'reactflow';
+import { useStore } from 'zustand';
+import { useAuthStore } from '../../store/firebase/state';
+
 import ButtonContainer from '../common/button/container';
 import DownloadButton from '../common/downloadHTML/component';
 import ModalContainer from '../common/modal/container';
@@ -9,6 +12,7 @@ import ModalContainer from '../common/modal/container';
 import { ISidebarComponentProps } from './types';
 
 const SidebarComponent = (props: ISidebarComponentProps) => {
+    const { logout }: any = useStore(useAuthStore);
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 
@@ -41,11 +45,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     <div className="cursor-pointer rounded-lg bg-neutral-800 font-bold">
                         <DownloadButton />
                     </div>
-                    <div className="cursor-pointer rounded-lg border border-neutral-800 px-4 flex items-center">
-                        <p className='text-sm'>
-                            Login
-                        </p>
-                    </div>
+                    <ButtonContainer label="Logout" onClick={() => logout()} />
                 </div>
             </div>
             {openModal && (
