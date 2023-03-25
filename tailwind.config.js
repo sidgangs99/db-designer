@@ -21,7 +21,7 @@ module.exports = {
                     800: '#363937',
                     900: '#2f3230'
                 },
-                'chelsea-cucumber': {
+                'chelsea-cucumber':{
                     50: '#f5f8ed',
                     100: '#e7efd8',
                     200: '#d2e1b5',

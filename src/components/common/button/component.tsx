@@ -5,8 +5,8 @@ const ButtonComponent = (props: IButtonComponentProps) => {
     return (
         <button
             type={type}
-            className={`inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm text-red-900 duration-300 ${
-                disabled ? 'cursor-not-allowed' : 'hover:bg-red-200'
+            className={`flex justify-center rounded-md bg-white px-4 py-1 text-sm text-chelsea-cucumber-900 shadow-2xl ${
+                disabled && 'cursor-not-allowed'
             }`}
             onClick={onClick}
             form={form}
