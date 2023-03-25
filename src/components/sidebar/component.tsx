@@ -24,25 +24,25 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg bg-neutral-800 font-bold"
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={() => setOpenModal(true)}
                         draggable
                     >
-                        <AiOutlineClear className="m-1.5 fill-chelsea-cucumber-500 text-base" />
+                        <AiOutlineClear className="m-1.5 fill-chelsea-cucumber-700 text-base" />
                     </div>
                 </div>
 
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg bg-neutral-800 font-bold"
+                        className="cursor-move rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onDragStart={(event) => onDragStart(event, 'Table')}
                         draggable
                     >
-                        <SiMetrodelaciudaddemexico className="m-1.5 fill-chelsea-cucumber-500 text-base" />
+                        <SiMetrodelaciudaddemexico className="m-1.5 fill-chelsea-cucumber-700 text-base" />
                     </div>
                 </div>
                 <div className="flex space-x-4">
-                    <div className="cursor-pointer rounded-lg bg-neutral-800 font-bold">
+                    <div className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200">
                         <DownloadButton />
                     </div>
                     <ButtonContainer label="Logout" onClick={() => logout()} />
