@@ -57,19 +57,19 @@ export default function ReactFlowContainer() {
             })
         );
 
-        console.log({ deletedNodes, deletedNode });
         deleteEdgeFromNodes(deletedNodes);
         updatePosition(deletedNode);
     };
 
     const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
-        setEdges((_edges) =>
-            _edges.filter(
+        setEdges((_edges) => {
+            console.log(_edges);
+            return _edges.filter(
                 (_edge) =>
                     !deletedNode.has(_edge.source) &&
                     !deletedNode.has(_edge.target)
-            )
-        );
+            );
+        });
     };
 
     const deleteEdgeFromEdgeId = (id: any) => {
@@ -168,21 +168,22 @@ export default function ReactFlowContainer() {
     };
 
     useEffect(() => {
-        nodesState.forEach((node: INode) => {
-            node.data.onUpdateNode = onUpdateNode;
-            node.data.onDeleteNode = onDeleteNode;
-            node.data.addNewNode = addNewNode;
-            node.data.deleteEdgeFromEdgeId = deleteEdgeFromEdgeId;
-            node.data.onDeleteTable = onDeleteTable;
-            node.data.onReset = onReset;
+        setNodes((_nodes: any) => {
+            console.log(_nodes);
+            return _nodes.map((_node: INode) => ({
+                ..._node,
+                data: {
+                    ..._node.data,
+                    onUpdateNode,
+                    onDeleteNode,
+                    addNewNode,
+                    deleteEdgeFromEdgeId,
+                    onDeleteTable,
+                    onReset
+                }
+            }));
         });
-
-        // setNodes(nodesState);
     }, []);
-
-    useEffect(() => {
-        // setNodes(nodesState);
-    }, [nodesState]);
 
     const onConnect = useCallback((params: any) => {
         const { source, target } = params;
@@ -212,12 +213,6 @@ export default function ReactFlowContainer() {
             );
         }
     }, []);
-
-    useEffect(() => {
-        setEdges(edgesState);
-    }, [edgesState]);
-
-    let id = 0;
 
     const reactFlowWrapper = useRef<any>();
     const [reactFlowInstance, setReactFlowInstance] = useState<any>();

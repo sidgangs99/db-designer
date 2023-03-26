@@ -1,25 +1,5 @@
-import { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
-import { useStore } from 'zustand';
-
-import { useAuthStore } from '../../store/firebase/state';
-
-import './styles.css';
-
-function LoginComponent() {
-    const { auth, loginWithGoogle }: any = useStore(useAuthStore);
-    const [user, loading] = useAuthState(auth);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (loading) {
-            // maybe trigger a loading screen
-            return;
-        }
-        if (user) navigate('/design');
-    }, [user, loading]);
+function LoginComponent(props: any) {
+    const { loginWithGoogle } = props;
 
     return (
         <div className=" flex h-full w-full items-center justify-center bg-chelsea-cucumber-100 backdrop-blur">

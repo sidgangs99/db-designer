@@ -112,5 +112,7 @@ export const initialNodes: INode[] = [
 ];
 
 export const useNodesStore = create((set) => ({
-    nodes: initialNodes
+    nodes: [],
+
+    setNodes: (nodes: any) => set((state: any) => ({ ...state, nodes }))
 }));
