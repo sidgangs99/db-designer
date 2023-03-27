@@ -13,7 +13,7 @@ const CustomAddNodeComponent = ({
     data: INodeDetails;
     id: string;
 }) => {
-    const { addNewNode, tableDetails, onDeleteTable } = data;
+    const { addNewNode, tableId, tableName, onDeleteTable } = data;
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 
@@ -22,7 +22,7 @@ const CustomAddNodeComponent = ({
             <div className="mx-4 flex h-full w-72 justify-center space-x-4">
                 <div
                     className="w-4/5 rounded-md border border-dashed border-chelsea-cucumber-500 bg-chelsea-cucumber-100 py-2 text-lg bg-blend-darken hover:border-solid hover:shadow-2xl"
-                    onClick={() => addNewNode(data, tableDetails.id)}
+                    onClick={() => addNewNode(data, tableId)}
                 >
                     <TfiPlus className="w-full fill-chelsea-cucumber-700 align-middle text-xs" />
                 </div>
@@ -53,7 +53,7 @@ const CustomAddNodeComponent = ({
                             />
                             <p>
                                 I agree to delete the table{' '}
-                                {tableDetails.name.toUpperCase()}.
+                                {tableName.toUpperCase()}.
                             </p>
                         </div>
                     }
@@ -66,7 +66,7 @@ const CustomAddNodeComponent = ({
                             <ButtonContainer
                                 label={'Delete'}
                                 onClick={() => {
-                                    onDeleteTable(tableDetails.id);
+                                    onDeleteTable(tableId);
                                     setOpenModal(false);
                                 }}
                                 disabled={!deleteEnabled}
