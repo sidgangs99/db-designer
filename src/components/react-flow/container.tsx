@@ -37,6 +37,17 @@ export default function ReactFlowContainer() {
                             ...data
                         }
                     };
+                } else if (
+                    _node.data.tableId === data.tableId &&
+                    _node.data.tableName !== data.tableName
+                ) {
+                    return {
+                        ..._node,
+                        data: {
+                            ..._node.data,
+                            tableName: data.tableName
+                        }
+                    };
                 }
 
                 return _node;
@@ -85,9 +96,8 @@ export default function ReactFlowContainer() {
 
         setNodes((_nodes) =>
             _nodes.filter((_node) => {
-                if (_node.data.tableDetails.id === id)
-                    deletedNodes.add(_node.id);
-                return _node.data.tableDetails.id !== id;
+                if (_node.data.tableId === id) deletedNodes.add(_node.id);
+                return _node.data.tableId !== id;
             })
         );
         deleteEdgeFromNodes(deletedNodes);
@@ -97,8 +107,7 @@ export default function ReactFlowContainer() {
         setNodes((_nodes) =>
             _nodes.map((_node) => {
                 if (
-                    deletedNode.data.tableDetails.id ===
-                        _node.data.tableDetails.id &&
+                    deletedNode.data.tableId === _node.data.tableId &&
                     _node.type !== ECustomNodeTypes.TableNode &&
                     deletedNode.position.y < _node.position.y
                 ) {
@@ -120,7 +129,7 @@ export default function ReactFlowContainer() {
             let positionAddNode: XYPosition = { x: 0, y: 0 };
             _nodes.forEach((_node) => {
                 if (
-                    _node.data.tableDetails === data.tableDetails &&
+                    _node.data.tableId === data.tableId &&
                     _node.type === ECustomNodeTypes.AddColumnNode
                 ) {
                     positionAddNode = _node.position;
@@ -146,7 +155,7 @@ export default function ReactFlowContainer() {
 
             return _nodes.map((_node) => {
                 if (
-                    data.tableDetails === _node.data.tableDetails &&
+                    data.tableId === _node.data.tableId &&
                     _node.type === ECustomNodeTypes.AddColumnNode
                 ) {
                     return {
@@ -169,7 +178,6 @@ export default function ReactFlowContainer() {
 
     useEffect(() => {
         setNodes((_nodes: any) => {
-            console.log(_nodes);
             return _nodes.map((_node: INode) => ({
                 ..._node,
                 data: {
@@ -241,22 +249,45 @@ export default function ReactFlowContainer() {
             });
 
             const uid = uuid();
+            const tableName = 'New table';
+            const tableId = uid;
+
             const newTable = {
                 id: uid,
                 type: ECustomNodeTypes.TableNode,
                 position,
-                data: { tableDetails: { name: 'New Table', id: uid } }
+                data: { tableName, tableId }
+            };
+
+            const sampleNode = {
+                id: uuid(),
+                draggable: false,
+                position: { x: 0, y: 50 },
+                data: {
+                    tableName,
+                    tableId,
+                    columnName: "I'm column",
+                    dataType: 'varchar',
+                    onUpdateNode,
+                    onDeleteNode,
+                    addNewNode,
+                    deleteEdgeFromEdgeId,
+                    onDeleteTable,
+                    onReset
+                },
+                type: ECustomNodeTypes.ColumnNode,
+                parentNode: uid,
+                extent: 'parent',
+                expandParent: true
             };
 
             const customNode = {
                 id: uid + '.add',
                 draggable: false,
-                position: { x: 0, y: 50 },
+                position: { x: 0, y: 100 },
                 data: {
-                    tableDetails: {
-                        name: 'New Table',
-                        id: uid
-                    },
+                    tableName,
+                    tableId,
                     onUpdateNode,
                     onDeleteNode,
                     addNewNode,
@@ -270,7 +301,7 @@ export default function ReactFlowContainer() {
                 expandParent: true
             };
 
-            setNodes((nds) => nds.concat([newTable, customNode]));
+            setNodes((nds) => nds.concat([newTable, sampleNode, customNode]));
         },
         [reactFlowInstance]
     );

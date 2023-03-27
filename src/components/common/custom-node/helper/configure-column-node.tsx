@@ -1,21 +1,14 @@
 import { Controller, useForm } from 'react-hook-form';
-import { INodeDetails, ITableDetails } from '../../../../store/nodes/types';
+import { INodeDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
 import SwitchContainer from '../../switch/container';
 
 // Header
-export function ConfigureColumnNodeHeader({
-    tableDetails,
-    data
-}: {
-    tableDetails: ITableDetails;
-    data: INodeDetails;
-}) {
-    const { columnName } = data;
-    const { name } = tableDetails;
+export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {
+    const { columnName, tableName } = data;
     return (
         <div className="flex space-x-1 capitalize text-chelsea-cucumber-600">
-            <p className=" uppercase">{name}</p>
+            <p className=" uppercase">{tableName}</p>
             <p className="px-3">{'->'}</p>
             <p className=" capitalize">{columnName}</p>
         </div>
@@ -31,8 +24,7 @@ interface IConfigureColumnNodeBodyP {
 // Body
 export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
     const { data, id, setOpenModal } = node;
-    const { tableDetails, columnName, dataType } = data;
-    const { name: tableName } = tableDetails;
+    const { tableName, columnName, dataType } = data;
 
     const { control, register, watch, getValues, setValue, handleSubmit } =
         useForm({
@@ -88,6 +80,13 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
     return (
         <form onSubmit={handleSubmit(onSubmit)} id="editTableColumn">
             <div className="flex-col space-y-4">
+                <div className="flex w-full justify-between">
+                    <label className="w-1/2">Table Name: </label>
+                    <input
+                        {...register('tableName', { required: true })}
+                        className="w-1/2 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
+                    />
+                </div>
                 <div className="flex w-full justify-between">
                     <label className="w-1/2">Column Name: </label>
                     <input

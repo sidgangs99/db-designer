@@ -12,7 +12,7 @@ import {
 } from './helper/configure-column-node';
 
 export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
-    const { columnName, tableDetails, dataType, onDeleteNode } = data;
+    const { columnName, dataType, onDeleteNode } = data;
     const [openModal, setOpenModal] = useState(false);
 
     const nodes = useNodes();
@@ -70,12 +70,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                 <ModalContainer
                     open={openModal}
                     setOpen={setOpenModal}
-                    Header={
-                        <ConfigureColumnNodeHeader
-                            tableDetails={tableDetails}
-                            data={data}
-                        />
-                    }
+                    Header={<ConfigureColumnNodeHeader data={data} />}
                     Body={
                         <ConfigureColumnNodeBody
                             data={data}

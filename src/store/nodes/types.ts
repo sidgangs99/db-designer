@@ -1,15 +1,13 @@
 import { XYPosition } from 'reactflow';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
 
-export interface ITableDetails {
-    name: string;
-    id: string;
-}
+export interface ITableDetails {}
 
 export interface INodeDetails {
     columnName?: string;
     dataType?: string;
-    tableDetails: ITableDetails;
+    tableName: string;
+    tableId: string;
     tableStyle?: any;
     onUpdateNode?: any;
     onDeleteNode?: any;
