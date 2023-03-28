@@ -13,6 +13,7 @@ export const authenticateGetAPI = (
     });
 
 export const authenticatePostAPI = (
+    bearerToken: string,
     api: string,
     payload: object,
     queryParam?: object
@@ -22,7 +23,12 @@ export const authenticatePostAPI = (
         {
             ...payload
         },
-        { params: queryParam }
+        {
+            params: queryParam,
+            headers: {
+                Authorization: 'Bearer ' + bearerToken
+            }
+        }
     );
 
 export const authenticatePutAPI = (
