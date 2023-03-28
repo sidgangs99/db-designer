@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
+import { BsFiletypeSql } from 'react-icons/bs';
 import { SiMetrodelaciudaddemexico } from 'react-icons/si';
 import { TfiSave } from 'react-icons/tfi';
+
 import { useNodes } from 'reactflow';
 import { useStore } from 'zustand';
 
@@ -9,6 +11,7 @@ import { useAuthStore } from '../../store/firebase/state';
 import ButtonContainer from '../common/button/container';
 import DownloadButton from '../common/downloadHTML/component';
 import ModalContainer from '../common/modal/container';
+import { useDownloadSqlFile } from './hooks/useDownloadSqlFile';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
 
 import { ISidebarComponentProps } from './types';
@@ -20,7 +23,8 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
 
     const { onDragStart } = props;
     const nodes: any = useNodes();
-    const { status, refetch } = useSaveWorkbook();
+    const { status, refetch: fetchSaveWorkbook } = useSaveWorkbook();
+    const { refetch: fetchDownloadSqlFile } = useDownloadSqlFile();
 
     return (
         <>
@@ -51,7 +55,17 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     <div
                         className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
-                            refetch();
+                            fetchDownloadSqlFile();
+                        }}
+                        draggable
+                    >
+                        <BsFiletypeSql className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                    </div>
+
+                    <div
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        onClick={(e: any) => {
+                            fetchSaveWorkbook();
                         }}
                         draggable
                     >
