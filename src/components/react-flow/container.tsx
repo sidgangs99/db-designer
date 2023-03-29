@@ -74,7 +74,6 @@ export default function ReactFlowContainer() {
 
     const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
         setEdges((_edges) => {
-            console.log(_edges);
             return _edges.filter(
                 (_edge) =>
                     !deletedNode.has(_edge.source) &&

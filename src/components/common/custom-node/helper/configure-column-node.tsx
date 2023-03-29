@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { INodeDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
 import SwitchContainer from '../../switch/container';
+import { ConstraintsLogic } from './constraints-logic';
 
 // Header
 export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {
@@ -19,11 +20,12 @@ interface IConfigureColumnNodeBodyP {
     data: INodeDetails;
     id: string;
     setOpenModal: Function;
+    edges: any;
 }
 
 // Body
-export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
-    const { data, id, setOpenModal } = node;
+export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
+    const { data, id, setOpenModal, edges } = props;
     const { tableName, columnName, dataType } = data;
 
     const { control, register, watch, getValues, setValue, handleSubmit } =
@@ -38,43 +40,15 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
         newNode.onUpdateNode(newNode, id);
     };
 
+    const constraintsLogic = new ConstraintsLogic(id, data, edges);
+
     const options = [
-        {
-            label: 'Primary Key',
-            value: 'constraints.primaryKey',
-            defaultValue: false,
-            isDisabled: true
-        },
-        {
-            label: 'Foreign Key',
-            value: 'constraints.foreignKey',
-            defaultValue: false,
-            isDisabled: true
-        },
-        {
-            label: 'Unique',
-            value: 'constraints.unique',
-            defaultValue: true,
-            isDisabled: false
-        },
-        {
-            label: 'Default Value',
-            value: 'constraints.defaultValue',
-            defaultValue: false,
-            isDisabled: false
-        },
-        {
-            label: 'Index',
-            value: 'constraints.index',
-            defaultValue: false,
-            isDisabled: false
-        },
-        {
-            label: 'Auto Increment',
-            value: 'constraints.autoIncrement',
-            defaultValue: false,
-            isDisabled: false
-        }
+        constraintsLogic.getPrimaryKeyDetails(),
+        constraintsLogic.getIsForeignKeyDetails(),
+        constraintsLogic.getIsNotNullDetails(),
+        constraintsLogic.getIsUniqueDetails(),
+        constraintsLogic.getIsAutoIncrementDetails(),
+        constraintsLogic.getDefaultValueDetails()
     ];
 
     return (
@@ -109,20 +83,30 @@ export function ConfigureColumnNodeBody(node: IConfigureColumnNodeBodyP) {
                         Column Constraints
                     </p>
                     {options.map(
-                        ({ label, value, defaultValue, isDisabled }: any) => (
+                        ({
+                            label,
+                            formValue,
+                            defaultValue,
+                            disabled,
+                            type
+                        }: any) => (
                             <Controller
-                                key={value}
-                                name={value}
+                                key={formValue}
+                                name={formValue}
                                 control={control}
                                 defaultValue={defaultValue}
-                                render={({ field: { onChange, value } }) => (
-                                    <SwitchContainer
-                                        label={label}
-                                        enabled={value}
-                                        onChange={(e: any) => onChange(e)}
-                                        isDisabled={isDisabled}
-                                    />
-                                )}
+                                render={({ field: { onChange, value } }) =>
+                                    type === Boolean ? (
+                                        <SwitchContainer
+                                            label={label}
+                                            enabled={value}
+                                            onChange={(e: any) => onChange(e)}
+                                            isDisabled={disabled}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             />
                         )
                     )}

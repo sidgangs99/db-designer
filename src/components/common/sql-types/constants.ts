@@ -84,3 +84,27 @@ export const sqlTypes = [
         type: 'misc'
     }
 ];
+
+export const sqlTypeCategory: Record<string, string> = {
+    varchar: 'string',
+    char: 'string',
+    text: 'string',
+    int: 'numeric',
+    bigint: 'numeric',
+    tinyint: 'numeric',
+    float: 'numericOther',
+    real: 'numericOther',
+    date: 'dateTime',
+    time: 'dateTime',
+    datetime: 'dateTime',
+    nchar: 'unicodeString',
+    nvarchar: 'unicodeString',
+    ntext: 'unicodeString',
+    binary: 'binary',
+    varbinary: 'binary',
+    clob: 'misc',
+    blob: 'misc',
+    xml: 'misc',
+    cursor: 'misc',
+    table: 'misc'
+};
