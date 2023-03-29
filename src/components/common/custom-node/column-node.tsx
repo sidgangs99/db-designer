@@ -76,6 +76,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                             data={data}
                             id={id}
                             setOpenModal={setOpenModal}
+                            edges={edges}
                         />
                     }
                     Footer={
