@@ -8,7 +8,7 @@ export default function ModalComponent(props: IModalComponentProps) {
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 as="div"
-                className="z-1000 fixed inset-0 overflow-y-auto"
+                className="fixed inset-0 z-20 overflow-y-auto"
                 onClose={onClose}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-70 transition-opacity" />

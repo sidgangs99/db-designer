@@ -16,7 +16,6 @@ const CustomTableNodeComponent = ({ data }: { data: INodeDetails }) => {
         const totalColumns = nodes.filter(
             (_node: any) => _node.data.tableId === tableId
         );
-        console.log({ totalColumns, tableId });
         setHeight(totalColumns.length);
     };
 

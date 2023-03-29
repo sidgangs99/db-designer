@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { INodeDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
@@ -27,6 +28,9 @@ interface IConfigureColumnNodeBodyP {
 export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
     const { data, id, setOpenModal, edges } = props;
     const { tableName, columnName, dataType } = data;
+    const constraintsLogic = new ConstraintsLogic(id, data, edges);
+
+    const [newDataType, setNewDataType] = useState<string>(dataType);
 
     const { control, register, watch, getValues, setValue, handleSubmit } =
         useForm({
@@ -34,20 +38,30 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
             defaultValues: { tableName, columnName, dataType }
         });
 
+    useEffect(() => {
+        const subscription = watch((value, { name }) => {
+            if (name === 'dataType') setNewDataType(value.dataType || '');
+        });
+        return () => subscription.unsubscribe();
+    }, [watch]);
+
+    const autoIncrement = useCallback(
+        () => constraintsLogic.getIsAutoIncrementDetails(newDataType),
+        [newDataType]
+    );
+
     const onSubmit: any = (_data: any) => {
         const newNode = { ...data, ..._data };
         setOpenModal(false);
         newNode.onUpdateNode(newNode, id);
     };
 
-    const constraintsLogic = new ConstraintsLogic(id, data, edges);
-
     const options = [
         constraintsLogic.getPrimaryKeyDetails(),
         constraintsLogic.getIsForeignKeyDetails(),
         constraintsLogic.getIsNotNullDetails(),
         constraintsLogic.getIsUniqueDetails(),
-        constraintsLogic.getIsAutoIncrementDetails(),
+        autoIncrement(),
         constraintsLogic.getDefaultValueDetails()
     ];
 
@@ -75,10 +89,11 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                             getValues={getValues}
                             watch={watch}
                             setValue={setValue}
+                            constraintsLogic={constraintsLogic}
                         />
                     </div>
                 </div>
-                <div className="flex flex-col space-y-2 pt-4">
+                <div className="flex w-full flex-col space-y-2 pt-4">
                     <p className="mb-2 border-b text-base text-chelsea-cucumber-600 ">
                         Column Constraints
                     </p>
@@ -88,25 +103,50 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                             formValue,
                             defaultValue,
                             disabled,
-                            type
+                            type,
+                            disabledTooltip
                         }: any) => (
                             <Controller
                                 key={formValue}
                                 name={formValue}
                                 control={control}
                                 defaultValue={defaultValue}
-                                render={({ field: { onChange, value } }) =>
-                                    type === Boolean ? (
-                                        <SwitchContainer
-                                            label={label}
-                                            enabled={value}
-                                            onChange={(e: any) => onChange(e)}
-                                            isDisabled={disabled}
-                                        />
-                                    ) : (
-                                        <></>
-                                    )
-                                }
+                                render={({ field: { onChange, value } }) => {
+                                    if (type === Boolean) {
+                                        return (
+                                            <SwitchContainer
+                                                label={label}
+                                                enabled={value}
+                                                onChange={(e: any) =>
+                                                    onChange(e)
+                                                }
+                                                isDisabled={disabled}
+                                                disabledTooltipMessage={
+                                                    disabledTooltip
+                                                }
+                                            />
+                                        );
+                                    }
+
+                                    if (
+                                        label === 'Default Value' &&
+                                        !disabled
+                                    ) {
+                                        return (
+                                            <div className="flex w-full items-center space-x-4">
+                                                <label className="w-1/4">
+                                                    {label}
+                                                </label>
+                                                <input
+                                                    {...register(formValue, {})}
+                                                    className="w-1/4 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
+                                                />
+                                            </div>
+                                        );
+                                    }
+
+                                    return <></>;
+                                }}
                             />
                         )
                     )}
