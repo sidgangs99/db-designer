@@ -5,7 +5,7 @@ export interface ITableDetails {}
 
 export interface INodeDetails {
     columnName?: string;
-    dataType?: string;
+    dataType: string;
     tableName: string;
     tableId: string;
     tableStyle?: any;

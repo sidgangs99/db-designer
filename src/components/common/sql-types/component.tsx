@@ -6,15 +6,16 @@ import { uuid } from '../../../util/helper';
 import { sqlTypes } from './constants';
 
 export default function SQLDataTypesDropdown(props: any) {
-    const { setValue, watch } = props;
+    const { setValue, watch, constraintsLogic } = props;
     const dataType = watch('dataType');
 
     useEffect(() => {
-        setValue('dataType', sqlTypes[0].name);
+        setValue('dataType', dataType || sqlTypes[0].name);
     }, []);
 
     const setSelectedDataType = (value: any) => {
         setValue('dataType', value.name);
+        constraintsLogic.updateDataType(value.name);
     };
 
     return (

@@ -24,6 +24,8 @@ export class ConstraintsLogic {
     minRange = '';
     maxRange = '';
 
+    formUpdateWatch = undefined;
+
     constructor(nodeId: string, nodeData: any, edges: any) {
         this.isPrimaryKey = edges.some((edge: any) => edge.source === nodeId);
         this.isForeignKey = edges.some((edge: any) => edge.target === nodeId);
@@ -38,7 +40,7 @@ export class ConstraintsLogic {
         const value = this.isPrimaryKey;
         const disabled = this.isPrimaryKeyDisabled;
         const disabledTooltip =
-            'This key is a copy of your link in UI, please remove the link to update your primary key';
+            'Update primary key from link in UI, this is just for reference';
 
         return {
             label: 'Primary Key',
@@ -74,7 +76,7 @@ export class ConstraintsLogic {
         let value = this.isForeignKey;
         let disabled = this.isForeignKeyDisabled;
         let disabledTooltip =
-            'This key is a copy of your link in UI, please remove the link to update your primary key';
+            'Update foreign key from links in UI, this is just for reference';
 
         return {
             label: 'Foreign Key',
@@ -93,7 +95,7 @@ export class ConstraintsLogic {
 
         if (this.isPrimaryKey) {
             disabled = true;
-            disabledTooltip = 'This key is primary key, cannot be a null value';
+            disabledTooltip = 'This key is primary key, should be unique';
         }
 
         return {
@@ -108,7 +110,7 @@ export class ConstraintsLogic {
 
     getDefaultValueDetails() {
         let value = this.defaultValue;
-        let disabled = false;
+        let disabled = this.isPrimaryKey;
         let disabledTooltip = '';
 
         if (this.isPrimaryKey) {
@@ -127,12 +129,12 @@ export class ConstraintsLogic {
         };
     }
 
-    getIsAutoIncrementDetails() {
+    getIsAutoIncrementDetails(dataType = this.dataType) {
         let value = this.isAutoIncrement;
         let disabled = false;
         let disabledTooltip = '';
 
-        if (sqlTypeCategory[this.dataType] === 'numeric') {
+        if (sqlTypeCategory[dataType] === 'numeric') {
             value = false;
             disabled = false;
         } else {
@@ -148,7 +150,8 @@ export class ConstraintsLogic {
             formValue: 'constraints.autoIncrement',
             disabled,
             type: Boolean,
-            disabledTooltip
+            disabledTooltip,
+            defaultValueDisabled: false
         };
     }
 
