@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useNodes } from 'reactflow';
+import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
 
 import { API_SQL_GENERATE } from '../../../api/workbook';
@@ -17,13 +17,15 @@ function saveSQLFile(fileContent: string) {
 
 export function useDownloadSqlFile() {
     const nodes: any = useNodes();
+    const edges: any = useEdges();
     const { user }: any = useStore(useAuthStore);
 
     const { data, isFetching, refetch } = useQuery<any>(
         'sql-generator',
         () =>
             authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
-                nodes
+                nodes,
+                edges
             }),
         { enabled: false }
     );
