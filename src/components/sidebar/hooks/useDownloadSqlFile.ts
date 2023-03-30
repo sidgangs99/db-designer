@@ -7,6 +7,7 @@ import { useStore } from 'zustand';
 import { API_SQL_GENERATE } from '../../../api/workbook';
 import { useAuthStore } from '../../../store/firebase/state';
 import { authenticatePostAPI } from '../../../util/api';
+import { infoToast } from '../../common/toast/info.toast';
 
 function saveSQLFile(fileContent: string) {
     const sqlBlob = new Blob([fileContent], { type: 'text/sql' });
@@ -27,8 +28,12 @@ export function useDownloadSqlFile() {
     );
 
     useEffect(() => {
-        if (!isFetching && data) {
-            saveSQLFile(data.data.fileContent);
+        if (isFetching) {
+            infoToast({ message: 'Generating .sql file' });
+        } else {
+            if (data) {
+                saveSQLFile(data.data.fileContent);
+            }
         }
     }, [data, isFetching]);
 

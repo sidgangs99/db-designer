@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactFlowProvider } from 'reactflow';
 
@@ -20,6 +21,7 @@ function App() {
                     <LayoutContainer />
                 </div>
             </ReactFlowProvider>
+            <Toaster />
         </QueryClientProvider>
     );
 }
