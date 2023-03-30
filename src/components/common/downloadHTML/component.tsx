@@ -1,5 +1,5 @@
 import { toPng } from 'html-to-image';
-import { RiCamera3Fill } from 'react-icons/ri';
+import { FiCamera } from 'react-icons/fi';
 
 function downloadImage(dataUrl: string) {
     const a = document.createElement('a');
@@ -34,12 +34,7 @@ function DownloadButton() {
         }).then(downloadImage);
     };
 
-    return (
-        <RiCamera3Fill
-            className="m-1.5 fill-chelsea-cucumber-700 text-base "
-            onClick={onClick}
-        />
-    );
+    return <FiCamera className="m-1.5 text-base " onClick={onClick} />;
 }
 
 export default DownloadButton;

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
+import { BiSpreadsheet } from 'react-icons/bi';
 import { BsFiletypeSql } from 'react-icons/bs';
-import { SiMetrodelaciudaddemexico } from 'react-icons/si';
 import { TfiSave } from 'react-icons/tfi';
+import { Tooltip } from 'react-tooltip';
 
 import { useNodes } from 'reactflow';
 import { useStore } from 'zustand';
@@ -31,45 +32,79 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={() => setOpenModal(true)}
-                        draggable
+                        data-tooltip-id={`reset-workbook-icon-header`}
+                        data-tooltip-content={'Reset workbook'}
                     >
                         <AiOutlineClear className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <Tooltip
+                            id={`reset-workbook-icon-header`}
+                            place="bottom"
+                            className="flex w-40 items-center justify-center bg-chelsea-cucumber-500"
+                        />
                     </div>
                 </div>
 
-                <div className="flex space-x-4">
+                <div className="flex items-center justify-center space-x-4">
                     <div
-                        className="cursor-move rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="cursor-move rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onDragStart={(event) => onDragStart(event, 'Table')}
                         draggable
+                        data-tooltip-id={`table-icon-header`}
+                        data-tooltip-content={'Drag me and create a new table'}
                     >
-                        <SiMetrodelaciudaddemexico className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <BiSpreadsheet className="m-0.5 fill-chelsea-cucumber-700 text-2xl" />
+                        <Tooltip
+                            id={`table-icon-header`}
+                            place="bottom"
+                            className="flex w-40 items-center justify-center bg-chelsea-cucumber-500"
+                        />
                     </div>
                 </div>
                 <div className="flex space-x-4">
-                    <div className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200">
+                    <div
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        data-tooltip-id={`screenshot-icon-header`}
+                        data-tooltip-content={'Save a snapshot of workbook'}
+                    >
                         <DownloadButton />
+                        <Tooltip
+                            id={`screenshot-icon-header`}
+                            place="bottom"
+                            className="flex w-40 items-center justify-center bg-chelsea-cucumber-500"
+                        />
                     </div>
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white  hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
                             fetchDownloadSqlFile();
                         }}
-                        draggable
+                        data-tooltip-id={`sql-download-icon-header`}
+                        data-tooltip-content={'Generate and save .sql file'}
                     >
                         <BsFiletypeSql className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <Tooltip
+                            id={`sql-download-icon-header`}
+                            place="bottom"
+                            className="flex w-40 items-center justify-center bg-chelsea-cucumber-500"
+                        />
                     </div>
 
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white font-bold hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
                             fetchSaveWorkbook();
                         }}
-                        draggable
+                        data-tooltip-id={`save-workbook-icon-header`}
+                        data-tooltip-content={'Save your workbook'}
                     >
                         <TfiSave className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <Tooltip
+                            id={`save-workbook-icon-header`}
+                            place="bottom"
+                            className="flex w-40 items-center justify-center bg-chelsea-cucumber-500"
+                        />
                     </div>
                     <ButtonContainer label="Logout" onClick={() => logout()} />
                 </div>
