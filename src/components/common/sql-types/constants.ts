@@ -42,47 +42,47 @@ export const sqlTypes = [
     {
         name: 'datetime',
         type: 'dateTime'
-    },
-    {
-        name: 'nchar',
-        type: 'unicodeString'
-    },
-    {
-        name: 'nvarchar',
-        type: 'unicodeString'
-    },
-    {
-        name: 'ntext',
-        type: 'unicodeString'
-    },
-    {
-        name: 'binary',
-        type: 'binary'
-    },
-    {
-        name: 'varbinary',
-        type: 'binary'
-    },
-    {
-        name: 'clob',
-        type: 'misc'
-    },
-    {
-        name: 'blob',
-        type: 'misc'
-    },
-    {
-        name: 'xml',
-        type: 'misc'
-    },
-    {
-        name: 'cursor',
-        type: 'misc'
-    },
-    {
-        name: 'table',
-        type: 'misc'
     }
+    // {
+    //     name: 'nchar',
+    //     type: 'unicodeString'
+    // },
+    // {
+    //     name: 'nvarchar',
+    //     type: 'unicodeString'
+    // },
+    // {
+    //     name: 'ntext',
+    //     type: 'unicodeString'
+    // },
+    // {
+    //     name: 'binary',
+    //     type: 'binary'
+    // },
+    // {
+    //     name: 'varbinary',
+    //     type: 'binary'
+    // },
+    // {
+    //     name: 'clob',
+    //     type: 'misc'
+    // },
+    // {
+    //     name: 'blob',
+    //     type: 'misc'
+    // },
+    // {
+    //     name: 'xml',
+    //     type: 'misc'
+    // },
+    // {
+    //     name: 'cursor',
+    //     type: 'misc'
+    // },
+    // {
+    //     name: 'table',
+    //     type: 'misc'
+    // }
 ];
 
 export const sqlTypeCategory: Record<string, string> = {
@@ -107,4 +107,28 @@ export const sqlTypeCategory: Record<string, string> = {
     xml: 'misc',
     cursor: 'misc',
     table: 'misc'
+};
+
+export const sqlInputType: Record<string, string> = {
+    varchar: 'text',
+    char: 'text',
+    text: 'text',
+    int: 'number',
+    bigint: 'number',
+    tinyint: 'number',
+    float: 'number',
+    real: 'number',
+    date: 'date',
+    time: 'time',
+    datetime: 'datetime-local'
+    // nchar: 'text',
+    // nvarchar: 'text',
+    // ntext: 'text',
+    // binary: 'binary',
+    // varbinary: 'binary',
+    // clob: 'misc',
+    // blob: 'misc',
+    // xml: 'misc',
+    // cursor: 'misc',
+    // table: 'misc'
 };

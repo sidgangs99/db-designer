@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { INodeDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
+import { sqlInputType } from '../../sql-types/constants';
 import SwitchContainer from '../../switch/container';
 import { ConstraintsLogic } from './constraints-logic';
 
@@ -27,7 +28,7 @@ interface IConfigureColumnNodeBodyP {
 // Body
 export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
     const { data, id, setOpenModal, edges } = props;
-    const { tableName, columnName, dataType } = data;
+    const { tableName, columnName, dataType, constraints } = data;
     const constraintsLogic = new ConstraintsLogic(id, data, edges);
 
     const [newDataType, setNewDataType] = useState<string>(dataType);
@@ -35,12 +36,17 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
     const { control, register, watch, getValues, setValue, handleSubmit } =
         useForm({
             mode: 'onChange',
-            defaultValues: { tableName, columnName, dataType }
+            defaultValues: {
+                tableName,
+                columnName,
+                dataType,
+                'constraints.defaultValue': constraints.defaultValue
+            }
         });
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
-            if (name === 'dataType') setNewDataType(value.dataType || '');
+            if (name === 'dataType') setNewDataType(value?.dataType || '');
         });
         return () => subscription.unsubscribe();
     }, [watch]);
@@ -49,6 +55,10 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
         () => constraintsLogic.getIsAutoIncrementDetails(newDataType),
         [newDataType]
     );
+
+    const getInputType = useCallback(() => {
+        return sqlInputType[newDataType];
+    }, [newDataType]);
 
     const onSubmit: any = (_data: any) => {
         const newNode = { ...data, ..._data };
@@ -139,7 +149,8 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                                                 </label>
                                                 <input
                                                     {...register(formValue, {})}
-                                                    className="w-1/4 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
+                                                    type={getInputType()}
+                                                    className="w-2/4 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
                                                 />
                                             </div>
                                         );

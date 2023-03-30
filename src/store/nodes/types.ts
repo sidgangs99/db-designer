@@ -3,11 +3,16 @@ import { ECustomNodeTypes } from '../../components/react-flow/types';
 
 export interface ITableDetails {}
 
+export interface IKeyConstraints {
+    defaultValue: string;
+}
+
 export interface INodeDetails {
     columnName?: string;
     dataType: string;
     tableName: string;
     tableId: string;
+    constraints: Record<string, any>;
     tableStyle?: any;
     onUpdateNode?: any;
     onDeleteNode?: any;

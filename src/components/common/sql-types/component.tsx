@@ -15,7 +15,7 @@ export default function SQLDataTypesDropdown(props: any) {
 
     const setSelectedDataType = (value: any) => {
         setValue('dataType', value.name);
-        constraintsLogic.updateDataType(value.name);
+        constraintsLogic.setDataType(value.name);
     };
 
     return (

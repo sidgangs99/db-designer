@@ -32,8 +32,12 @@ export class ConstraintsLogic {
         this.dataType = nodeData.dataType;
     }
 
-    updateDataType(dataType: string) {
+    setDataType(dataType: string) {
         this.dataType = dataType;
+    }
+
+    getDataType() {
+        return this.dataType;
     }
 
     getPrimaryKeyDetails() {
