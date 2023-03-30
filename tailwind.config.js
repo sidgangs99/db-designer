@@ -5,8 +5,8 @@ module.exports = {
         extend: {
             height: {
                 '5/100': '5%',
-                '90/100': '91%',
-                '4/100': '4%'
+                '92/100': '92%',
+                '3/100': '3%'
             },
             colors: {
                 corduroy: {
@@ -21,7 +21,7 @@ module.exports = {
                     800: '#363937',
                     900: '#2f3230'
                 },
-                'chelsea-cucumber':{
+                'chelsea-cucumber': {
                     50: '#f5f8ed',
                     100: '#e7efd8',
                     200: '#d2e1b5',
