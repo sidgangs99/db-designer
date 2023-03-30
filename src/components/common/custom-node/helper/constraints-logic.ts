@@ -27,7 +27,6 @@ export class ConstraintsLogic {
     formUpdateWatch = undefined;
 
     constructor(nodeId: string, nodeData: any, edges: any) {
-        this.isPrimaryKey = edges.some((edge: any) => edge.source === nodeId);
         this.isForeignKey = edges.some((edge: any) => edge.target === nodeId);
         this.dataType = nodeData.dataType;
     }
@@ -42,7 +41,7 @@ export class ConstraintsLogic {
 
     getPrimaryKeyDetails() {
         const value = this.isPrimaryKey;
-        const disabled = this.isPrimaryKeyDisabled;
+        const disabled = false;
         const disabledTooltip =
             'Update primary key from link in UI, this is just for reference';
 

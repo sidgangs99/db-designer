@@ -10,10 +10,10 @@ import { ConstraintsLogic } from './constraints-logic';
 export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {
     const { columnName, tableName } = data;
     return (
-        <div className="flex space-x-1 capitalize text-chelsea-cucumber-600">
-            <p className=" uppercase">{tableName}</p>
+        <div className="flex space-x-1 text-chelsea-cucumber-600">
+            <p className="">{tableName}</p>
             <p className="px-3">{'->'}</p>
-            <p className=" capitalize">{columnName}</p>
+            <p className="">{columnName}</p>
         </div>
     );
 }
@@ -40,7 +40,8 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                 tableName,
                 columnName,
                 dataType,
-                'constraints.defaultValue': constraints.defaultValue
+                'constraints.defaultValue': constraints.defaultValue,
+                'constraints.primaryKey': constraints.primaryKey
             }
         });
 
@@ -79,10 +80,10 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
         <form onSubmit={handleSubmit(onSubmit)} id="editTableColumn">
             <div className="flex-col space-y-4">
                 <div className="flex w-full justify-between">
-                    <label className="w-1/2">Table Name: </label>
+                    <label className="w-1/2 font-semibold">Table Name: </label>
                     <input
                         {...register('tableName', { required: true })}
-                        className="w-1/2 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
+                        className="w-1/2 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 font-semibold outline-chelsea-cucumber-400"
                     />
                 </div>
                 <div className="flex w-full justify-between">
