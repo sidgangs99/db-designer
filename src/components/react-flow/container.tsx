@@ -142,7 +142,11 @@ export default function ReactFlowContainer() {
                 data: {
                     ...data,
                     columnName: 'New Column',
-                    dataType: 'varchar'
+                    dataType: 'varchar',
+                    constraints: {
+                        defaultValue: '',
+                        ...data.constraints
+                    }
                 },
                 parentNode: id,
                 extent: 'parent',
@@ -265,8 +269,11 @@ export default function ReactFlowContainer() {
                 data: {
                     tableName,
                     tableId,
-                    columnName: "I'm column",
+                    columnName: 'New column',
                     dataType: 'varchar',
+                    constraints: {
+                        defaultValue: ''
+                    },
                     onUpdateNode,
                     onDeleteNode,
                     addNewNode,
