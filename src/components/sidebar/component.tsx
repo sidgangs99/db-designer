@@ -23,7 +23,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
 
     const { onDragStart } = props;
     const nodes: any = useNodes();
-    const { status, refetch: fetchSaveWorkbook } = useSaveWorkbook();
+    const { refetch: fetchSaveWorkbook } = useSaveWorkbook();
     const { refetch: fetchDownloadSqlFile } = useDownloadSqlFile();
 
     return (

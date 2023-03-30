@@ -7,7 +7,8 @@ import { useStore } from 'zustand';
 import { API_SQL_GENERATE } from '../../../api/workbook';
 import { useAuthStore } from '../../../store/firebase/state';
 import { authenticatePostAPI } from '../../../util/api';
-import { infoToast } from '../../common/toast/info.toast';
+import { emojiToast } from '../../common/toast/emoji-toast';
+import { MESSAGE_GENERATE_SQL_FILE } from '../../common/toast/messages';
 
 function saveSQLFile(fileContent: string) {
     const sqlBlob = new Blob([fileContent], { type: 'text/sql' });
@@ -28,13 +29,8 @@ export function useDownloadSqlFile() {
     );
 
     useEffect(() => {
-        if (isFetching) {
-            infoToast({ message: 'Generating .sql file' });
-        } else {
-            if (data) {
-                saveSQLFile(data.data.fileContent);
-            }
-        }
+        if (isFetching) emojiToast(MESSAGE_GENERATE_SQL_FILE, '🔨');
+        if (!isFetching && data) saveSQLFile(data.data.fileContent);
     }, [data, isFetching]);
 
     return { refetch };
