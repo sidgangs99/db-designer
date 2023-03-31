@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { IModalComponentProps } from './types';
 
 export default function ModalComponent(props: IModalComponentProps) {
-    const { open, onClose, Header, Body, Footer } = props;
+    const { open, onClose, Header, Body, Footer, className } = props;
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
@@ -41,7 +41,9 @@ export default function ModalComponent(props: IModalComponentProps) {
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95"
                     >
-                        <div className="inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all ">
+                        <div
+                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all ${className}`}
+                        >
                             <Dialog.Title
                                 as="h3"
                                 className="text-lg font-medium leading-6 text-gray-900"

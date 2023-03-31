@@ -4,6 +4,7 @@ export interface IModalContainerProps {
     Header: any;
     Body: any;
     Footer: any;
+    className?: string;
 }
 
 export interface IModalComponentProps extends IModalContainerProps {
