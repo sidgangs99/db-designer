@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+
 import { INodeDetails } from '../../../../store/nodes/types';
 import SQLDataTypesDropdown from '../../sql-types/component';
 import { sqlInputType } from '../../sql-types/constants';

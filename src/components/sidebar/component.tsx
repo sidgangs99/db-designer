@@ -1,31 +1,44 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
 import { BsFiletypeSql } from 'react-icons/bs';
 import { TfiSave } from 'react-icons/tfi';
 import { Tooltip } from 'react-tooltip';
 
-import { useNodes } from 'reactflow';
 import { useStore } from 'zustand';
 
 import { useAuthStore } from '../../store/firebase/state';
 import ButtonContainer from '../common/button/container';
 import DownloadButton from '../common/downloadHTML/component';
-import ModalContainer from '../common/modal/container';
-import { useDownloadSqlFile } from './hooks/useDownloadSqlFile';
+import { useGenerateSqlFile } from './hooks/useGenerateSqlFile';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
+import DownloadSqlFileModal from './modals/download-sql';
+import ResetViewModal from './modals/reset-view';
 
 import { ISidebarComponentProps } from './types';
 
 const SidebarComponent = (props: ISidebarComponentProps) => {
-    const { logout }: any = useStore(useAuthStore);
-    const [openModal, setOpenModal] = useState(false);
-    const [deleteEnabled, setDeleteEnabled] = useState(false);
-
     const { onDragStart } = props;
-    const nodes: any = useNodes();
+
+    const { logout }: any = useStore(useAuthStore);
+    const [openResetViewModal, setOpenResetViewModal] = useState(false);
+    const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
+        useState(false);
+
     const { refetch: fetchSaveWorkbook } = useSaveWorkbook();
-    const { refetch: fetchDownloadSqlFile } = useDownloadSqlFile();
+    const {
+        refetch: fetchGenerateSqlFile,
+        data: sqlFileData,
+        isFetching: isGenerateSqlFileFetching
+    } = useGenerateSqlFile();
+
+    useEffect(() => {
+        if (isGenerateSqlFileFetching) setOpenDownloadSqlFileModal(true);
+    }, [isGenerateSqlFileFetching]);
+
+    useEffect(() => {
+        console.log(openDownloadSqlFileModal);
+    }, [openDownloadSqlFileModal]);
 
     return (
         <>
@@ -33,7 +46,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                 <div className="flex space-x-4">
                     <div
                         className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
-                        onClick={() => setOpenModal(true)}
+                        onClick={() => setOpenResetViewModal(true)}
                         data-tooltip-id={`reset-workbook-icon-header`}
                         data-tooltip-content={'Reset workbook'}
                     >
@@ -78,7 +91,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     <div
                         className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white  hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
-                            fetchDownloadSqlFile();
+                            fetchGenerateSqlFile();
                         }}
                         data-tooltip-id={`sql-download-icon-header`}
                         data-tooltip-content={'Generate and save .sql file'}
@@ -109,43 +122,17 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     <ButtonContainer label="Logout" onClick={() => logout()} />
                 </div>
             </div>
-            {openModal && (
-                <ModalContainer
-                    open={openModal}
-                    setOpen={setOpenModal}
-                    Header={
-                        <div className="flex whitespace-nowrap">
-                            Are you sure you want to reset the view ?
-                        </div>
-                    }
-                    Body={
-                        <div className="flex space-x-2">
-                            <input
-                                type={'checkbox'}
-                                checked={deleteEnabled}
-                                onChange={() =>
-                                    setDeleteEnabled(!deleteEnabled)
-                                }
-                            />
-                            <p>I agree to reset the view</p>
-                        </div>
-                    }
-                    Footer={
-                        <div className="flex items-center justify-between space-x-4">
-                            <ButtonContainer
-                                label={'Cancel'}
-                                onClick={() => setOpenModal(false)}
-                            />
-                            <ButtonContainer
-                                label={'Delete'}
-                                onClick={() => {
-                                    nodes?.[0].data.onReset();
-                                    setOpenModal(false);
-                                }}
-                                disabled={!deleteEnabled}
-                            />
-                        </div>
-                    }
+            {openResetViewModal && (
+                <ResetViewModal
+                    open={openResetViewModal}
+                    setOpen={setOpenResetViewModal}
+                />
+            )}
+            {openDownloadSqlFileModal && (
+                <DownloadSqlFileModal
+                    open={openDownloadSqlFileModal}
+                    setOpen={setOpenDownloadSqlFileModal}
+                    data={sqlFileData}
                 />
             )}
         </>
