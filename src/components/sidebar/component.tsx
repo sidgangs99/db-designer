@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
+import { BsSunFill } from 'react-icons/bs';
 import { FiCamera, FiSave } from 'react-icons/fi';
+import { MdDarkMode } from 'react-icons/md';
 import { TbFileExport } from 'react-icons/tb';
 
 import { useStore } from 'zustand';
+import { darkTheme, lightTheme } from '../../store/darkMode/constants';
+import { useThemeStore } from '../../store/darkMode/state';
 
 import { useAuthStore } from '../../store/firebase/state';
 import { downloadPngImageOfWorkbook } from '../../util/helper';
 import ButtonContainer from '../common/button/container';
 import IconButtonContainer from '../common/icon-button/container';
+import IconComponent from '../common/icon/component';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
 import { exportOptions, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
@@ -22,6 +27,8 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
     const { onDragStart } = props;
 
     const { logout }: any = useStore(useAuthStore);
+    const { theme, updateTheme }: any = useStore(useThemeStore);
+
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
@@ -81,7 +88,15 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         />
                     </div>
                 </div>
-                <div className="flex space-x-4">
+                <div className="flex items-center justify-center space-x-4">
+                    <IconComponent
+                        Icon={theme === darkTheme ? MdDarkMode : BsSunFill}
+                        onClick={() =>
+                            updateTheme(
+                                theme === darkTheme ? lightTheme : darkTheme
+                            )
+                        }
+                    />
                     <ButtonContainer label="Logout" onClick={() => logout()} />
                 </div>
             </div>
