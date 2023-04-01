@@ -5,16 +5,19 @@ import { downloadFile } from '../../../util/helper';
 
 import EditorContainer from '../../common/editor/container';
 import ModalContainer from '../../common/modal/container';
+import { useGenerateSqlFile } from '../hooks/useGenerateSqlFile';
 
 interface IDownloadSqlFileModal {
     open: boolean;
     setOpen: any;
-    data: any;
 }
 
 export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
-    const { open, setOpen, data } = props;
-    const [fileContent, setFileContent] = useState(data?.fileContent);
+    const { open, setOpen } = props;
+    const { data } = useGenerateSqlFile();
+
+    const [fileContent, setFileContent] = useState<string>('');
+
     const { register, setValue, handleSubmit } = useForm({
         mode: 'onChange',
         defaultValues: {
@@ -24,8 +27,11 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
     });
 
     useEffect(() => {
-        setValue('fileContent', fileContent);
-    }, [fileContent]);
+        if (data?.fileContent) {
+            setValue('fileContent', data?.fileContent);
+            setFileContent(data?.fileContent);
+        }
+    }, [data]);
 
     const onSubmit = ({ fileName, fileContent }: any) => {
         downloadFile(fileContent, 'sql', fileName);
@@ -35,8 +41,7 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
         <ModalContainer
             open={open}
             setOpen={setOpen}
-            className={'h-1/2 w-2/3'}
-            Header={<>Your schema is ready for download</>}
+            className={'h-1/2 w-5/12'}
             Body={
                 <form
                     className="space-y-4"
