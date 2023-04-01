@@ -45,12 +45,12 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="flex cursor-pointer items-center justify-center rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={() => setOpenResetViewModal(true)}
                         data-tooltip-id={`reset-workbook-icon-header`}
                         data-tooltip-content={'Reset workbook'}
                     >
-                        <AiOutlineClear className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <AiOutlineClear className="m-1 fill-chelsea-cucumber-700 text-lg" />
                         <Tooltip
                             id={`reset-workbook-icon-header`}
                             place="bottom"
@@ -61,7 +61,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
 
                 <div className="flex items-center justify-center space-x-4">
                     <div
-                        className="cursor-move rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="flex cursor-move items-center justify-center rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onDragStart={(event) => onDragStart(event, 'Table')}
                         draggable
                         data-tooltip-id={`table-icon-header`}
@@ -77,7 +77,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                 </div>
                 <div className="flex space-x-4">
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="flex cursor-pointer items-center justify-center rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         data-tooltip-id={`screenshot-icon-header`}
                         data-tooltip-content={'Save a snapshot of workbook'}
                     >
@@ -89,14 +89,14 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         />
                     </div>
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white  hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="flex cursor-pointer items-center justify-center rounded-lg border border-chelsea-cucumber-200 bg-white  hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
                             fetchGenerateSqlFile();
                         }}
                         data-tooltip-id={`sql-download-icon-header`}
                         data-tooltip-content={'Generate and save .sql file'}
                     >
-                        <BsFiletypeSql className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <BsFiletypeSql className="m-1 fill-chelsea-cucumber-700 text-lg" />
                         <Tooltip
                             id={`sql-download-icon-header`}
                             place="bottom"
@@ -105,14 +105,14 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     </div>
 
                     <div
-                        className="cursor-pointer rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
+                        className="flex cursor-pointer items-center justify-center rounded-lg border border-chelsea-cucumber-200 bg-white hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
                         onClick={(e: any) => {
                             fetchSaveWorkbook();
                         }}
                         data-tooltip-id={`save-workbook-icon-header`}
                         data-tooltip-content={'Save your workbook'}
                     >
-                        <TfiSave className="m-1.5 fill-chelsea-cucumber-700 text-base" />
+                        <TfiSave className="m-1 fill-chelsea-cucumber-700 text-lg" />
                         <Tooltip
                             id={`save-workbook-icon-header`}
                             place="bottom"

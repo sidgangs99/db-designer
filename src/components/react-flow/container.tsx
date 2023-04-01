@@ -202,12 +202,13 @@ export default function ReactFlowContainer() {
             id: uuid(),
             source: source,
             target: target,
-            animated: true,
-            markerEnd: {
+            // animated: true,
+            markerStart: {
                 type: MarkerType.ArrowClosed,
                 width: 15,
                 height: 15,
-                color: '#fb7185'
+                color: '#fb7185',
+                orient: 'auto-start-reverse'
             },
             style: {
                 strokeWidth: 1.5,
