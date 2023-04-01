@@ -1,9 +1,9 @@
 export interface IModalContainerProps {
     open: boolean;
     setOpen: Function;
-    Header: any;
+    Header?: any;
     Body: any;
-    Footer: any;
+    Footer?: any;
     className?: string;
 }
 

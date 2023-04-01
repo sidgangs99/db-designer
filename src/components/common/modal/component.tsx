@@ -3,13 +3,14 @@ import { Fragment } from 'react';
 import { IModalComponentProps } from './types';
 
 export default function ModalComponent(props: IModalComponentProps) {
-    const { open, onClose, Header, Body, Footer, className } = props;
+    const { open, setOpen, Header, Body, Footer, className } = props;
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 as="div"
                 className="fixed inset-0 z-20 overflow-y-auto"
-                onClose={onClose}
+                onClose={() => setOpen(false)}
+                open={open}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-70 transition-opacity" />
                 <div className="min-h-screen px-4 text-center">
@@ -42,21 +43,21 @@ export default function ModalComponent(props: IModalComponentProps) {
                         leaveTo="opacity-0 scale-95"
                     >
                         <div
-                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all ${className}`}
+                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 p-2 text-left align-middle shadow-xl transition-all ${className}`}
                         >
-                            <Dialog.Title
-                                as="h3"
-                                className="text-lg font-medium leading-6 text-gray-900"
-                            >
-                                {Header}
-                            </Dialog.Title>
-                            <div className="mt-1  py-1">
-                                <div className="border-t pt-2 text-sm text-gray-500 ">
-                                    {Body}
-                                </div>
+                            {Header && (
+                                <Dialog.Title
+                                    as="h3"
+                                    className=" border-b pb-2 text-lg font-medium leading-6 text-gray-900"
+                                >
+                                    {Header}
+                                </Dialog.Title>
+                            )}
+                            <div className="pt-2 text-sm text-gray-500 ">
+                                {Body}
                             </div>
 
-                            <div className="mt-4">{Footer}</div>
+                            {Footer && <div className="mt-4">{Footer}</div>}
                         </div>
                     </Transition.Child>
                 </div>

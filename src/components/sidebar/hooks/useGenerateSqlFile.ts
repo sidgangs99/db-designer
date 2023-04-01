@@ -14,20 +14,16 @@ export function useGenerateSqlFile() {
     const edges: any = useEdges();
     const { user }: any = useStore(useAuthStore);
 
-    const { data, refetch, isFetching } = useQuery<any>(
-        'sql-generator',
-        () =>
-            authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
-                nodes,
-                edges
-            }),
-        { enabled: false }
+    const { data, isFetching } = useQuery<any>('sql-generator', () =>
+        authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
+            nodes,
+            edges
+        })
     );
 
     useEffect(() => {
         if (isFetching) emojiToast(MESSAGE_GENERATE_SQL_FILE, '🔨');
-        if (!isFetching && data) console.log();
-    }, [data, isFetching]);
+    }, [isFetching]);
 
-    return { data: data?.data, refetch, isFetching };
+    return { data: data?.data, isFetching };
 }
