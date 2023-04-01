@@ -12,7 +12,8 @@ export default function CustomCancelEdge(props: any) {
         sourcePosition,
         targetPosition,
         style = {},
-        markerEnd
+        markerEnd,
+        markerStart
     } = props;
 
     const [edgePath, labelX, labelY] = getBezierPath({
@@ -42,6 +43,7 @@ export default function CustomCancelEdge(props: any) {
                 className="react-flow__edge-path group"
                 d={edgePath}
                 markerEnd={markerEnd}
+                markerStart={markerStart}
             />
             <foreignObject
                 width={foreignObjectSize}
