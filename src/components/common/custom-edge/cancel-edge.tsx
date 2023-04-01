@@ -55,7 +55,9 @@ export default function CustomCancelEdge(props: any) {
                 <div>
                     <button
                         onClick={(event) => onDeleteButtonClick(event, id)}
-                        className={'rounded-full bg-corduroy-100 p-1.5 text-xs'}
+                        className={
+                            'rounded-full bg-chartreuse-dark p-1.5 text-xs'
+                        }
                     >
                         <RxCross2 />
                     </button>
