@@ -22,8 +22,8 @@ export default function SingleSelectDropdownComponent(
                     {({ open }) => (
                         <>
                             <div className="relative">
-                                <span className="w-full rounded-md shadow-sm">
-                                    <Listbox.Button className="focus:shadow-outline-blue relative flex w-full items-center justify-center space-x-1 rounded-md border border-gray-300 bg-white p-1 text-left text-sm text-chelsea-cucumber-900 transition duration-150 ease-in-out focus:border-blue-300 focus:outline-none sm:leading-5">
+                                <span className="w-full rounded-md">
+                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-black p-1 text-left text-sm transition duration-150 ease-in-out dark:border-slate-200 sm:leading-5">
                                         <span className="flex items-center justify-center space-x-1">
                                             {Icon ? (
                                                 <Icon className="text-lg" />
@@ -43,11 +43,11 @@ export default function SingleSelectDropdownComponent(
                                     leave="transition ease-in duration-100"
                                     leaveFrom="opacity-100"
                                     leaveTo="opacity-0"
-                                    className="absolute mt-0.5 w-full rounded-md bg-white shadow-lg"
+                                    className="absolute mt-0.5 w-full rounded-md text-sm"
                                 >
                                     <Listbox.Options
                                         static
-                                        className="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
+                                        className="shadow-xs max-h-60 overflow-auto rounded-b-lg border-x border-b bg-white py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                                     >
                                         {values.map(({ label, value }) => (
                                             <Listbox.Option
@@ -56,11 +56,7 @@ export default function SingleSelectDropdownComponent(
                                             >
                                                 {({ selected, active }) => (
                                                     <div
-                                                        className={`${
-                                                            active
-                                                                ? 'bg-yellow-lighter'
-                                                                : 'text-gray-900'
-                                                        } relative cursor-pointer select-none px-2 py-1 hover:bg-chelsea-cucumber-100`}
+                                                        className={`relative cursor-pointer px-2 py-1 text-sm text-black hover:bg-coral-light`}
                                                     >
                                                         <span
                                                             className={`${

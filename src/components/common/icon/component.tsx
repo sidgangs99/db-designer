@@ -3,10 +3,10 @@ import { IIconComponentProps } from './types';
 export default function IconComponent({ Icon, onClick }: IIconComponentProps) {
     return (
         <div
-            className="flex items-center justify-center space-x-1.5 rounded-md border border-chelsea-cucumber-200 bg-white px-2 py-1 text-sm text-chelsea-cucumber-900 shadow-2xl hover:bg-chelsea-cucumber-100 dark:bg-slate-800 "
+            className="bg-sea-lighter flex cursor-pointer items-center justify-center space-x-1.5 rounded-md border border-sea-dark px-2 py-1 text-sm shadow-2xl hover:bg-sea-light dark:border-slate-200 dark:hover:bg-sea-darkest"
             onClick={onClick}
         >
-            <Icon className="text-lg dark:fill-chelsea-cucumber-200" />
+            <Icon className="fill-sea-darkest text-lg dark:fill-sea-light" />
         </div>
     );
 }

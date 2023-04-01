@@ -8,7 +8,7 @@ export interface IIconButtonContainerProps {
     Icon: any;
     onDragStart?: any;
     draggable?: any;
-    buttonClassName?: string;
+    className?: string;
 }
 
 export interface IIconButtonComponentProps extends IIconButtonContainerProps {}

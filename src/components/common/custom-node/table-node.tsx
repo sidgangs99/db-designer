@@ -21,7 +21,7 @@ const CustomTableNodeComponent = ({ data }: { data: INodeDetails }) => {
 
     return (
         <div
-            className="flex w-full justify-center rounded-md bg-chelsea-cucumber-100 px-2 pt-2 text-lg font-bold text-chelsea-cucumber-600 shadow-lg outline-2 outline-stone-400"
+            className="flex w-full justify-center rounded-md bg-sea-light px-2 pt-2 text-lg font-bold text-sea-darkest shadow-lg outline-2 outline-stone-400"
             style={{ height: `${height * 3}rem` }}
         >
             {tableName}

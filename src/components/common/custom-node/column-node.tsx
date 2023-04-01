@@ -27,16 +27,17 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
     return (
         <>
             <div
-                className="group relative flex h-8 w-80 items-center rounded-lg border-chelsea-cucumber-600 bg-chelsea-cucumber-100 hover:border"
+                className="border-chelsea-cucumber-600 bg-chelsea-cucumber-100 group relative flex h-8 w-80 items-center rounded-lg hover:border"
                 onClick={handleOnNodeClick}
             >
                 <div
-                    className={`mb-2 flex w-full items-center justify-between space-x-4 px-4 pt-2 text-chelsea-cucumber-500 ${
-                        edges.some((e) => e.source === id || e.target === id) &&
-                        'text-rose-400'
+                    className={`mb-2 flex w-full items-center justify-between space-x-4 px-4 pt-2 ${
+                        edges.some((e) => e.source === id || e.target === id)
+                            ? 'text-slate-main'
+                            : 'text-sea-darker'
                     } `}
                 >
-                    <div className="flex w-2/3 items-center bg-chelsea-cucumber-100 font-semibold line-clamp-1">
+                    <div className="bg-chelsea-cucumber-100 flex w-2/3 items-center font-semibold line-clamp-1">
                         {columnName}
                     </div>
                     <div className="flex w-1/3 items-center justify-around ">
@@ -44,7 +45,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                     </div>
                 </div>
                 <div className="absolute -mt-4 flex h-full w-full items-start justify-end opacity-0 group-hover:opacity-100">
-                    <HiOutlinePencilSquare className="rounded-full border border-chelsea-cucumber-600 bg-chelsea-cucumber-100 p-0.5 text-base text-chelsea-cucumber-600" />
+                    <HiOutlinePencilSquare className="border-chelsea-cucumber-600 bg-chelsea-cucumber-100 text-chelsea-cucumber-600 rounded-full border p-0.5 text-base" />
                 </div>
             </div>
             <Handle

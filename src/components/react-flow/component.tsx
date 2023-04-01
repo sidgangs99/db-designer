@@ -35,7 +35,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
             >
                 <MiniMap />
                 <Controls />
-                <Background />
+                <Background gap={80} />
             </ReactFlow>
         </div>
     );

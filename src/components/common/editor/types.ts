@@ -3,4 +3,6 @@ export interface IEditorContainerProps {
     setValue: any;
 }
 
-export interface IEditorComponentProps extends IEditorContainerProps {}
+export interface IEditorComponentProps extends IEditorContainerProps {
+    theme: string;
+}

@@ -5,7 +5,6 @@ import { HashLoader } from 'react-spinners';
 import { useStore } from 'zustand';
 import { API_WORKBOOK } from '../../api/workbook';
 
-import { chelseaCucumber } from '../../colors';
 import { useEdgesStore } from '../../store/edges/state';
 import { auth, useAuthStore } from '../../store/firebase/state';
 import { useNodesStore } from '../../store/nodes/state';
@@ -16,6 +15,7 @@ export const ProtectedRoute = ({ Component }: any) => {
     const { user, setUser }: any = useStore(useAuthStore);
     const { setNodes }: any = useStore(useNodesStore);
     const { setEdges }: any = useStore(useEdgesStore);
+
     const [isLoading, setIsLoading] = useState(true);
     const [isFetchingData, setIsFetchingData] = useState(true);
 
@@ -48,7 +48,7 @@ export const ProtectedRoute = ({ Component }: any) => {
     return isLoading || isFetchingData ? (
         <LoaderComponent
             Component={HashLoader}
-            color={chelseaCucumber[500]}
+            // color={chelseaCucumber[500]}
             speedMultiplier={0.4}
         />
     ) : user ? (

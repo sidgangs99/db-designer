@@ -51,9 +51,10 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
         <>
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex items-center space-x-4">
-                    <div className="flex items-center border-r border-black pr-4">
+                    <div className="flex items-center border-r border-slate-main pr-4 dark:border-rose-300 ">
                         <IconButtonContainer
                             label={'Reset'}
+                            className={''}
                             Icon={AiOutlineClear}
                             onClick={() => setOpenResetViewModal(true)}
                         />
@@ -68,15 +69,17 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         <IconButtonContainer
                             label={'Snapshot'}
                             Icon={FiCamera}
+                            className={''}
                             onClick={() => downloadPngImageOfWorkbook()}
                         />
                         <IconButtonContainer
                             label={'Save'}
                             Icon={FiSave}
+                            className={''}
                             onClick={() => fetchSaveWorkbook()}
                         />
                     </div>
-                    <div className="flex items-center border-l border-black px-6">
+                    <div className="flex items-center border-l border-slate-main px-6 dark:border-rose-300">
                         <IconButtonContainer
                             label={'Table'}
                             Icon={BiSpreadsheet}
@@ -84,18 +87,18 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                                 onDragStart(event, 'Table')
                             }
                             draggable
-                            buttonClassName={'cursor-move'}
+                            className={'cursor-move'}
                         />
                     </div>
                 </div>
                 <div className="flex items-center justify-center space-x-4">
                     <IconComponent
                         Icon={theme === darkTheme ? MdDarkMode : BsSunFill}
-                        onClick={() =>
-                            updateTheme(
-                                theme === darkTheme ? lightTheme : darkTheme
-                            )
-                        }
+                        onClick={() => {
+                            const newTheme =
+                                theme === darkTheme ? lightTheme : darkTheme;
+                            updateTheme(newTheme);
+                        }}
                     />
                     <ButtonContainer label="Logout" onClick={() => logout()} />
                 </div>

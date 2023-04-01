@@ -1,9 +1,15 @@
+import { customColors } from '../../../colors';
 import { ILoaderComponentProps } from './types';
 
 export default function LoaderComponent(props: ILoaderComponentProps) {
-    const { Component, color, speedMultiplier, size } = props;
+    const {
+        Component,
+        color = customColors?.tertiary[500],
+        speedMultiplier,
+        size
+    } = props;
     return (
-        <div className="flex h-full w-full items-center justify-center bg-chelsea-cucumber-50">
+        <div className="flex h-full w-full items-center justify-center bg-secondary-200 dark:bg-primary-800">
             <Component
                 color={color}
                 speedMultiplier={speedMultiplier}
