@@ -253,7 +253,7 @@ export default function ReactFlowContainer() {
             });
 
             const uid = uuid();
-            const tableName = 'New table';
+            const tableName = 'new_table';
             const tableId = uid;
 
             const newTable = {
@@ -270,7 +270,7 @@ export default function ReactFlowContainer() {
                 data: {
                     tableName,
                     tableId,
-                    columnName: 'New column',
+                    columnName: 'new_column',
                     dataType: 'varchar',
                     constraints: {
                         defaultValue: ''

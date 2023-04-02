@@ -34,17 +34,26 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
 
     const [newDataType, setNewDataType] = useState<string>(dataType);
 
-    const { control, register, watch, getValues, setValue, handleSubmit } =
-        useForm({
-            mode: 'onChange',
-            defaultValues: {
-                tableName,
-                columnName,
-                dataType,
-                'constraints.defaultValue': constraints.defaultValue,
-                'constraints.primaryKey': constraints.primaryKey
-            }
-        });
+    const {
+        control,
+        register,
+        watch,
+        getValues,
+        setValue,
+        handleSubmit,
+        formState
+    } = useForm({
+        mode: 'onChange',
+        defaultValues: {
+            tableName,
+            columnName,
+            dataType,
+            'constraints.defaultValue': constraints.defaultValue,
+            'constraints.primaryKey': constraints.primaryKey
+        }
+    });
+
+    const { errors }: any = formState;
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
@@ -82,18 +91,46 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
             <div className="flex-col space-y-4">
                 <div className="flex w-full justify-between">
                     <label className="w-1/2 font-semibold">Table Name: </label>
-                    <input
-                        {...register('tableName', { required: true })}
-                        className="w-1/2 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 font-semibold outline-chelsea-cucumber-400"
-                    />
+                    <div className="flex w-1/2 flex-col items-center justify-center">
+                        <input
+                            {...register('tableName', {
+                                required: true,
+                                pattern: /^[^\s]+$/
+                            })}
+                            className="border-chelsea-cucumber-400 outline-chelsea-cucumber-400 w-full rounded-lg border py-1 px-2 font-semibold"
+                        />
+                        <p className="text-xs text-coral-darkest">
+                            {errors.tableName?.type === 'required'
+                                ? 'This field is required'
+                                : errors.tableName?.type === 'pattern'
+                                ? 'No spaces allowed'
+                                : ''}
+                        </p>
+                    </div>
+                    <div>{errors.inputField?.type}</div>
                 </div>
                 <div className="flex w-full justify-between">
-                    <label className="w-1/2">Column Name: </label>
-                    <input
-                        {...register('columnName', { required: true })}
-                        className="w-1/2 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 outline-chelsea-cucumber-400"
-                    />
+                    <div className="flex w-1/2">
+                        <label>Column Name: </label>
+                    </div>
+                    <div className="flex w-1/2 flex-col items-center justify-center">
+                        <input
+                            {...register('columnName', {
+                                required: true,
+                                pattern: /^[^\s]+$/
+                            })}
+                            className="border-chelsea-cucumber-400 outline-chelsea-cucumber-400 w-full rounded-lg border py-1 px-2"
+                        />
+                        <p className="text-xs text-coral-darkest">
+                            {errors.columnName?.type === 'required'
+                                ? 'This field is required'
+                                : errors.columnName?.type === 'pattern'
+                                ? 'No spaces allowed'
+                                : ''}
+                        </p>
+                    </div>
                 </div>
+
                 <div className="flex w-full justify-between">
                     <label className="w-1/2">Data Type: </label>
                     <div className="w-1/2">
@@ -106,7 +143,7 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                     </div>
                 </div>
                 <div className="flex w-full flex-col space-y-2 pt-4">
-                    <p className="mb-2 border-b text-base text-chelsea-cucumber-600 ">
+                    <p className="text-chelsea-cucumber-600 mb-2 border-b text-base ">
                         Column Constraints
                     </p>
                     {options.map(
@@ -152,7 +189,7 @@ export function ConfigureColumnNodeBody(props: IConfigureColumnNodeBodyP) {
                                                 <input
                                                     {...register(formValue, {})}
                                                     type={getInputType()}
-                                                    className="w-2/4 rounded-lg border border-chelsea-cucumber-400 py-1 px-2 uppercase outline-chelsea-cucumber-400"
+                                                    className="border-chelsea-cucumber-400 outline-chelsea-cucumber-400 w-2/4 rounded-lg border py-1 px-2 uppercase"
                                                 />
                                             </div>
                                         );
