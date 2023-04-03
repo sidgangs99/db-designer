@@ -10,44 +10,36 @@ module.exports = {
                 '3/100': '3%'
             },
             colors: {
-                slate: {
-                    main: '#2B2539'
+                grey: {
+                    lighter: '#9BA1A6',
+                    light: '#697177',
+                    main: '#4C5155',
+                    dark: '#2B2F31',
+                    darker: '#1A1D1E'
                 },
-                oatmeal: {
-                    light: '#f7f6f5',
-                    main: '#EBE9E4'
+                red: {
+                    main: '#FF512E'
+                },
+                yellow: {
+                    main: '#FFE100'
+                },
+                cyan: {
+                    main: '#15F1CA'
                 },
                 coral: {
-                    lighter: '#fbf5f5',
-                    light: '#f8e8e8',
-                    main: '#EFC8C8',
-                    dark: '#e9b8b8',
-                    darker: '#db8e8e',
-                    darkest: '#ca6969'
+                    main: '#ff7f50'
                 },
-                sea: {
-                    light: '#e0ebe6',
-                    main: '#BED3CC',
-                    dark: '#9bbab2',
-                    darker: '#6f988e',
-                    darkest: '#4f7a71'
+                blue: {
+                    main: '#3FC5FF'
                 },
-                umber: {
-                    lightest: '#fff0d5',
-                    lighter: '#fdd79e',
-                    light: '#fcc375',
-                    main: '#f99e3e',
-                    dark: '#f78118',
-                    darker: '#e8670e'
-                },
-                chartreuse: {
-                    lighter: '#fbfbef',
-                    light: '#EEEFC8',
-                    main: '#e2e4a3',
-                    dark: '#d6d573',
-                    darker: '#cdc752',
-                    darkest: '#c3af3d'
+                navy: {
+                    main: '#2E4650'
                 }
+            },
+            width: {
+                88: '22rem',
+                90: '22.5rem',
+                95: '23.75rem'
             }
         }
     },

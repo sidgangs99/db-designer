@@ -19,18 +19,18 @@ const CustomAddNodeComponent = ({
 
     return (
         <>
-            <div className="mx-4 flex h-full w-72 justify-center space-x-4">
+            <div className=" mx-2.5 my-1 flex h-10 w-90 items-center justify-center space-x-4 text-grey-light">
                 <div
-                    className="w-4/5 rounded-md border border-dashed border-chelsea-cucumber-500 bg-chelsea-cucumber-100 py-2 text-lg bg-blend-darken hover:border-solid hover:shadow-2xl"
+                    className="w-4/5 rounded-md border border-dashed border-grey-main py-2 text-lg hover:border-grey-light hover:text-grey-lighter"
                     onClick={() => addNewNode(data, tableId)}
                 >
-                    <TfiPlus className="w-full fill-chelsea-cucumber-700 align-middle text-xs" />
+                    <TfiPlus className="w-full align-middle text-xs " />
                 </div>
                 <div
-                    className="w-1/5 rounded-md border border-dashed border-chelsea-cucumber-500 bg-chelsea-cucumber-100 py-2 text-lg bg-blend-darken hover:border-solid hover:shadow-2xl"
+                    className="w-1/5 rounded-md border border-dashed border-grey-main py-2 text-lg hover:border-grey-light hover:text-grey-lighter"
                     onClick={() => setOpenModal(true)}
                 >
-                    <RiDeleteBinLine className="w-full fill-chelsea-cucumber-700 align-middle text-xs" />
+                    <RiDeleteBinLine className="w-full align-middle text-xs" />
                 </div>
             </div>
             {openModal && (

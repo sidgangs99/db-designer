@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
-import { BsSunFill } from 'react-icons/bs';
 import { FiCamera, FiSave } from 'react-icons/fi';
-import { MdDarkMode } from 'react-icons/md';
 import { TbFileExport } from 'react-icons/tb';
 
 import { useStore } from 'zustand';
@@ -13,8 +11,8 @@ import { useThemeStore } from '../../store/darkMode/state';
 import { useAuthStore } from '../../store/firebase/state';
 import { downloadPngImageOfWorkbook } from '../../util/helper';
 import ButtonContainer from '../common/button/container';
+import DarkModeBulbComponent from '../common/dark-mode-bulb/component';
 import IconButtonContainer from '../common/icon-button/container';
-import IconComponent from '../common/icon/component';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
 import { exportOptions, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
@@ -51,7 +49,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
         <>
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex items-center space-x-4">
-                    <div className="flex items-center border-r border-slate-main pr-4 dark:border-rose-300 ">
+                    <div className="flex items-center border-r border-rose-300 pr-4">
                         <IconButtonContainer
                             label={'Reset'}
                             className={''}
@@ -79,7 +77,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                             onClick={() => fetchSaveWorkbook()}
                         />
                     </div>
-                    <div className="flex items-center border-l border-slate-main px-6 dark:border-rose-300">
+                    <div className="flex items-center border-l border-rose-300 px-6">
                         <IconButtonContainer
                             label={'Table'}
                             Icon={BiSpreadsheet}
@@ -92,8 +90,8 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     </div>
                 </div>
                 <div className="flex items-center justify-center space-x-4">
-                    <IconComponent
-                        Icon={theme === darkTheme ? MdDarkMode : BsSunFill}
+                    <DarkModeBulbComponent
+                        theme={theme}
                         onClick={() => {
                             const newTheme =
                                 theme === darkTheme ? lightTheme : darkTheme;

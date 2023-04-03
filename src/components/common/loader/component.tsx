@@ -4,7 +4,7 @@ import { ILoaderComponentProps } from './types';
 export default function LoaderComponent(props: ILoaderComponentProps) {
     const {
         Component,
-        color = customColors?.tertiary[500],
+        color = customColors.grey.light,
         speedMultiplier,
         size
     } = props;

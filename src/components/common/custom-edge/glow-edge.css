@@ -1,0 +1,9 @@
+.react-flow__edge-path {
+    stroke-width: 2;
+    transition: stroke 0.3s ease-in-out;
+  }
+  
+.react-flow__edge-path:hover {
+    stroke: coral; /* Set the default edge color */
+    filter: drop-shadow(0px 0px 0.5rem coral); /* Add a blue glow effect */
+}

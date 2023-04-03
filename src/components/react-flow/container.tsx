@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-    MarkerType,
-    useEdgesState,
-    useNodesState,
-    XYPosition
-} from 'reactflow';
+import { useEdgesState, useNodesState, XYPosition } from 'reactflow';
 import { Set } from 'typescript';
 
 import { useEdgesStore } from '../../store/edges/state';
@@ -12,8 +7,9 @@ import { useNodesStore } from '../../store/nodes/state';
 import { INode, INodeDetails } from '../../store/nodes/types';
 import { uuid } from '../../util/helper';
 import ReactFlowComponent from './component';
+import { newEdge } from './constants';
 import { isValidEdge } from './helper-functions';
-import { ECustomEdgeTypes, ECustomNodeTypes } from './types';
+import { ECustomNodeTypes } from './types';
 
 export default function ReactFlowContainer() {
     const { nodes: nodesState } = useNodesStore((state: any) => state);
@@ -127,11 +123,14 @@ export default function ReactFlowContainer() {
         setNodes((_nodes: any[]) => {
             let positionAddNode: XYPosition = { x: 0, y: 0 };
             _nodes.forEach((_node) => {
-                if (
-                    _node.data.tableId === data.tableId &&
-                    _node.type === ECustomNodeTypes.AddColumnNode
-                ) {
-                    positionAddNode = _node.position;
+                if (_node.data.tableId === data.tableId) {
+                    positionAddNode = {
+                        x: _node.position.x,
+                        y: Math.max(
+                            _node.position.y + 50,
+                            positionAddNode.y + 50
+                        )
+                    };
                 }
             });
 
@@ -141,7 +140,7 @@ export default function ReactFlowContainer() {
                 position: positionAddNode,
                 data: {
                     ...data,
-                    columnName: 'New Column',
+                    columnName: 'new_column',
                     dataType: 'varchar',
                     constraints: {
                         defaultValue: '',
@@ -156,21 +155,7 @@ export default function ReactFlowContainer() {
 
             _nodes.push(newNode);
 
-            return _nodes.map((_node) => {
-                if (
-                    data.tableId === _node.data.tableId &&
-                    _node.type === ECustomNodeTypes.AddColumnNode
-                ) {
-                    return {
-                        ..._node,
-                        position: {
-                            x: _node.position.x,
-                            y: positionAddNode.y + 50
-                        }
-                    };
-                }
-                return _node;
-            });
+            return _nodes;
         });
     };
 
@@ -198,27 +183,10 @@ export default function ReactFlowContainer() {
 
     const onConnect = useCallback((params: any) => {
         const { source, target } = params;
-        const newEdge = {
-            id: uuid(),
-            source: source,
-            target: target,
-            // animated: true,
-            markerStart: {
-                type: MarkerType.ArrowClosed,
-                width: 15,
-                height: 15,
-                color: '#fb7185',
-                orient: 'auto-start-reverse'
-            },
-            style: {
-                strokeWidth: 1.5,
-                stroke: '#fb7185'
-            },
-            type: ECustomEdgeTypes.ReferenceKey
-        };
+        const edge: any = newEdge(source, target);
 
         if (isValidEdge(source, target)) {
-            addEdge(newEdge);
+            addEdge(edge);
         } else {
             console.error(
                 'Adding Primary key to same table is not possible, please brush up your basics ;)'
@@ -288,27 +256,7 @@ export default function ReactFlowContainer() {
                 expandParent: true
             };
 
-            const customNode = {
-                id: uid + '.add',
-                draggable: false,
-                position: { x: 0, y: 100 },
-                data: {
-                    tableName,
-                    tableId,
-                    onUpdateNode,
-                    onDeleteNode,
-                    addNewNode,
-                    deleteEdgeFromEdgeId,
-                    onDeleteTable,
-                    onReset
-                },
-                type: ECustomNodeTypes.AddColumnNode,
-                parentNode: uid,
-                extent: 'parent',
-                expandParent: true
-            };
-
-            setNodes((nds) => nds.concat([newTable, sampleNode, customNode]));
+            setNodes((nds) => nds.concat([newTable, sampleNode]));
         },
         [reactFlowInstance]
     );
