@@ -14,7 +14,7 @@ const IconButtonComponent = (props: IIconButtonComponentProps) => {
     } = props;
     return (
         <button
-            className={`flex items-center justify-center space-x-1.5 rounded-md border border-black px-3 py-1 text-sm shadow-2xl dark:border-slate-200 ${
+            className={`flex items-center justify-center space-x-1.5 rounded-md border border-coral-darker px-3 py-1 text-sm text-coral-darker hover:bg-gradient-to-tl hover:from-coral-darkest hover:via-coral-dark hover:to-coral-darkest hover:text-black dark:hover:shadow-md dark:hover:shadow-coral-dark ${
                 disabled && 'cursor-not-allowed'
             } ${className}`}
             type={type}
@@ -25,7 +25,7 @@ const IconButtonComponent = (props: IIconButtonComponentProps) => {
             draggable={draggable}
         >
             <div>
-                <Icon className="text-lg text-slate-main dark:text-slate-200" />
+                <Icon className="text-lg" />
             </div>
             <div>{label}</div>
         </button>

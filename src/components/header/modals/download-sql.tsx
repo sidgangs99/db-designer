@@ -4,6 +4,7 @@ import { HiOutlineDocumentDownload } from 'react-icons/hi';
 import { downloadFile } from '../../../util/helper';
 
 import EditorContainer from '../../common/editor/container';
+import IconButtonContainer from '../../common/icon-button/container';
 import ModalContainer from '../../common/modal/container';
 import { useGenerateSqlFile } from '../hooks/useGenerateSqlFile';
 
@@ -49,26 +50,24 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
                     id="sqlFileDownload"
                 >
                     <div className="flex flex-row justify-between pr-2">
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-end space-x-4">
                             <label className="font-semibold">File Name:</label>
                             <div className="flex space-x-2 font-normal">
                                 <input
                                     {...register('fileName', {
                                         required: true
                                     })}
-                                    className="rounded-lg border border-chelsea-cucumber-400 py-1 px-2 font-normal outline-chelsea-cucumber-400"
+                                    className="outline-border-coral-dark border-b border-coral-dark py-0.5 px-2 font-normal focus:border-coral-darkest focus:outline-none focus:ring-0 dark:bg-stone-900"
                                 />
                                 <p className="self-end">.sql</p>
                             </div>
                         </div>
-                        <button
-                            form="sqlFileDownload"
-                            type="submit"
-                            className="flex cursor-pointer items-center justify-center space-x-2 rounded-lg border border-chelsea-cucumber-600 bg-white px-2 py-1 text-chelsea-cucumber-600  hover:border-chelsea-cucumber-700 hover:bg-chelsea-cucumber-200"
-                        >
-                            <HiOutlineDocumentDownload className="text-lg" />
-                            <p>Download</p>
-                        </button>
+                        <IconButtonContainer
+                            label={'Download'}
+                            Icon={HiOutlineDocumentDownload}
+                            type={'submit'}
+                            form={'sqlFileDownload'}
+                        />
                     </div>
                     <div className="flex w-full space-x-2">
                         <EditorContainer

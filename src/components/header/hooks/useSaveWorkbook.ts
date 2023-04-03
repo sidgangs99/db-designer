@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
-import { MESSAGE_RETRIEVED_WORKBOOK } from './../../common/toast/messages';
+import { MESSAGE_RETRIEVED_WORKBOOK } from '../../common/toast/messages';
 
 import { API_WORKBOOK } from '../../../api/workbook';
 import { useAuthStore } from '../../../store/firebase/state';

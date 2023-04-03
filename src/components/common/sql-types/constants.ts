@@ -109,6 +109,14 @@ export const sqlTypeCategory: Record<string, string> = {
     table: 'misc'
 };
 
+export const sqlTypeColor: Record<string, any> = {
+    text: 'text-cyan-main',
+    number: 'text-yellow-main',
+    date: 'text-blue-main',
+    time: 'text-blue-main',
+    'datetime-local': 'text-blue-main'
+};
+
 export const sqlInputType: Record<string, string> = {
     varchar: 'text',
     char: 'text',

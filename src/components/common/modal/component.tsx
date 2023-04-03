@@ -12,7 +12,7 @@ export default function ModalComponent(props: IModalComponentProps) {
                 onClose={() => setOpen(false)}
                 open={open}
             >
-                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-70 transition-opacity" />
+                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-90 transition-opacity" />
                 <div className="min-h-screen px-4 text-center">
                     <Transition.Child
                         as={Fragment}
@@ -43,17 +43,17 @@ export default function ModalComponent(props: IModalComponentProps) {
                         leaveTo="opacity-0 scale-95"
                     >
                         <div
-                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 p-2 text-left align-middle shadow-xl transition-all ${className}`}
+                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-stone-900 dark:text-white ${className}`}
                         >
                             {Header && (
                                 <Dialog.Title
                                     as="h3"
-                                    className=" border-b pb-2 text-lg font-medium leading-6 text-gray-900"
+                                    className=" border-b pb-2 text-lg font-medium leading-6 text-gray-900 dark:text-coral-dark"
                                 >
                                     {Header}
                                 </Dialog.Title>
                             )}
-                            <div className="pt-2 text-sm text-gray-500 ">
+                            <div className="pt-2 text-sm text-gray-500 dark:text-coral-light dark:accent-coral-darker dark:focus:accent-coral-light">
                                 {Body}
                             </div>
 
