@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
@@ -14,7 +14,8 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
     const [newDataType, setNewDataType] = useState<string>('');
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
 
-    const { openRightSideBar, nodeId } = useStore(useLayoutStore);
+    const { openRightSideBar, nodeId, setOpenRightSideBar } =
+        useStore(useLayoutStore);
 
     const nodes = useNodes();
     const edges = useEdges();
@@ -59,6 +60,14 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         }
     });
 
+    useEffect(() => {
+        if (node?.data) {
+            setNewDataType(node?.data?.dataType);
+            setValue('tableName', node?.data?.tableName);
+            setValue('columnName', node?.data?.columnName);
+        }
+    }, [node]);
+
     const { errors }: any = formState;
     useEffect(() => {
         const subscription = watch((value, { name }) => {
@@ -67,49 +76,37 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         return () => subscription.unsubscribe();
     }, [watch]);
 
-    const autoIncrement = useCallback(
-        () => constraintsLogic?.getIsAutoIncrementDetails(newDataType),
+    const defaultValueInputType: string = useMemo(
+        () => sqlInputType[newDataType],
         [newDataType]
     );
-
-    const getInputType = useCallback(() => {
-        return sqlInputType[newDataType];
-    }, [newDataType]);
 
     const onSubmit: any = (_data: any) => {
         const newNode = { ...node.data, ..._data };
         newNode.onUpdateNode(newNode, node.id);
+        setOpenRightSideBar(nodeId);
     };
 
-    let options: any[] = [];
-
-    useEffect(() => {
-        if (constraintsLogic)
-            options = [
-                constraintsLogic.getPrimaryKeyDetails(),
-                constraintsLogic.getIsForeignKeyDetails(),
-                constraintsLogic.getIsNotNullDetails(),
-                constraintsLogic.getIsUniqueDetails(),
-                autoIncrement(),
-                constraintsLogic.getDefaultValueDetails()
-            ];
-    }, [constraintsLogic]);
+    const onClose = () => {
+        setOpenRightSideBar(nodeId);
+    };
 
     return openRightSideBar && node?.data ? (
         <RightSidebarComponent
             {...props}
             node={node}
             control={control}
-            options={options}
             watch={watch}
             constraintsLogic={constraintsLogic}
             setValue={setValue}
             errors={errors}
-            getInputType={getInputType}
+            defaultValueInputType={defaultValueInputType}
             getValues={getValues}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             register={register}
+            newDataType={newDataType}
+            onClose={onClose}
         />
     ) : (
         <></>
