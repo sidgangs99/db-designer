@@ -8,6 +8,7 @@ export default function TextInput(props: {
     customStyle?: string;
     pattern?: RegExp;
     required?: boolean;
+    placeholder?: string;
 }) {
     const {
         register,
@@ -18,7 +19,8 @@ export default function TextInput(props: {
         inputStyle,
         customStyle,
         pattern,
-        required
+        required,
+        placeholder
     } = props;
     return (
         <div
@@ -32,6 +34,7 @@ export default function TextInput(props: {
                         pattern
                     })}
                     type={type}
+                    placeholder={placeholder}
                     className={`w-full border-b bg-transparent py-0.5 px-2 text-sm font-normal focus:outline-none focus:ring-0 ${inputStyle}`}
                 />
                 {/* <p className="text-xs">

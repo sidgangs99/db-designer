@@ -19,7 +19,7 @@ export default function HomeComponent(props: IHomeComponentProps) {
                     rel="noopener noreferrer"
                     href={'https://sidgangs99.github.io/resume/'}
                 >
-                    <p className="text-slate-main text-sm dark:text-coral-main">
+                    <p className="text-slate-main text-sm font-light tracking-wider dark:text-coral-main">
                         Made with ❤️ by Siddharth Gangwar 🚀
                     </p>
                 </a>
