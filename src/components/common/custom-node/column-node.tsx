@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { Handle, Position, useEdges, useNodes } from 'reactflow';
 
@@ -9,10 +9,9 @@ import { INodeDetails } from '../../../store/nodes/types';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 
 export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
-    const { columnName, dataType, onDeleteNode } = data;
+    const { columnName, dataType } = data;
 
     const { setOpenRightSideBar } = useStore(useLayoutStore);
-    const [openModal, setOpenModal] = useState(false);
 
     const nodes = useNodes();
     const edges = useEdges();
@@ -24,6 +23,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
     };
 
     const isPrimaryKey = data?.constraints?.primaryKey || false;
+    const isParentKey = edges.some((e) => e.source === id);
     const isForeignKey = edges.some((e) => e.target === id);
 
     return (
@@ -64,38 +64,13 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
             <Handle
                 type="source"
                 position={Position.Right}
-                className={`border-grey-lighter p-1`}
+                className={`p-1 ${isParentKey && 'border-coral-main'}`}
             />
-            <Handle type="target" position={Position.Left} className={`p-1`} />
-
-            {/* {openModal && (
-                <ModalContainer
-                    open={openModal}
-                    setOpen={setOpenModal}
-                    className={'h-1/2 w-1/4'}
-                    Header={<ConfigureColumnNodeHeader data={data} />}
-                    Body={
-                        <ConfigureColumnNodeBody
-                            data={data}
-                            id={id}
-                            edges={edges}
-                        />
-                    }
-                    Footer={
-                        <div className="mt-10 flex items-center justify-between space-x-4">
-                            <ButtonContainer
-                                label={'Delete'}
-                                onClick={() => onDeleteNode(id)}
-                            />
-                            <ButtonContainer
-                                label={'Update'}
-                                type={'submit'}
-                                form={'editTableColumn'}
-                            />
-                        </div>
-                    }
-                />
-            )} */}
+            <Handle
+                type="target"
+                position={Position.Left}
+                className={`p-1 ${isForeignKey && 'border-coral-main'}`}
+            />
         </>
     );
 });

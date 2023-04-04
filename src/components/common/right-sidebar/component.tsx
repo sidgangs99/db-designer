@@ -41,7 +41,7 @@ const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             id="editTableColumn"
-            className="h-full flex-col space-y-6 border-l-8 border-grey-light py-4 px-2"
+            className="ml-2 h-full flex-col space-y-6 border-l-4 border-grey-light py-4 px-2"
         >
             <div className="flex w-full justify-between">
                 <ButtonContainer
