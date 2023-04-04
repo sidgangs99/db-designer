@@ -2,10 +2,13 @@ import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { useStore } from 'zustand';
+import { customColors } from '../../colors';
 import { useLayoutStore } from '../../store/layout/store';
 import RightSidebarContainer from '../common/right-sidebar/container';
 import { nodeTypes } from './constants';
 import { customEdgeTypes, IReactFlowComponentProps } from './types';
+
+import './controls.styles.css';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const {
@@ -42,8 +45,15 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                     onDragOver={onDragOver}
                     onInit={setReactFlowInstance}
                 >
-                    <MiniMap />
-                    <Controls />
+                    <MiniMap
+                        nodeColor={customColors.grey.main}
+                        maskColor={customColors.grey.dark + '73'}
+                        style={{ backgroundColor: customColors.grey.darker }}
+                    />
+                    <Controls
+                        className="rounded-sm border border-grey-light bg-grey-darker fill-grey-lighter hover:bg-transparent"
+                        showFitView
+                    />
                     <Background gap={1000} />
                 </ReactFlow>
             </div>

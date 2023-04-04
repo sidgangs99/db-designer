@@ -1,0 +1,4 @@
+.react-flow__controls button:hover {
+    background-color: black;
+    cursor: pointer;
+  }
