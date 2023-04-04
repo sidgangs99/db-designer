@@ -1,94 +1,118 @@
+import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
+import ButtonContainer from '../button/container';
 import SQLDataTypesDropdown from '../sql-types/component';
+import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 import SwitchContainer from '../switch/container';
+import TextInput from './textInput';
 import { IRightSidebarComponentProps } from './types';
 
 const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
     const {
-        node,
-        options,
         watch,
         constraintsLogic,
         setValue,
         errors,
-        getInputType,
+        defaultValueInputType,
         getValues,
         handleSubmit,
         onSubmit,
         register,
-        control
+        control,
+        newDataType,
+        onClose
     } = props;
+
+    const autoIncrement = useCallback(
+        () => constraintsLogic?.getIsAutoIncrementDetails(newDataType),
+        [newDataType]
+    );
+
+    const options: any[] = [
+        constraintsLogic.getPrimaryKeyDetails(),
+        constraintsLogic.getIsForeignKeyDetails(),
+        constraintsLogic.getIsNotNullDetails(),
+        constraintsLogic.getIsUniqueDetails(),
+        autoIncrement()
+        // constraintsLogic.getDefaultValueDetails()
+    ];
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} id="editTableColumn">
-            <div className="h-full flex-col space-y-4 border-l border-grey-light py-10 px-2">
+            <div className="h-full flex-col space-y-8 border-l-8 border-grey-light py-4 px-2">
                 <div className="flex w-full justify-between">
-                    <label className="w-full border-b font-semibold">
-                        Table
+                    <ButtonContainer
+                        type={'submit'}
+                        form={'editTableColumn'}
+                        label={'Save'}
+                        primary
+                    />
+                    <ButtonContainer
+                        onClick={onClose}
+                        label={'Close'}
+                        secondary
+                    />
+                </div>
+                <div className="flex flex-col space-y-2">
+                    <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
+                        Table Details
                     </label>
+                    <TextInput
+                        register={register}
+                        errors={errors}
+                        keyName="tableName"
+                        label={'Name'}
+                        pattern={/^[^\s]+$/}
+                        required
+                    />
                 </div>
-                <div className="flex w-full justify-between">
-                    <label className="w-1/2">Name:</label>
-                    <div className="flex w-1/2 flex-col items-center justify-center">
-                        <input
-                            {...register('tableName', {
-                                required: true,
-                                pattern: /^[^\s]+$/
-                            })}
-                            className="text-bg-white border-b bg-grey-main py-0.5 px-2 font-normal focus:outline-none focus:ring-0"
-                        />
-                        <p className="text-xs">
-                            {errors.tableName?.type === 'required'
-                                ? 'This field is required'
-                                : errors.tableName?.type === 'pattern'
-                                ? 'No spaces allowed'
-                                : ''}
-                        </p>
-                    </div>
-                    <div>{errors.inputField?.type}</div>
-                </div>
-                <div className="flex w-full justify-between">
-                    <div className="flex w-full border-b">
-                        <label>Column</label>
-                    </div>
-                </div>
-                <div className="flex w-full justify-between">
-                    <div className="flex w-1/2">
-                        <label>Name: </label>
-                    </div>
-                    <div className="flex w-1/2 flex-col items-center justify-center">
-                        <input
-                            {...register('columnName', {
-                                required: true,
-                                pattern: /^[^\s]+$/
-                            })}
-                            className="border-b py-0.5 px-2 font-normal focus:outline-none focus:ring-0"
-                        />
-                        <p className="text-xs">
-                            {errors.columnName?.type === 'required'
-                                ? 'This field is required'
-                                : errors.columnName?.type === 'pattern'
-                                ? 'No spaces allowed'
-                                : ''}
-                        </p>
-                    </div>
-                </div>
+                <div className="flex flex-col space-y-2">
+                    <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
+                        Column Details
+                    </label>
+                    <TextInput
+                        register={register}
+                        errors={errors}
+                        keyName="columnName"
+                        label={'Name'}
+                        pattern={/^[^\s]+$/}
+                        required
+                    />
 
-                <div className="flex w-full justify-between">
-                    <label className="w-1/2 border">Data Type:</label>
-                    <div className="flex w-1/2 flex-col items-center justify-center">
-                        <SQLDataTypesDropdown
-                            getValues={getValues}
-                            watch={watch}
-                            setValue={setValue}
-                            constraintsLogic={constraintsLogic}
-                        />
+                    <div
+                        className={`flex h-10 w-full items-center justify-between rounded-sm bg-grey-dark px-4 ${
+                            sqlTypeColor[sqlInputType[newDataType]]
+                        }`}
+                    >
+                        <label className="w-3/12">Type :</label>
+                        <div className="flex w-8/12 items-center justify-center">
+                            <SQLDataTypesDropdown
+                                getValues={getValues}
+                                watch={watch}
+                                setValue={setValue}
+                                constraintsLogic={constraintsLogic}
+                            />
+                        </div>
                     </div>
+
+                    <TextInput
+                        register={register}
+                        errors={errors}
+                        keyName="defaultValue"
+                        label={'Default'}
+                        type={defaultValueInputType}
+                        inputStyle={
+                            ['number', 'text'].includes(defaultValueInputType)
+                                ? 'text-sm'
+                                : 'text-xs'
+                        }
+                        customStyle={sqlTypeColor[sqlInputType[newDataType]]}
+                    />
                 </div>
-                <div className="flex w-full flex-col space-y-2 pt-4">
-                    <p className="mb-2 border-b text-base ">
+                <div className="flex w-full flex-col space-y-2">
+                    <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
                         Column Constraints
-                    </p>
+                    </label>
                     {options.map(
                         ({
                             label,
@@ -103,43 +127,15 @@ const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
                                 name={formValue}
                                 control={control}
                                 defaultValue={defaultValue}
-                                render={({ field: { onChange, value } }) => {
-                                    if (type === Boolean) {
-                                        return (
-                                            <SwitchContainer
-                                                label={label}
-                                                enabled={value}
-                                                onChange={(e: any) =>
-                                                    onChange(e)
-                                                }
-                                                isDisabled={disabled}
-                                                disabledTooltipMessage={
-                                                    disabledTooltip
-                                                }
-                                            />
-                                        );
-                                    }
-
-                                    if (
-                                        label === 'Default Value' &&
-                                        !disabled
-                                    ) {
-                                        return (
-                                            <div className="flex w-full items-center space-x-4">
-                                                <label className="w-1/4">
-                                                    {label}
-                                                </label>
-                                                <input
-                                                    {...register(formValue, {})}
-                                                    type={getInputType()}
-                                                    className="w-2/4 rounded-lg border py-1 px-2 uppercase"
-                                                />
-                                            </div>
-                                        );
-                                    }
-
-                                    return <></>;
-                                }}
+                                render={({ field: { onChange, value } }) => (
+                                    <SwitchContainer
+                                        label={label}
+                                        enabled={value}
+                                        onChange={(e: any) => onChange(e)}
+                                        isDisabled={disabled}
+                                        disabledTooltipMessage={disabledTooltip}
+                                    />
+                                )}
                             />
                         )
                     )}

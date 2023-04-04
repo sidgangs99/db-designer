@@ -14,10 +14,10 @@ export default function SwitchComponent(props: ISwitchComponentProps) {
 
     return (
         <>
-            <div className="flex w-full items-center space-x-4">
-                <span className="w-1/4">{label}</span>
+            <div className="flex h-10 w-full items-center justify-between rounded-sm bg-grey-dark px-4">
+                <span className="w-2/4">{label}</span>
                 <div
-                    className=""
+                    className="w-2/4"
                     data-tooltip-id={`switch-tooltip-${label}`}
                     data-tooltip-content={disabledTooltipMessage}
                 >
@@ -43,7 +43,7 @@ export default function SwitchComponent(props: ISwitchComponentProps) {
                 <Tooltip
                     id={`switch-tooltip-${label}`}
                     place="right"
-                    className="w-40 bg-chelsea-cucumber-500 align-middle"
+                    className="bg-chelsea-cucumber-500 w-40 align-middle"
                 />
             )}
         </>

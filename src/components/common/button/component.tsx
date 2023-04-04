@@ -1,12 +1,26 @@
 import { IButtonComponentProps } from './types';
 
 const ButtonComponent = (props: IButtonComponentProps) => {
-    const { onClick, label, form, type = 'button', disabled = false } = props;
+    const {
+        onClick,
+        label,
+        form,
+        type = 'button',
+        disabled = false,
+        primary = false,
+        secondary = false
+    } = props;
     return (
         <button
             type={type}
-            className={`flex justify-center rounded-md border border-black px-4 py-1 text-sm text-black hover:text-black dark:border-sea-main dark:bg-gradient-to-br dark:text-sea-main dark:hover:from-sea-darkest dark:hover:via-sea-main dark:hover:to-sea-darker dark:hover:text-black ${
+            className={`flex justify-center rounded-md border bg-grey-darker px-4 py-1 text-sm ${
                 disabled && 'cursor-not-allowed'
+            } ${
+                primary &&
+                'border-coral-light text-coral-light hover:border-coral-main hover:bg-coral-light hover:bg-opacity-10 hover:text-coral-main'
+            } ${
+                secondary &&
+                'border-grey-main text-yellow-main hover:border-yellow-main  hover:bg-yellow-200 hover:bg-opacity-10'
             }`}
             onClick={onClick}
             form={form}

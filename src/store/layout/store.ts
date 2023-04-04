@@ -15,12 +15,13 @@ export const useLayoutStore: UseBoundStore<StoreApi<IUseLayoutStore>> = create(
             set((_state) => {
                 if (_state.nodeId === nodeId) {
                     return { ..._state, openRightSideBar: false, nodeId: '' };
-                } else
+                } else {
                     return {
                         ..._state,
                         openRightSideBar: true,
                         nodeId
                     };
+                }
             })
     })
 );

@@ -8,6 +8,8 @@ export interface IButtonContainerProps {
     size?: string;
     className?: string;
     as?: string;
+    primary?: boolean;
+    secondary?: boolean;
 }
 
 export interface IButtonComponentProps extends IButtonContainerProps {}
