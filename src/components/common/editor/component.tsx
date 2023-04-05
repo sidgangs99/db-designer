@@ -12,7 +12,7 @@ const EditorComponent = (props: IEditorComponentProps) => {
     const { value, setValue, theme } = props;
 
     return (
-        <div className={'w-full rounded-lg border p-1 dark:border-0'}>
+        <div className={'w-full rounded-lg border border-0 p-1'}>
             <AceEditor
                 mode="sql"
                 theme={theme === darkTheme ? 'monokai' : 'github'}

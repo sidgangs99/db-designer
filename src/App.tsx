@@ -35,7 +35,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <ReactFlowProvider>
-                <div className="flex h-screen w-full border-black fill-black text-black dark:border-slate-200 dark:fill-white dark:text-white">
+                <div className="flex h-screen w-full border-black border-slate-200 fill-black fill-white text-black text-white">
                     <LayoutContainer />
                 </div>
             </ReactFlowProvider>

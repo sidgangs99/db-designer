@@ -43,17 +43,17 @@ export default function ModalComponent(props: IModalComponentProps) {
                         leaveTo="opacity-0 scale-95"
                     >
                         <div
-                            className={`inline-block transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-stone-900 dark:text-white ${className}`}
+                            className={`inline-block transform overflow-hidden rounded-2xl bg-white bg-stone-900 p-6 text-left align-middle text-white shadow-xl transition-all ${className}`}
                         >
                             {Header && (
                                 <Dialog.Title
                                     as="h3"
-                                    className=" border-b pb-2 text-lg font-medium leading-6 text-gray-900 dark:text-coral-dark"
+                                    className=" border-b pb-2 text-lg font-medium leading-6 text-gray-900 text-coral-dark"
                                 >
                                     {Header}
                                 </Dialog.Title>
                             )}
-                            <div className="pt-2 text-sm text-gray-500 dark:text-coral-light dark:accent-coral-darker dark:focus:accent-coral-light">
+                            <div className="accent-coral-darker pt-2 text-sm text-gray-500 text-coral-light focus:accent-coral-light">
                                 {Body}
                             </div>
 
