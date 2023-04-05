@@ -121,14 +121,18 @@ export default function ReactFlowContainer() {
 
     const addNewNode = (data: INodeDetails, id: string) => {
         setNodes((_nodes: any[]) => {
-            let positionAddNode: XYPosition = { x: 0, y: 0 };
+            let newNodePosition: XYPosition = { x: 0, y: 0 };
             _nodes.forEach((_node) => {
-                if (_node.data.tableId === data.tableId) {
-                    positionAddNode = {
-                        x: _node.position.x,
+                if (
+                    _node.data.tableId === data.tableId &&
+                    _node.data?.columnName
+                ) {
+                    console.log(_node.position.y, newNodePosition.y);
+                    newNodePosition = {
+                        x: 0,
                         y: Math.max(
                             _node.position.y + 50,
-                            positionAddNode.y + 50
+                            newNodePosition.y + 50
                         )
                     };
                 }
@@ -137,7 +141,7 @@ export default function ReactFlowContainer() {
             const newNode = {
                 id: uuid(),
                 draggable: false,
-                position: positionAddNode,
+                position: newNodePosition,
                 data: {
                     ...data,
                     columnName: 'new_column',
@@ -153,9 +157,7 @@ export default function ReactFlowContainer() {
                 expandParent: true
             };
 
-            _nodes.push(newNode);
-
-            return _nodes;
+            return [..._nodes, newNode];
         });
     };
 

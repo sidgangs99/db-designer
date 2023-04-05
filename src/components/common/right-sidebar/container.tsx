@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
 import { useLayoutStore } from '../../../store/layout/store';
+import { INodeDetails } from '../../../store/nodes/types';
 import { ConstraintsLogic } from '../custom-node/helper/constraints-logic';
 import { sqlInputType } from '../sql-types/constants';
 import RightSidebarColumnComponent from './column.component';
@@ -14,6 +15,15 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
     const edges = useEdges();
 
     const [node, setNode] = useState<any>({});
+    const { data } = node;
+    const {
+        tableName,
+        columnName,
+        dataType,
+        constraints,
+        additional,
+        defaultValue
+    }: INodeDetails = data || {};
 
     const [newDataType, setNewDataType] = useState<string>('');
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
@@ -21,13 +31,11 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
     const { openRightSideBar, nodeId, setOpenRightSideBar } =
         useStore(useLayoutStore);
 
-    const { data } = node;
-    const { tableName, columnName, dataType, constraints } = data || {};
-
     useEffect(() => {
         const selectedNode = nodes.filter((_node: any) => _node.id === nodeId);
         if (selectedNode.length) {
             setNode(selectedNode[0]);
+            console.log(selectedNode[0]);
             setConstraintsLogic(
                 new ConstraintsLogic(
                     selectedNode[0].id,
@@ -37,10 +45,6 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
             );
         }
     }, [nodeId]);
-
-    useEffect(() => {
-        if (node?.data) setNewDataType(node?.data?.dataType);
-    }, [node]);
 
     const {
         control,
@@ -56,20 +60,26 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
             tableName,
             columnName,
             dataType,
-            'constraints.defaultValue': constraints?.defaultValue,
-            'constraints.primaryKey': constraints?.primaryKey
+            constraints,
+            additional,
+            defaultValue
         }
     });
 
     useEffect(() => {
         if (node?.data) {
-            setNewDataType(node?.data?.dataType);
-            setValue('tableName', node?.data?.tableName);
-            setValue('columnName', node?.data?.columnName);
+            setNewDataType(dataType);
+            setValue('tableName', tableName);
+            setValue('columnName', columnName);
+            setValue('constraints', constraints);
+            setValue('additional', additional);
+            setValue('dataType', dataType);
+            setValue('defaultValue', defaultValue);
         }
     }, [node]);
 
     const { errors }: any = formState;
+
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === 'dataType') setNewDataType(value?.dataType || '');
@@ -92,13 +102,17 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         setOpenRightSideBar(nodeId);
     };
 
+    useEffect(() => {
+        console.log(nodes);
+    }, [nodes]);
+
     const columns = useMemo(
         () =>
             nodes.filter(
                 ({ data }: any) =>
                     data?.tableId === node?.id && data?.columnName
             ),
-        [node]
+        [node, nodes]
     );
 
     const onColumnClick = (id: string) => {

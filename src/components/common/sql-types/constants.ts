@@ -111,7 +111,7 @@ export const sqlTypeCategory: Record<string, string> = {
 
 export const sqlTypeColor: Record<string, any> = {
     text: 'text-cyan-main',
-    number: 'text-yellow-main',
+    number: 'text-orange-main',
     date: 'text-blue-main',
     time: 'text-blue-main',
     'datetime-local': 'text-blue-main'

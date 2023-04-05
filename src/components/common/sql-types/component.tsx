@@ -1,5 +1,5 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
 
 import { sqlInputType, sqlTypeColor, sqlTypes } from './constants';
@@ -7,10 +7,6 @@ import { sqlInputType, sqlTypeColor, sqlTypes } from './constants';
 export default function SQLDataTypesDropdown(props: any) {
     const { setValue, watch, constraintsLogic } = props;
     const dataType = watch('dataType');
-
-    useEffect(() => {
-        setValue('dataType', dataType || sqlTypes[0].name);
-    }, []);
 
     const setSelectedDataType = (value: any) => {
         setValue('dataType', value.name);
@@ -21,12 +17,12 @@ export default function SQLDataTypesDropdown(props: any) {
         <Listbox value={dataType} onChange={setSelectedDataType}>
             <div className="relative flex w-full align-middle">
                 <Listbox.Button
-                    className={`relative flex w-full items-center justify-between space-x-1 border-b px-1 py-1 text-left text-sm transition duration-150 ease-in-out sm:leading-5 ${
+                    className={`relative flex w-full items-center justify-between space-x-1 border-b py-1 px-2 text-left text-sm transition duration-150 ease-in-out sm:leading-5 ${
                         sqlTypeColor[sqlInputType[dataType]]
                     }`}
                 >
                     <div className="block truncate text-sm">{dataType}</div>
-                    <div className="flex h-full rotate-90 items-center justify-center text-xs">
+                    <div className="flex h-full rotate-90 items-center justify-center text-sm">
                         <RiCodeSLine />
                     </div>
                 </Listbox.Button>
@@ -36,19 +32,19 @@ export default function SQLDataTypesDropdown(props: any) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <Listbox.Options className="shadow-xs absolute z-10 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-main py-1 text-base leading-6 focus:outline-none sm:leading-5">
+                    <Listbox.Options className="shadow-xs absolute z-10 mt-8 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5">
                         {sqlTypes.map((sqlType, index) => (
                             <Listbox.Option
                                 key={index}
                                 className={({ active }) =>
-                                    `relative cursor-pointer px-2 py-1 text-sm sm:text-sm`
+                                    `relative cursor-pointer px-2 py-1 text-xs hover:bg-grey-main md:text-sm`
                                 }
                                 value={sqlType}
                             >
                                 {({ selected }) => (
                                     <>
                                         <span
-                                            className={`block truncate text-xs ${
+                                            className={`block truncate text-sm ${
                                                 selected
                                                     ? 'font-medium'
                                                     : 'font-normal'
@@ -57,7 +53,7 @@ export default function SQLDataTypesDropdown(props: any) {
                                             {sqlType.name}
                                         </span>
                                         {selected ? (
-                                            <span className="absolute inset-y-0 left-0 flex items-center px-2 text-xs "></span>
+                                            <span className="absolute inset-y-0 left-0 flex items-center px-2 text-sm "></span>
                                         ) : null}
                                     </>
                                 )}

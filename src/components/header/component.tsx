@@ -98,7 +98,11 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                             updateTheme(newTheme);
                         }}
                     />
-                    <ButtonContainer label="Logout" onClick={() => logout()} />
+                    <ButtonContainer
+                        secondary
+                        label="Logout"
+                        onClick={() => logout()}
+                    />
                 </div>
             </div>
             {openResetViewModal && (
