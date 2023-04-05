@@ -5,10 +5,14 @@ import { useStore } from 'zustand';
 import { useLayoutStore } from '../../../store/layout/store';
 import { ConstraintsLogic } from '../custom-node/helper/constraints-logic';
 import { sqlInputType } from '../sql-types/constants';
-import RightSidebarComponent from './component';
+import RightSidebarColumnComponent from './column.component';
+import RightSidebarTableComponent from './table.component';
 import { IRightSidebarContainerProps } from './types';
 
 const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
+    const nodes = useNodes();
+    const edges = useEdges();
+
     const [node, setNode] = useState<any>({});
 
     const [newDataType, setNewDataType] = useState<string>('');
@@ -16,9 +20,6 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
 
     const { openRightSideBar, nodeId, setOpenRightSideBar } =
         useStore(useLayoutStore);
-
-    const nodes = useNodes();
-    const edges = useEdges();
 
     const { data } = node;
     const { tableName, columnName, dataType, constraints } = data || {};
@@ -91,23 +92,49 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         setOpenRightSideBar(nodeId);
     };
 
+    const columns = useMemo(
+        () =>
+            nodes.filter(
+                ({ data }: any) =>
+                    data?.tableId === node?.id && data?.columnName
+            ),
+        [node]
+    );
+
+    const onColumnClick = (id: string) => {
+        setOpenRightSideBar(id);
+    };
+
     return openRightSideBar && node?.data ? (
-        <RightSidebarComponent
-            {...props}
-            node={node}
-            control={control}
-            watch={watch}
-            constraintsLogic={constraintsLogic}
-            setValue={setValue}
-            errors={errors}
-            defaultValueInputType={defaultValueInputType}
-            getValues={getValues}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            register={register}
-            newDataType={newDataType}
-            onClose={onClose}
-        />
+        node?.data?.columnName ? (
+            <RightSidebarColumnComponent
+                {...props}
+                node={node}
+                control={control}
+                watch={watch}
+                constraintsLogic={constraintsLogic}
+                setValue={setValue}
+                errors={errors}
+                defaultValueInputType={defaultValueInputType}
+                getValues={getValues}
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                register={register}
+                newDataType={newDataType}
+                onClose={onClose}
+            />
+        ) : (
+            <RightSidebarTableComponent
+                handleSubmit={handleSubmit}
+                onSubmit={onSubmit}
+                register={register}
+                onClose={onClose}
+                errors={errors}
+                node={node}
+                columns={columns}
+                onColumnClick={onColumnClick}
+            />
+        )
     ) : (
         <></>
     );

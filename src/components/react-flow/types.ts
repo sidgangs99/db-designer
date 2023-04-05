@@ -2,6 +2,7 @@ import CustomCancelEdge from '../common/custom-edge/cancel-edge';
 
 export interface IReactFlowContainerProps {}
 
+
 export interface IReactFlowComponentProps extends IReactFlowContainerProps {
     onConnect: any;
     nodes: any;
