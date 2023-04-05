@@ -1,3 +1,6 @@
+import { MdOutlineDelete } from 'react-icons/md';
+import { VscDiffAdded } from 'react-icons/vsc';
+
 import ButtonContainer from '../button/container';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 import TextAreaInput from './textAreaInput';
@@ -18,7 +21,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
 
     return (
         <form
-            // onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             id="editTableColumn"
             className="flex-col space-y-6 py-4"
         >
@@ -45,21 +48,43 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                 />
             </div>
             <div className="flex flex-col space-y-2">
-                <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
-                    Columns
+                <label className="flex h-10 w-full items-center justify-between rounded-sm bg-grey-main px-2 font-semibold text-white">
+                    <p>Columns</p>
+                    <VscDiffAdded
+                        className="cursor-pointer text-2xl hover:text-coral-main"
+                        onClick={() =>
+                            node?.data?.addNewNode(node?.data, node?.id)
+                        }
+                    />
                 </label>
-                {columns.map(({ data, id }) => (
-                    <div
-                        className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-sm bg-grey-dark px-3 hover:border hover:border-grey-lighter`}
-                        onClick={() => onColumnClick(id)}
-                    >
-                        <div>{data?.columnName}</div>
+                {columns.map(({ data, id }: any) => (
+                    <div className="w-ful flex space-x-2">
                         <div
-                            className={`flex w-2/5 items-center ${
-                                sqlTypeColor[sqlInputType[data?.dataType]]
-                            }`}
+                            className={`flex h-10 w-full cursor-pointer items-center justify-between rounded-sm bg-grey-dark px-3 hover:border hover:border-grey-lighter`}
+                            onClick={() => onColumnClick(id)}
                         >
-                            {data?.dataType}
+                            <div className={`flex w-2/5 items-center`}>
+                                {data?.columnName}
+                            </div>
+                            <div
+                                className={`flex w-2/5 items-center justify-between`}
+                            >
+                                <p
+                                    className={` ${
+                                        sqlTypeColor[
+                                            sqlInputType[data?.dataType]
+                                        ]
+                                    }`}
+                                >
+                                    {data?.dataType}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex w-1/5 cursor-pointer items-center justify-center bg-grey-dark  hover:border hover:border-coral-main hover:text-coral-main">
+                            <MdOutlineDelete
+                                className={`flex items-center text-xl`}
+                                onClick={() => node?.data?.onDeleteNode(id)}
+                            />
                         </div>
                     </div>
                 ))}
@@ -71,9 +96,8 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                 <TextAreaInput
                     register={register}
                     errors={errors}
-                    keyName={'additional.info'}
+                    keyName={'additional.notes'}
                     label={'Notes'}
-                    type={'textarea'}
                 />
             </div>
         </form>

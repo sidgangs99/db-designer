@@ -26,6 +26,9 @@ module.exports = {
                 cyan: {
                     main: '#15F1CA'
                 },
+                orange: {
+                    main: '#FF9900'
+                },
                 coral: {
                     lightest: '#ffe5d4',
                     lighter: '#ffc7a8',

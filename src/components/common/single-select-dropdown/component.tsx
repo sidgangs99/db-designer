@@ -23,7 +23,7 @@ export default function SingleSelectDropdownComponent(
                         <>
                             <div className="relative">
                                 <span className="w-full rounded-md">
-                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-coral-darker p-1 text-left text-sm text-coral-darker transition duration-150 ease-in-out hover:bg-gradient-to-tl hover:from-coral-darkest hover:via-coral-dark hover:to-coral-darkest hover:text-black dark:hover:shadow-md dark:hover:shadow-coral-dark sm:leading-5">
+                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-grey-main p-1 text-left text-sm text-coral-main transition duration-150 ease-in-out hover:border-coral-main sm:leading-5">
                                         <span className="flex items-center justify-center space-x-1">
                                             {Icon ? (
                                                 <Icon className="text-lg" />
@@ -47,7 +47,7 @@ export default function SingleSelectDropdownComponent(
                                 >
                                     <Listbox.Options
                                         static
-                                        className="shadow-xs max-h-60 overflow-auto rounded-b-lg border-x border-b bg-white py-1 text-base leading-6 focus:outline-none dark:border-coral-dark dark:bg-stone-900 sm:leading-5"
+                                        className="shadow-xs max-h-60 overflow-auto rounded-lg border border-grey-main bg-grey-darker py-2 text-base leading-6 focus:outline-none sm:leading-5"
                                     >
                                         {values.map(({ label, value }) => (
                                             <Listbox.Option
@@ -56,7 +56,7 @@ export default function SingleSelectDropdownComponent(
                                             >
                                                 {({ selected, active }) => (
                                                     <div
-                                                        className={`dark:text-coral-black relative cursor-pointer px-2 py-1 text-sm text-black dark:border-coral-dark dark:bg-stone-900 dark:text-coral-darker dark:hover:bg-coral-darkest dark:hover:text-black sm:text-sm `}
+                                                        className={`relative cursor-pointer px-2 py-1.5 text-xs hover:bg-grey-dark sm:text-sm`}
                                                     >
                                                         <span
                                                             className={`${

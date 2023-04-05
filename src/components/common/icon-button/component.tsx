@@ -14,7 +14,7 @@ const IconButtonComponent = (props: IIconButtonComponentProps) => {
     } = props;
     return (
         <button
-            className={`flex items-center justify-center space-x-1.5 rounded-md border border-coral-darker px-3 py-1 text-sm text-coral-darker hover:bg-gradient-to-tl hover:from-coral-darkest hover:via-coral-dark hover:to-coral-darkest hover:text-black dark:hover:shadow-md dark:hover:shadow-coral-dark ${
+            className={`flex items-center justify-center space-x-1.5 rounded-md border border-grey-main px-3 py-1 text-sm text-coral-main hover:border-coral-main ${
                 disabled && 'cursor-not-allowed'
             } ${className}`}
             type={type}

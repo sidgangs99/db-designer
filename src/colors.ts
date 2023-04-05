@@ -15,6 +15,9 @@ export const customColors = {
     cyan: {
         main: '#15F1CA'
     },
+    orange: {
+        main: '#F5CA7B'
+    },
     coral: {
         lightest: '#ffe5d4',
         lighter: '#ffc7a8',

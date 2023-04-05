@@ -3,7 +3,6 @@ export default function TextAreaInput(props: {
     errors: any;
     keyName: string;
     label: string;
-    type?: string;
     inputStyle?: string;
     customStyle?: string;
     pattern?: RegExp;
@@ -15,7 +14,6 @@ export default function TextAreaInput(props: {
         errors,
         keyName,
         label,
-        type,
         inputStyle,
         customStyle,
         pattern,
@@ -24,7 +22,7 @@ export default function TextAreaInput(props: {
     } = props;
     return (
         <div
-            className={`flex w-full flex-col items-center justify-between space-y-2 rounded-sm bg-grey-dark px-3 ${customStyle}`}
+            className={`flex w-full flex-col items-center justify-between space-y-2 rounded-sm bg-grey-dark px-3 pt-2 ${customStyle}`}
         >
             <label className="flex w-full">{label}</label>
             <div className="flex w-full flex-col items-center justify-center">
@@ -33,9 +31,8 @@ export default function TextAreaInput(props: {
                         required: required,
                         pattern
                     })}
-                    type={type}
                     placeholder={placeholder}
-                    className={`mx-4 mb-4 h-96 w-full resize-none border border-grey-light bg-grey-dark p-2 px-2 text-sm font-normal focus:outline-none focus:ring-0 ${inputStyle}`}
+                    className={`mx-4 mb-4 h-36 w-full resize-none rounded-md border border-grey-light bg-grey-dark p-2 px-2 text-sm font-normal focus:outline-none focus:ring-0 ${inputStyle}`}
                 />
             </div>
         </div>

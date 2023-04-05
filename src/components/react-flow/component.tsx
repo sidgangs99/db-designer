@@ -26,11 +26,8 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { openRightSideBar } = useStore(useLayoutStore);
 
     return (
-        <div className="flex h-full w-full flex-grow">
-            <div
-                className="md:7/12 h-full flex-grow xl:w-9/12 2xl:w-10/12"
-                ref={reactFlowWrapper}
-            >
+        <div className="flex h-full w-full flex-grow" ref={reactFlowWrapper}>
+            <div className="md:7/12 h-full flex-grow xl:w-9/12 2xl:w-11/12">
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -59,7 +56,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
             </div>
             {openRightSideBar && (
                 <div
-                    className={`ml-1 h-full overflow-y-auto border-l-4 border-grey-main px-2 md:w-5/12 xl:w-3/12 2xl:w-2/12`}
+                    className={`ml-1 h-full w-full overflow-y-auto border-l-4 border-grey-main px-2 md:w-5/12 xl:w-4/12 2xl:w-3/12`}
                 >
                     <RightSidebarContainer />
                 </div>

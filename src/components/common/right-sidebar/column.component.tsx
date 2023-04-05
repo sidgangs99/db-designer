@@ -4,6 +4,7 @@ import ButtonContainer from '../button/container';
 import SQLDataTypesDropdown from '../sql-types/component';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 import SwitchContainer from '../switch/container';
+import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
 import { IRightSidebarComponentProps } from './types';
 
@@ -34,7 +35,6 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
         constraintsLogic.getIsNotNullDetails(),
         constraintsLogic.getIsUniqueDetails(),
         autoIncrement()
-        // constraintsLogic.getDefaultValueDetails()
     ];
 
     return (
@@ -141,6 +141,17 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
                         />
                     )
                 )}
+            </div>
+            <div className="flex flex-col space-y-2">
+                <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
+                    Additional Info
+                </label>
+                <TextAreaInput
+                    register={register}
+                    errors={errors}
+                    keyName={'additional.notes'}
+                    label={'Notes'}
+                />
             </div>
         </form>
     );

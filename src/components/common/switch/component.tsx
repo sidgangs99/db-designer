@@ -25,7 +25,7 @@ export default function SwitchComponent(props: ISwitchComponentProps) {
                         checked={enabled}
                         onChange={onChange}
                         className={`${
-                            enabled ? 'bg-blue-600' : 'bg-gray-200'
+                            enabled ? 'bg-coral-main' : 'bg-grey-main'
                         }  ${
                             isDisabled ? 'cursor-not-allowed' : ''
                         } relative inline-flex h-6 w-11 items-center rounded-full`}
@@ -33,8 +33,10 @@ export default function SwitchComponent(props: ISwitchComponentProps) {
                     >
                         <span
                             className={`${
-                                enabled ? 'translate-x-6' : 'translate-x-1'
-                            } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                                enabled
+                                    ? 'translate-x-6 bg-grey-darker'
+                                    : 'translate-x-1 bg-gray-50'
+                            } inline-block h-4 w-4 transform rounded-full transition`}
                         />
                     </Switch>
                 </div>

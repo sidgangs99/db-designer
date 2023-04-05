@@ -20,6 +20,8 @@ export interface INodeDetails {
     deleteEdgeFromEdgeId?: any;
     onDeleteTable?: any;
     onReset?: any;
+    additional: Record<string, any>;
+    defaultValue?: any;
 }
 
 export interface INode {
