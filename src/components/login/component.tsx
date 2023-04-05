@@ -4,9 +4,9 @@ function LoginComponent(props: any) {
     const { loginWithGoogle } = props;
 
     return (
-        <div className="flex h-full w-full items-center justify-center bg-secondary-100 backdrop-blur dark:bg-primary-900">
+        <div className="bg-secondary-100 bg-primary-900 flex h-full w-full items-center justify-center backdrop-blur">
             <button
-                className="flex items-center space-x-4 rounded-xl border border-secondary-800 bg-secondary-200 px-6 py-2 font-medium tracking-wider text-primary-800 shadow-md hover:animate-none hover:bg-secondary-300 hover:shadow-2xl dark:border-secondary-500 dark:bg-primary-800 dark:text-secondary-100 dark:hover:bg-primary-700"
+                className="border-secondary-800 bg-secondary-200 text-primary-800 hover:bg-secondary-300 border-secondary-500 bg-primary-800 text-secondary-100 hover:bg-primary-700 flex items-center space-x-4 rounded-xl border px-6 py-2 font-medium tracking-wider shadow-md hover:animate-none hover:shadow-2xl"
                 onClick={loginWithGoogle}
             >
                 <FiUnlock />

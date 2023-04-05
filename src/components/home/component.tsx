@@ -6,20 +6,20 @@ import { IHomeComponentProps } from './types';
 export default function HomeComponent(props: IHomeComponentProps) {
     return (
         <div className="h-full w-full flex-col">
-            <div className="flex h-5/100 w-full border-b bg-stone-200 dark:border-neutral-600 dark:bg-stone-900">
+            <div className="flex h-5/100 w-full border-b border-neutral-600 bg-stone-900">
                 <SidebarContainer />
             </div>
-            <div className="flex h-92/100 w-full bg-white dark:bg-grey-darker">
+            <div className="flex h-92/100 w-full  bg-grey-darker">
                 <ReactFlowContainer />
             </div>
             {/* <div className=""> */}
             <a
-                className="bg-oatmeal-main flex h-3/100 w-full items-center justify-center dark:bg-neutral-900"
+                className="bg-oatmeal-main flex h-3/100 w-full items-center justify-center bg-neutral-900"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={'https://sidgangs99.github.io/resume/'}
             >
-                <p className="text-slate-main text-sm font-light tracking-wider dark:text-coral-main">
+                <p className="text-slate-main text-sm font-light tracking-wider text-coral-main">
                     Made with ❤️ by Siddharth Gangwar 🚀
                 </p>
             </a>

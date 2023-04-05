@@ -57,7 +57,7 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
                                     {...register('fileName', {
                                         required: true
                                     })}
-                                    className="outline-border-coral-dark border-b border-coral-dark py-0.5 px-2 font-normal focus:border-coral-darkest focus:outline-none focus:ring-0 dark:bg-stone-900"
+                                    className="outline-border-coral-dark focus:border-coral-darkest border-b border-coral-dark bg-stone-900 py-0.5 px-2 font-normal focus:outline-none focus:ring-0"
                                 />
                                 <p className="self-end">.sql</p>
                             </div>
