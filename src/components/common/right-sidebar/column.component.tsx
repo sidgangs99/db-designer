@@ -7,7 +7,7 @@ import SwitchContainer from '../switch/container';
 import TextInput from './textInput';
 import { IRightSidebarComponentProps } from './types';
 
-const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
+const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
     const {
         watch,
         constraintsLogic,
@@ -41,7 +41,7 @@ const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             id="editTableColumn"
-            className="ml-2 h-full flex-col space-y-6 border-l-4 border-grey-light py-4 px-2"
+            className="h-full flex-col space-y-6 py-4"
         >
             <div className="flex w-full justify-between">
                 <ButtonContainer
@@ -146,4 +146,4 @@ const RightSidebarComponent = (props: IRightSidebarComponentProps) => {
     );
 };
 
-export default RightSidebarComponent;
+export default RightSidebarColumnComponent;

@@ -58,7 +58,9 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 </ReactFlow>
             </div>
             {openRightSideBar && (
-                <div className={`md:w-5/12 xl:w-3/12 2xl:w-2/12`}>
+                <div
+                    className={`ml-1 h-full overflow-y-auto border-l-4 border-grey-main px-2 md:w-5/12 xl:w-3/12 2xl:w-2/12`}
+                >
                     <RightSidebarContainer />
                 </div>
             )}
