@@ -51,15 +51,17 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
                 >
                     <div className="flex flex-row justify-between pr-2">
                         <div className="flex items-end space-x-4">
-                            <label className="font-semibold">File Name:</label>
+                            <label className="font-semibold text-grey-light">
+                                File Name:
+                            </label>
                             <div className="flex space-x-2 font-normal">
                                 <input
                                     {...register('fileName', {
                                         required: true
                                     })}
-                                    className="outline-border-coral-dark focus:border-coral-darkest border-b border-coral-dark bg-stone-900 py-0.5 px-2 font-normal focus:outline-none focus:ring-0"
+                                    className="outline-border-coral-dark focus:border-coral-darkest border-b border-grey-main bg-stone-900 px-2 font-normal text-white focus:outline-none focus:ring-0"
                                 />
-                                <p className="self-end">.sql</p>
+                                <p className="self-end text-grey-light">.sql</p>
                             </div>
                         </div>
                         <IconButtonContainer

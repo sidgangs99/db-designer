@@ -12,10 +12,10 @@ const EditorComponent = (props: IEditorComponentProps) => {
     const { value, setValue, theme } = props;
 
     return (
-        <div className={'w-full rounded-lg border border-0 p-1'}>
+        <div className={'w-full rounded-lg border border-grey-main p-1'}>
             <AceEditor
                 mode="sql"
-                theme={theme === darkTheme ? 'monokai' : 'github'}
+                theme={theme !== darkTheme ? 'github' : 'monokai'}
                 onChange={(data) => {
                     setValue(data);
                 }}

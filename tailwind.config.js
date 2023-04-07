@@ -21,7 +21,11 @@ module.exports = {
                     main: '#FF512E'
                 },
                 yellow: {
-                    main: '#FFE100'
+                    lighter: '#fbfbeb',
+                    light: '#f5f6cb',
+                    main: '#EEEE9B',
+                    dark: '#e4df60',
+                    darker: '#dacd35'
                 },
                 cyan: {
                     main: '#15F1CA'

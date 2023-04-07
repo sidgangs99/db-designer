@@ -17,10 +17,10 @@ const ButtonComponent = (props: IButtonComponentProps) => {
                 disabled && 'cursor-not-allowed'
             } ${
                 primary &&
-                'border-coral-light text-coral-light hover:border-coral-main hover:bg-coral-light hover:bg-opacity-10 hover:text-coral-main'
+                'border-grey-light text-coral-light hover:border-coral-main hover:bg-coral-lighter hover:bg-opacity-10 hover:text-coral-main '
             } ${
                 secondary &&
-                'border-grey-main text-yellow-main hover:border-yellow-main  hover:bg-yellow-200 hover:bg-opacity-10'
+                'border-grey-main text-yellow-light hover:border-yellow-main  hover:bg-yellow-200 hover:bg-opacity-10'
             }`}
             onClick={onClick}
             form={form}

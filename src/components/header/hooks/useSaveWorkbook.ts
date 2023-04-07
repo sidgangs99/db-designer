@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
@@ -6,6 +6,7 @@ import { MESSAGE_RETRIEVED_WORKBOOK } from '../../common/toast/messages';
 
 import { API_WORKBOOK } from '../../../api/workbook';
 import { useAuthStore } from '../../../store/firebase/state';
+import { useWorkbook } from '../../../store/workbook/state';
 import { authenticatePutAPI } from '../../../util/api';
 import { emojiToast } from '../../common/toast/emoji-toast';
 import {
@@ -18,10 +19,11 @@ export function useSaveWorkbook() {
     const nodes: any = useNodes();
     const edges: any = useEdges();
 
-    const [queryCount, setQueryCount] = useState(0);
+    const { saveWorkbookQueryCount, incrementSaveWorkbookQueryCount }: any =
+        useStore(useWorkbook);
     const { user }: any = useStore(useAuthStore);
 
-    const { isFetching, refetch } = useQuery<any>(
+    const { isFetching, refetch, isSuccess } = useQuery<any>(
         'workbook',
         () =>
             authenticatePutAPI(user.accessToken, API_WORKBOOK, {
@@ -34,7 +36,7 @@ export function useSaveWorkbook() {
     let savingWorkbookToastId: string;
     useEffect(() => {
         if (isFetching) {
-            if (queryCount < 1) {
+            if (saveWorkbookQueryCount < 1) {
                 savingWorkbookToastId = emojiToast(
                     MESSAGE_RETRIEVING_WORKBOOK,
                     '📚',
@@ -47,14 +49,14 @@ export function useSaveWorkbook() {
                     'bg-yellow-300'
                 );
             }
-        } else {
-            if (queryCount < 1) {
+        } else if (isSuccess) {
+            if (saveWorkbookQueryCount < 1) {
                 emojiToast(MESSAGE_RETRIEVED_WORKBOOK, '📖');
             } else {
                 emojiToast(MESSAGE_SAVED_WORKBOOK, '💾');
             }
 
-            setQueryCount(queryCount + 1);
+            incrementSaveWorkbookQueryCount();
         }
     }, [isFetching]);
 

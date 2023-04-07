@@ -23,7 +23,7 @@ export default function SingleSelectDropdownComponent(
                         <>
                             <div className="relative">
                                 <span className="w-full rounded-md">
-                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-grey-main p-1 text-left text-sm text-coral-main transition duration-150 ease-in-out hover:border-coral-main sm:leading-5">
+                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-grey-main p-1 text-left text-sm text-coral-lighter transition duration-150 ease-in-out hover:border-coral-light hover:text-coral-light sm:leading-5">
                                         <span className="flex items-center justify-center space-x-1">
                                             {Icon ? (
                                                 <Icon className="text-lg" />
