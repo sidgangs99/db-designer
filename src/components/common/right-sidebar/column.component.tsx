@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
+
 import ButtonContainer from '../button/container';
 import SQLDataTypesDropdown from '../sql-types/component';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
@@ -10,6 +12,7 @@ import { IRightSidebarComponentProps } from './types';
 
 const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
     const {
+        node,
         watch,
         constraintsLogic,
         setValue,
@@ -21,7 +24,8 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
         register,
         control,
         newDataType,
-        onClose
+        onClose,
+        onColumnClick
     } = props;
 
     const autoIncrement = useCallback(
@@ -36,6 +40,9 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
         constraintsLogic.getIsUniqueDetails(),
         autoIncrement()
     ];
+
+    const { disabled } = constraintsLogic.getDefaultValueDetails();
+    const { tableName } = getValues();
 
     return (
         <form
@@ -52,18 +59,14 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
                 />
                 <ButtonContainer onClick={onClose} label={'Close'} secondary />
             </div>
-            <div className="flex flex-col space-y-2">
-                <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
-                    Table Details
-                </label>
-                <TextInput
-                    register={register}
-                    errors={errors}
-                    keyName="tableName"
-                    label={'Name'}
-                    pattern={/^[^\s]+$/}
-                    required
-                />
+            <div
+                className="group flex h-10 w-full cursor-pointer  items-center justify-between rounded-sm bg-grey-main px-2 font-semibold text-white  hover:bg-grey-dark hover:text-coral-main"
+                onClick={() => {
+                    onColumnClick(node?.data?.tableId);
+                }}
+            >
+                <p className="flex"> {tableName}</p>
+                <HiOutlinePencilSquare className="h-full rounded-sm text-2xl " />
             </div>
             <div className="flex flex-col space-y-2">
                 <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
@@ -96,20 +99,22 @@ const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
                     </div>
                 </div>
 
-                <TextInput
-                    register={register}
-                    errors={errors}
-                    keyName="defaultValue"
-                    label={'Default'}
-                    type={defaultValueInputType}
-                    inputStyle={
-                        ['number', 'text'].includes(defaultValueInputType)
-                            ? 'text-sm'
-                            : 'text-xs'
-                    }
-                    customStyle={sqlTypeColor[sqlInputType[newDataType]]}
-                    placeholder={'none'}
-                />
+                {!disabled && (
+                    <TextInput
+                        register={register}
+                        errors={errors}
+                        keyName="defaultValue"
+                        label={'Default'}
+                        type={defaultValueInputType}
+                        inputStyle={
+                            ['number', 'text'].includes(defaultValueInputType)
+                                ? 'text-sm'
+                                : 'text-xs'
+                        }
+                        customStyle={sqlTypeColor[sqlInputType[newDataType]]}
+                        placeholder={'none'}
+                    />
+                )}
             </div>
             <div className="flex w-full flex-col space-y-2">
                 <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">

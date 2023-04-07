@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
-import { FiCamera, FiSave } from 'react-icons/fi';
+import { FiSave } from 'react-icons/fi';
 import { TbFileExport } from 'react-icons/tb';
 
 import { useStore } from 'zustand';
@@ -14,7 +14,12 @@ import ButtonContainer from '../common/button/container';
 import DarkModeBulbComponent from '../common/dark-mode-bulb/component';
 import IconButtonContainer from '../common/icon-button/container';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
-import { exportOptions, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
+import {
+    exportOptions,
+    SNAPSHOT_OPTION,
+    SQL_FILE_OPTION,
+    UPCOMING_OPTION
+} from './constants';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
 import DownloadSqlFileModal from './modals/download-sql';
 import ResetViewModal from './modals/reset-view';
@@ -37,6 +42,9 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
         switch (selectedOption) {
             case SQL_FILE_OPTION:
                 setOpenDownloadSqlFileModal(true);
+                break;
+            case SNAPSHOT_OPTION:
+                downloadPngImageOfWorkbook();
                 break;
             case UPCOMING_OPTION:
                 break;
@@ -65,12 +73,6 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                             values={exportOptions}
                         />
                         <IconButtonContainer
-                            label={'Snapshot'}
-                            Icon={FiCamera}
-                            className={''}
-                            onClick={() => downloadPngImageOfWorkbook()}
-                        />
-                        <IconButtonContainer
                             label={'Save'}
                             Icon={FiSave}
                             className={''}
@@ -79,7 +81,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                     </div>
                     <div className="flex items-center border-l border-rose-300 px-6">
                         <IconButtonContainer
-                            label={'Table'}
+                            label={'New Table'}
                             Icon={BiSpreadsheet}
                             onDragStart={(event: any) =>
                                 onDragStart(event, 'Table')

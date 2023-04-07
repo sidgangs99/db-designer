@@ -4,6 +4,7 @@ import { useEdges, useNodes } from 'reactflow';
 import { useStore } from 'zustand';
 import { useLayoutStore } from '../../../store/layout/store';
 import { INodeDetails } from '../../../store/nodes/types';
+import { useSaveWorkbook } from '../../header/hooks/useSaveWorkbook';
 import { ConstraintsLogic } from '../custom-node/helper/constraints-logic';
 import { sqlInputType } from '../sql-types/constants';
 import RightSidebarColumnComponent from './column.component';
@@ -92,10 +93,14 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         [newDataType]
     );
 
+    const { refetch } = useSaveWorkbook();
+
     const onSubmit: any = (_data: any) => {
         const newNode = { ...node.data, ..._data };
         newNode.onUpdateNode(newNode, node.id);
         setOpenRightSideBar(nodeId);
+        refetch();
+        console.log('hey');
     };
 
     const onClose = () => {
@@ -136,6 +141,7 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
                 register={register}
                 newDataType={newDataType}
                 onClose={onClose}
+                onColumnClick={onColumnClick}
             />
         ) : (
             <RightSidebarTableComponent

@@ -14,6 +14,7 @@ export interface IRightSidebarComponentProps extends IRightSidebarContainerProps
     register: any;
     newDataType: string;
     onClose: any;
+    onColumnClick?: any;
 }
 
 export interface IRightSidebarTableProps extends IRightSidebarContainerProps {
