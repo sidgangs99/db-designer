@@ -13,7 +13,9 @@ const CustomAddNodeComponent = ({
     data: INodeDetails;
     id: string;
 }) => {
-    const { addNewNode, tableId, tableName, onDeleteTable } = data;
+    const { mutations, tableId, tableName } = data;
+    const { addNewNode, onDeleteTable } = mutations;
+
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 

@@ -9,19 +9,18 @@ import { exportOptions } from './constants';
 import DownloadSqlFileModal from './modals/download-sql';
 import ResetViewModal from './modals/reset-view';
 
+import { Tooltip } from 'react-tooltip';
 import MenuContainer from '../common/menu/container';
-import { ISidebarComponentProps } from './types';
+import { IHeaderComponentProps } from './types';
 
-const SidebarComponent = (props: ISidebarComponentProps) => {
+const HeaderComponent = (props: IHeaderComponentProps) => {
     const {
         onDragStart,
         avatarMenuOptions,
-        theme,
-        updateTheme,
         openResetViewModal,
         openDownloadSqlFileModal,
         setOpenResetViewModal,
-        fetchSaveWorkbook,
+        saveWorkbook,
         exportDropdownOption,
         setOpenDownloadSqlFileModal
     } = props;
@@ -30,7 +29,7 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
         <>
             <div className="flex w-full items-center justify-between px-6">
                 <div className="flex items-center space-x-4">
-                    <div className="flex items-center border-r border-rose-300 pr-4">
+                    <div className="flex items-center border-r border-grey-main pr-4">
                         <IconButtonContainer
                             label={'Reset'}
                             className={''}
@@ -49,18 +48,29 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                             label={'Save'}
                             Icon={FiSave}
                             className={''}
-                            onClick={() => fetchSaveWorkbook()}
+                            onClick={() => saveWorkbook.mutate()}
                         />
                     </div>
-                    <div className="flex items-center border-l border-rose-300 px-6">
+                    <div
+                        className="flex items-center border-l border-grey-main px-6"
+                        data-tooltip-id={`new-table-button`}
+                        data-tooltip-content={'Hey, drag me to the workbook'}
+                    >
                         <IconButtonContainer
                             label={'New Table'}
                             Icon={BiSpreadsheet}
-                            onDragStart={(event: any) =>
-                                onDragStart(event, 'Table')
-                            }
+                            onDragStart={(event: any) => {
+                                onDragStart(event, 'Table');
+                            }}
                             draggable
                             className={'cursor-move'}
+                        />
+                        <Tooltip
+                            id={`new-table-button`}
+                            place="bottom"
+                            className="align-middle"
+                            openOnClick
+                            closeOnEsc
                         />
                     </div>
                 </div>
@@ -74,11 +84,6 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         }}
                     /> */}
                     <MenuContainer options={avatarMenuOptions} />
-                    {/* <ButtonContainer
-                        secondary
-                        label="Logout"
-                        onClick={() => logout()}
-                    /> */}
                 </div>
             </div>
             {openResetViewModal && (
@@ -97,4 +102,4 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
     );
 };
 
-export default SidebarComponent;
+export default HeaderComponent;

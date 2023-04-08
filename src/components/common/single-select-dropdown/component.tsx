@@ -23,7 +23,7 @@ export default function SingleSelectDropdownComponent(
                         <>
                             <div className="relative">
                                 <span className="w-full rounded-md">
-                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-grey-main p-1 text-left text-sm text-coral-lighter transition duration-150 ease-in-out hover:border-coral-light hover:text-coral-light sm:leading-5">
+                                    <Listbox.Button className="relative flex w-full items-center justify-center space-x-1 rounded-lg border border-grey-main p-1 text-left text-sm text-gray-100 transition duration-150 ease-in-out hover:border-coral-light hover:text-coral-light sm:leading-5">
                                         <span className="flex items-center justify-center space-x-1">
                                             {Icon ? (
                                                 <Icon className="text-lg" />
@@ -47,7 +47,7 @@ export default function SingleSelectDropdownComponent(
                                 >
                                     <Listbox.Options
                                         static
-                                        className="shadow-xs max-h-60 overflow-auto rounded-lg border border-grey-main bg-grey-darker py-2 text-base leading-6 focus:outline-none sm:leading-5"
+                                        className="shadow-xs max-h-60 overflow-auto rounded-md border border-grey-main bg-grey-darker py-2 text-base leading-6 focus:outline-none sm:leading-5"
                                     >
                                         {values.map(({ label, value }) => (
                                             <Listbox.Option

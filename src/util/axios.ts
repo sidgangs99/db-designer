@@ -68,7 +68,7 @@ export const authenticatePostAPI = (
         }
     );
 
-export const authenticatePutAPI = (
+export const authenticatePutAPI = async (
     bearerToken: string,
     api: string,
     payload: object

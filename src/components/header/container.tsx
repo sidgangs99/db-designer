@@ -7,23 +7,23 @@ import { SNAPSHOT_OPTION, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
 import { useSaveWorkbook } from './hooks/useSaveWorkbook';
 
 import useAuthStore from '../../store/firebase/state';
-import SidebarComponent from './component';
-import { ISidebarContainerProps } from './types';
+import HeaderComponent from './component';
+import { IHeaderContainerProps } from './types';
 
-export default function SidebarContainer(props: ISidebarContainerProps) {
+export default function HeaderContainer(props: IHeaderContainerProps) {
     const onDragStart = (event: any, nodeType: string) => {
         event.dataTransfer.setData('application/reactflow', nodeType);
         event.dataTransfer.effectAllowed = 'move';
     };
 
-    const { logout }: any = useAuthStore();
+    const { user, logout }: any = useAuthStore();
     const { theme, updateTheme }: any = useThemeStore();
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
 
-    const { refetch: fetchSaveWorkbook } = useSaveWorkbook();
+    const { saveWorkbook } = useSaveWorkbook();
 
     function exportDropdownOption(selectedOption: string) {
         switch (selectedOption) {
@@ -40,10 +40,18 @@ export default function SidebarContainer(props: ISidebarContainerProps) {
         }
     }
 
-    const avatarMenuOptions = [{ label: 'Logout', onClick: logout }];
+    const avatarMenuOptions = [
+        {
+            label: 'Profile',
+            onClick: () => {
+                console.log(user.displayName);
+            }
+        },
+        { label: 'Logout', onClick: () => logout(user) }
+    ];
 
     return (
-        <SidebarComponent
+        <HeaderComponent
             onDragStart={onDragStart}
             avatarMenuOptions={avatarMenuOptions}
             theme={theme}
@@ -51,7 +59,7 @@ export default function SidebarContainer(props: ISidebarContainerProps) {
             openResetViewModal={openResetViewModal}
             openDownloadSqlFileModal={openDownloadSqlFileModal}
             setOpenResetViewModal={setOpenResetViewModal}
-            fetchSaveWorkbook={fetchSaveWorkbook}
+            saveWorkbook={saveWorkbook}
             exportDropdownOption={exportDropdownOption}
             setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
         />

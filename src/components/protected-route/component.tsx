@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { HashLoader } from 'react-spinners';
 import { API_WORKBOOK } from '../../api/workbook';
 
+import { Navigate } from 'react-router-dom';
 import { useEdgesStore } from '../../store/edges/state';
 import useAuthStore, { IUseAuthStore } from '../../store/firebase/state';
 import { useNodesStore } from '../../store/nodes/state';
@@ -21,7 +22,6 @@ export const ProtectedRoute = ({ Component }: any) => {
 
     useEffect(() => {
         auth.onAuthStateChanged((_user: any) => {
-            console.log('onAuthStateChanged', _user);
             if (Object.keys(_user || {}).length) {
                 setUser(_user);
             }
@@ -47,7 +47,6 @@ export const ProtectedRoute = ({ Component }: any) => {
         }
     }, [isSuccess]);
 
-    console.log(isAuthenticating, isFetchingData, user);
     return isAuthenticating || isFetchingData ? (
         <LoaderComponent
             Component={HashLoader}
@@ -57,11 +56,10 @@ export const ProtectedRoute = ({ Component }: any) => {
     ) : user ? (
         <Component />
     ) : (
-        // <Navigate
-        //     to={{
-        //         pathname: '/login'
-        //     }}
-        // />
-        <>Hi</>
+        <Navigate
+            to={{
+                pathname: '/login'
+            }}
+        />
     );
 };

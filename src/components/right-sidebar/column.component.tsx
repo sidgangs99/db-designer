@@ -8,9 +8,9 @@ import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
 import SwitchContainer from '../common/switch/container';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
-import { IRightSidebarComponentProps } from './types';
+import { IRightHeaderComponentProps } from './types';
 
-const RightSidebarColumnComponent = (props: IRightSidebarComponentProps) => {
+const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
     const {
         node,
         watch,

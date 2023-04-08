@@ -1,6 +1,6 @@
-export interface IRightSidebarContainerProps {}
+export interface IRightHeaderContainerProps {}
 
-export interface IRightSidebarComponentProps extends IRightSidebarContainerProps {
+export interface IRightHeaderComponentProps extends IRightHeaderContainerProps {
     node: any;
     control: any;
     watch: any;
@@ -17,7 +17,7 @@ export interface IRightSidebarComponentProps extends IRightSidebarContainerProps
     onColumnClick?: any;
 }
 
-export interface IRightSidebarTableProps extends IRightSidebarContainerProps {
+export interface IRightSidebarTableProps extends IRightHeaderContainerProps {
     node: any;
     columns: any[];
     handleSubmit: any;

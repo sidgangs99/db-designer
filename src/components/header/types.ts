@@ -1,6 +1,6 @@
-export interface ISidebarContainerProps {}
+export interface IHeaderContainerProps {}
 
-export interface ISidebarComponentProps extends ISidebarContainerProps {
+export interface IHeaderComponentProps extends IHeaderContainerProps {
     onDragStart: any;
     avatarMenuOptions: any;
     theme: string;
@@ -8,7 +8,7 @@ export interface ISidebarComponentProps extends ISidebarContainerProps {
     openResetViewModal: boolean;
     openDownloadSqlFileModal: boolean;
     setOpenResetViewModal: any;
-    fetchSaveWorkbook: any;
+    saveWorkbook: any;
     exportDropdownOption: any;
     setOpenDownloadSqlFileModal: any;
 }
