@@ -1,8 +1,8 @@
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 import { MdOutlineDelete } from 'react-icons/md';
 
-import ButtonContainer from '../button/container';
-import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
+import ButtonContainer from '../common/button/container';
+import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
 import { IRightSidebarTableProps } from './types';

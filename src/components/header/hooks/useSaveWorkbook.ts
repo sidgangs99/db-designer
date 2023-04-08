@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useEdges, useNodes } from 'reactflow';
-import { useStore } from 'zustand';
 import { MESSAGE_RETRIEVED_WORKBOOK } from '../../common/toast/messages';
 
 import { API_WORKBOOK } from '../../../api/workbook';
-import { useAuthStore } from '../../../store/firebase/state';
+import useAuthStore from '../../../store/firebase/state';
 import { useWorkbook } from '../../../store/workbook/state';
-import { authenticatePutAPI } from '../../../util/api';
+import { authenticatePutAPI } from '../../../util/axios';
 import { emojiToast } from '../../common/toast/emoji-toast';
 import {
     MESSAGE_RETRIEVING_WORKBOOK,
@@ -20,8 +19,8 @@ export function useSaveWorkbook() {
     const edges: any = useEdges();
 
     const { saveWorkbookQueryCount, incrementSaveWorkbookQueryCount }: any =
-        useStore(useWorkbook);
-    const { user }: any = useStore(useAuthStore);
+        useWorkbook();
+    const { user }: any = useAuthStore();
 
     const { isFetching, refetch, isSuccess } = useQuery<any>(
         'workbook',

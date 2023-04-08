@@ -1,7 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactFlowProvider } from 'reactflow';
-import { useStore } from 'zustand';
 
 import LayoutContainer from './components/layout/container';
 import { darkTheme, lightTheme } from './store/darkMode/constants';
@@ -11,14 +10,19 @@ function App() {
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {
-                retry: 1,
+                retry: (failureCount, error: any) => {
+                    if (error?.response?.status === 401 && failureCount === 0) {
+                        return true;
+                    }
+                    return false;
+                },
                 refetchOnWindowFocus: false
             }
         }
     });
 
     const userTheme = localStorage.getItem('userTheme');
-    const { theme, updateTheme }: any = useStore(useThemeStore);
+    const { theme, updateTheme }: any = useThemeStore();
 
     if (theme !== userTheme) {
         if (userTheme === lightTheme) {
@@ -35,7 +39,7 @@ function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <ReactFlowProvider>
-                <div className="flex h-screen w-full border-black border-slate-200 fill-black fill-white text-black text-white">
+                <div className="flex h-screen w-full fill-white text-white">
                     <LayoutContainer />
                 </div>
             </ReactFlowProvider>
