@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useStore } from 'zustand';
 import { useThemeStore } from '../../../store/darkMode/state';
 import EditorComponent from './component';
 import { IEditorContainerProps } from './types';
@@ -7,7 +6,7 @@ import { IEditorContainerProps } from './types';
 const EditorContainer = (props: IEditorContainerProps) => {
     const { value } = props;
 
-    const { theme }: any = useStore(useThemeStore);
+    const { theme }: any = useThemeStore();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

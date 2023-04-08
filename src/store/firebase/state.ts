@@ -13,16 +13,27 @@ import {
     query,
     where
 } from 'firebase/firestore';
-import { createStore } from 'zustand';
+import { create } from 'zustand';
+
+// const firebaseConfig = {
+//     apiKey: process.env.REACT_APP_FIRESTORE_API_KEY,
+//     authDomain: process.env.REACT_APP_FIRESTORE_AUTH_DOMAIN,
+//     projectId: process.env.REACT_APP_FIRESTORE_PROJECT_ID,
+//     storageBucket: process.env.REACT_APP_FIRESTORE_STORAGE_BUCKET,
+//     messagingSenderId: process.env.REACT_APP_FIRESTORE_MESSEGING_SENDER_FILE,
+//     appId: process.env.REACT_APP_FIRESTORE_APP_ID,
+//     measurementId: process.env.REACT_APP_FIRESTORE_MEASUREMENT_ID
+// };
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIRESTORE_API_KEY,
-    authDomain: process.env.REACT_APP_FIRESTORE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIRESTORE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIRESTORE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIRESTORE_MESSEGING_SENDER_FILE,
-    appId: process.env.REACT_APP_FIRESTORE_APP_ID,
-    measurementId: process.env.REACT_APP_FIRESTORE_MEASUREMENT_ID
+    apiKey: 'AIzaSyDLYUArKcbfDSZJbBdX9iy78-3s_vtCvrI',
+    authDomain: 'db-designer-381205.firebaseapp.com',
+    databaseURL: 'https://db-designer-381205-default-rtdb.firebaseio.com',
+    projectId: 'db-designer-381205',
+    storageBucket: 'db-designer-381205.appspot.com',
+    messagingSenderId: '1092126992824',
+    appId: '1:1092126992824:web:28341e739760f40ff2874d',
+    measurementId: 'G-CH1WGSYYNP'
 };
 
 const app = initializeApp(firebaseConfig);
@@ -31,7 +42,17 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const provider = new GoogleAuthProvider();
 
-export const useAuthStore = createStore((set) => ({
+export interface IUseAuthStore {
+    db: any;
+    auth: any;
+    provider: any;
+    user: any;
+    setUser: Function;
+    loginWithGoogle: Function;
+    logout: Function;
+}
+
+const useAuthStore = create<IUseAuthStore>((set) => ({
     db,
     auth,
     provider,
@@ -56,7 +77,6 @@ export const useAuthStore = createStore((set) => ({
                     photoURL: photoURL
                 });
             }
-            console.log(result.user);
             set((state: any) => ({ ...state, user: result.user }));
         } catch (error) {
             console.error(error);
@@ -73,3 +93,4 @@ export const useAuthStore = createStore((set) => ({
     }
 }));
 
+export default useAuthStore;

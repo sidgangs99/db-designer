@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 
-import ButtonContainer from '../button/container';
-import SQLDataTypesDropdown from '../sql-types/component';
-import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
-import SwitchContainer from '../switch/container';
+import ButtonContainer from '../common/button/container';
+import SQLDataTypesDropdown from '../common/sql-types/component';
+import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
+import SwitchContainer from '../common/switch/container';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
 import { IRightSidebarComponentProps } from './types';

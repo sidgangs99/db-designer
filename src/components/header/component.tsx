@@ -1,57 +1,30 @@
-import { useState } from 'react';
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
 import { FiSave } from 'react-icons/fi';
 import { TbFileExport } from 'react-icons/tb';
 
-import { useStore } from 'zustand';
-import { darkTheme, lightTheme } from '../../store/darkMode/constants';
-import { useThemeStore } from '../../store/darkMode/state';
-
-import { useAuthStore } from '../../store/firebase/state';
-import { downloadPngImageOfWorkbook } from '../../util/helper';
-import ButtonContainer from '../common/button/container';
-import DarkModeBulbComponent from '../common/dark-mode-bulb/component';
 import IconButtonContainer from '../common/icon-button/container';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
-import {
-    exportOptions,
-    SNAPSHOT_OPTION,
-    SQL_FILE_OPTION,
-    UPCOMING_OPTION
-} from './constants';
-import { useSaveWorkbook } from './hooks/useSaveWorkbook';
+import { exportOptions } from './constants';
 import DownloadSqlFileModal from './modals/download-sql';
 import ResetViewModal from './modals/reset-view';
 
+import MenuContainer from '../common/menu/container';
 import { ISidebarComponentProps } from './types';
 
 const SidebarComponent = (props: ISidebarComponentProps) => {
-    const { onDragStart } = props;
-
-    const { logout }: any = useStore(useAuthStore);
-    const { theme, updateTheme }: any = useStore(useThemeStore);
-
-    const [openResetViewModal, setOpenResetViewModal] = useState(false);
-    const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
-        useState(false);
-
-    const { refetch: fetchSaveWorkbook } = useSaveWorkbook();
-
-    function exportDropdownOption(selectedOption: string) {
-        switch (selectedOption) {
-            case SQL_FILE_OPTION:
-                setOpenDownloadSqlFileModal(true);
-                break;
-            case SNAPSHOT_OPTION:
-                downloadPngImageOfWorkbook();
-                break;
-            case UPCOMING_OPTION:
-                break;
-            default:
-                break;
-        }
-    }
+    const {
+        onDragStart,
+        avatarMenuOptions,
+        theme,
+        updateTheme,
+        openResetViewModal,
+        openDownloadSqlFileModal,
+        setOpenResetViewModal,
+        fetchSaveWorkbook,
+        exportDropdownOption,
+        setOpenDownloadSqlFileModal
+    } = props;
 
     return (
         <>
@@ -91,20 +64,21 @@ const SidebarComponent = (props: ISidebarComponentProps) => {
                         />
                     </div>
                 </div>
-                <div className="flex items-center justify-center space-x-4">
-                    <DarkModeBulbComponent
+                <div className="flex h-full items-center justify-center space-x-4">
+                    {/* <DarkModeBulbComponent
                         theme={theme}
                         onClick={() => {
                             const newTheme =
                                 theme === darkTheme ? lightTheme : darkTheme;
                             updateTheme(newTheme);
                         }}
-                    />
-                    <ButtonContainer
+                    /> */}
+                    <MenuContainer options={avatarMenuOptions} />
+                    {/* <ButtonContainer
                         secondary
                         label="Logout"
                         onClick={() => logout()}
-                    />
+                    /> */}
                 </div>
             </div>
             {openResetViewModal && (

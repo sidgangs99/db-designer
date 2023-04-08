@@ -16,3 +16,8 @@ export const exportOptions = [
         value: UPCOMING_OPTION
     }
 ];
+
+
+export const avatarOptions = {
+    // {label: 'Logout', onClick: }
+};

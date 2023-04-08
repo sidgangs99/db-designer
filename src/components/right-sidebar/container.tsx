@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useEdges, useNodes } from 'reactflow';
-import { useStore } from 'zustand';
-import { useLayoutStore } from '../../../store/layout/store';
-import { INodeDetails } from '../../../store/nodes/types';
-import { useSaveWorkbook } from '../../header/hooks/useSaveWorkbook';
-import { ConstraintsLogic } from '../custom-node/helper/constraints-logic';
-import { sqlInputType } from '../sql-types/constants';
+import { useLayoutStore } from '../../store/layout/store';
+import { INodeDetails } from '../../store/nodes/types';
+import { ConstraintsLogic } from '../common/custom-node/helper/constraints-logic';
+import { sqlInputType } from '../common/sql-types/constants';
+import { useSaveWorkbook } from '../header/hooks/useSaveWorkbook';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';
 import { IRightSidebarContainerProps } from './types';
@@ -29,8 +28,7 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
     const [newDataType, setNewDataType] = useState<string>('');
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
 
-    const { openRightSideBar, nodeId, setOpenRightSideBar } =
-        useStore(useLayoutStore);
+    const { openRightSideBar, nodeId, setOpenRightSideBar } = useLayoutStore();
 
     useEffect(() => {
         const selectedNode = nodes.filter((_node: any) => _node.id === nodeId);

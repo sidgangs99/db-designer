@@ -1,12 +1,11 @@
 import { Switch } from '@headlessui/react';
-import { useStore } from 'zustand';
 import { darkTheme } from '../../../store/darkMode/constants';
 import { useThemeStore } from '../../../store/darkMode/state';
 
 export default function DarkModeBulbComponent(props: any) {
     const { onClick } = props;
 
-    const { theme }: any = useStore(useThemeStore);
+    const { theme }: any = useThemeStore();
     const enabled = theme === darkTheme ? true : false;
 
     return (

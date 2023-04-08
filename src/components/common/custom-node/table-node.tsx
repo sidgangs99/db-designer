@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { useNodes } from 'reactflow';
-import { useStore } from 'zustand';
 
 import { useLayoutStore } from '../../../store/layout/store';
 import { INodeDetails } from '../../../store/nodes/types';
@@ -18,7 +17,7 @@ const CustomTableNodeComponent = ({
 
     const nodes = useNodes();
 
-    const { setOpenRightSideBar } = useStore(useLayoutStore);
+    const { setOpenRightSideBar } = useLayoutStore();
 
     useEffect(() => {
         heightOfTable();
