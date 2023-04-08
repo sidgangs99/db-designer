@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useEdgesState, useNodesState, XYPosition } from 'reactflow';
+import { XYPosition, useEdgesState, useNodesState } from 'reactflow';
 import { Set } from 'typescript';
 
 import { useEdgesStore } from '../../store/edges/state';
 import { useNodesStore } from '../../store/nodes/state';
 import { INode, INodeDetails } from '../../store/nodes/types';
 import { uuid } from '../../util/helper';
+import { useSaveWorkbook } from '../header/hooks/useSaveWorkbook';
 import ReactFlowComponent from './component';
 import { newEdge } from './constants';
 import { isValidEdge } from './helper-functions';
@@ -21,6 +22,8 @@ export default function ReactFlowContainer() {
     const addEdge = (newEdge: any) => {
         setEdges((_edges: any) => [..._edges, newEdge]);
     };
+
+    const { saveWorkbook, saveWorkbookDebounce } = useSaveWorkbook();
 
     const onUpdateNode = (data: any, id: string) => {
         setNodes((_nodes) =>
@@ -49,6 +52,7 @@ export default function ReactFlowContainer() {
                 return _node;
             })
         );
+        saveWorkbookDebounce();
     };
 
     const onDeleteNode = (id: string) => {
@@ -66,6 +70,7 @@ export default function ReactFlowContainer() {
 
         deleteEdgeFromNodes(deletedNodes);
         updatePosition(deletedNode);
+        saveWorkbookDebounce();
     };
 
     const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
@@ -76,6 +81,7 @@ export default function ReactFlowContainer() {
                     !deletedNode.has(_edge.target)
             );
         });
+        saveWorkbookDebounce();
     };
 
     const deleteEdgeFromEdgeId = (id: any) => {
@@ -96,6 +102,7 @@ export default function ReactFlowContainer() {
             })
         );
         deleteEdgeFromNodes(deletedNodes);
+        saveWorkbook();
     };
 
     const updatePosition = (deletedNode: any) => {
@@ -121,13 +128,12 @@ export default function ReactFlowContainer() {
 
     const addNewNode = (data: INodeDetails, id: string) => {
         setNodes((_nodes: any[]) => {
-            let newNodePosition: XYPosition = { x: 0, y: 0 };
+            let newNodePosition: XYPosition = { x: 0, y: 50 };
             _nodes.forEach((_node) => {
                 if (
                     _node.data.tableId === data.tableId &&
                     _node.data?.columnName
                 ) {
-                    console.log(_node.position.y, newNodePosition.y);
                     newNodePosition = {
                         x: 0,
                         y: Math.max(
@@ -159,6 +165,7 @@ export default function ReactFlowContainer() {
 
             return [..._nodes, newNode];
         });
+        saveWorkbookDebounce();
     };
 
     const onReset = () => {
@@ -172,12 +179,14 @@ export default function ReactFlowContainer() {
                 ..._node,
                 data: {
                     ..._node.data,
-                    onUpdateNode,
-                    onDeleteNode,
-                    addNewNode,
-                    deleteEdgeFromEdgeId,
-                    onDeleteTable,
-                    onReset
+                    mutations: {
+                        onUpdateNode,
+                        onDeleteNode,
+                        addNewNode,
+                        deleteEdgeFromEdgeId,
+                        onDeleteTable,
+                        onReset
+                    }
                 }
             }));
         });
@@ -230,7 +239,18 @@ export default function ReactFlowContainer() {
                 id: uid,
                 type: ECustomNodeTypes.TableNode,
                 position,
-                data: { tableName, tableId }
+                data: {
+                    tableName,
+                    tableId,
+                    mutations: {
+                        onUpdateNode,
+                        onDeleteNode,
+                        addNewNode,
+                        deleteEdgeFromEdgeId,
+                        onDeleteTable,
+                        onReset
+                    }
+                }
             };
 
             const sampleNode = {
@@ -245,13 +265,16 @@ export default function ReactFlowContainer() {
                     constraints: {
                         defaultValue: ''
                     },
-                    onUpdateNode,
-                    onDeleteNode,
-                    addNewNode,
-                    deleteEdgeFromEdgeId,
-                    onDeleteTable,
-                    onReset
+                    mutations: {
+                        onUpdateNode,
+                        onDeleteNode,
+                        addNewNode,
+                        deleteEdgeFromEdgeId,
+                        onDeleteTable,
+                        onReset
+                    }
                 },
+
                 type: ECustomNodeTypes.ColumnNode,
                 parentNode: uid,
                 extent: 'parent',

@@ -8,9 +8,9 @@ import { sqlInputType } from '../common/sql-types/constants';
 import { useSaveWorkbook } from '../header/hooks/useSaveWorkbook';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';
-import { IRightSidebarContainerProps } from './types';
+import { IRightHeaderContainerProps } from './types';
 
-const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
+const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
     const nodes = useNodes();
     const edges = useEdges();
 
@@ -34,7 +34,6 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         const selectedNode = nodes.filter((_node: any) => _node.id === nodeId);
         if (selectedNode.length) {
             setNode(selectedNode[0]);
-            console.log(selectedNode[0]);
             setConstraintsLogic(
                 new ConstraintsLogic(
                     selectedNode[0].id,
@@ -91,23 +90,18 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
         [newDataType]
     );
 
-    const { refetch } = useSaveWorkbook();
+    const { saveWorkbook } = useSaveWorkbook();
 
     const onSubmit: any = (_data: any) => {
-        const newNode = { ...node.data, ..._data };
-        newNode.onUpdateNode(newNode, node.id);
+        const newNodeData = { ...node.data, ..._data };
+        newNodeData.mutations.onUpdateNode(newNodeData, node.id);
         setOpenRightSideBar(nodeId);
-        refetch();
-        console.log('hey');
+        saveWorkbook();
     };
 
     const onClose = () => {
         setOpenRightSideBar(nodeId);
     };
-
-    useEffect(() => {
-        console.log(nodes);
-    }, [nodes]);
 
     const columns = useMemo(
         () =>
@@ -158,4 +152,4 @@ const RightSidebarContainer = (props: IRightSidebarContainerProps) => {
     );
 };
 
-export default RightSidebarContainer;
+export default RightHeaderContainer;

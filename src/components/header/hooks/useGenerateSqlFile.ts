@@ -21,7 +21,8 @@ export function useGenerateSqlFile() {
     );
 
     useEffect(() => {
-        if (isFetching) emojiToast(MESSAGE_GENERATE_SQL_FILE, '🔨');
+        if (isFetching)
+            emojiToast({ message: MESSAGE_GENERATE_SQL_FILE, emoji: '🔨' });
     }, [isFetching]);
 
     return { data: data?.data, isFetching };

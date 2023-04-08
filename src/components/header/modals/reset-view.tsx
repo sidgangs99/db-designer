@@ -40,9 +40,9 @@ export default function ResetViewModal(props: IResetViewModal) {
                         onClick={() => setOpen(false)}
                     />
                     <ButtonContainer
-                        label={'Delete'}
+                        label={'Reset'}
                         onClick={() => {
-                            nodes?.[0].data.onReset();
+                            nodes?.[0]?.data?.mutations?.onReset();
                             setOpen(false);
                         }}
                         disabled={!deleteEnabled}

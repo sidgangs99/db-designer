@@ -7,6 +7,15 @@ export interface IKeyConstraints {
     defaultValue: string;
 }
 
+export interface INodeMutations {
+    onUpdateNode: any;
+    onDeleteNode: any;
+    addNewNode: any;
+    deleteEdgeFromEdgeId: any;
+    onDeleteTable: any;
+    onReset: any;
+}
+
 export interface INodeDetails {
     columnName?: string;
     dataType: string;
@@ -14,14 +23,9 @@ export interface INodeDetails {
     tableId: string;
     constraints: Record<string, any>;
     tableStyle?: any;
-    onUpdateNode?: any;
-    onDeleteNode?: any;
-    addNewNode?: any;
-    deleteEdgeFromEdgeId?: any;
-    onDeleteTable?: any;
-    onReset?: any;
     additional: Record<string, any>;
     defaultValue?: any;
+    mutations: INodeMutations;
 }
 
 export interface INode {

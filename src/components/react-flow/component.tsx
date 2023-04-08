@@ -3,10 +3,11 @@ import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { customColors } from '../../colors';
 import { useLayoutStore } from '../../store/layout/store';
-import RightSidebarContainer from '../right-sidebar/container';
+import RightHeaderContainer from '../right-sidebar/container';
 import { nodeTypes } from './constants';
 import { customEdgeTypes, IReactFlowComponentProps } from './types';
 
+import { useStore } from 'zustand';
 import './controls.styles.css';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
@@ -22,7 +23,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
         onDragOver
     } = props;
 
-    const { openRightSideBar } = useLayoutStore();
+    const { openRightSideBar } = useStore(useLayoutStore);
 
     return (
         <div className="flex h-full w-full flex-grow" ref={reactFlowWrapper}>
@@ -57,7 +58,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                 <div
                     className={`ml-1 h-full w-full overflow-y-auto border-l-4 border-grey-main px-2 md:w-5/12 xl:w-4/12 2xl:w-3/12`}
                 >
-                    <RightSidebarContainer />
+                    <RightHeaderContainer />
                 </div>
             )}
         </div>

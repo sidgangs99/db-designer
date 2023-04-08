@@ -43,7 +43,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => {
                             const tableId = node?.data?.tableId;
-                            node?.data?.onDeleteTable(tableId);
+                            node?.data?.mutations.onDeleteTable(tableId);
                             onColumnClick(tableId);
                         }}
                     >
@@ -69,7 +69,10 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                     <div
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() =>
-                            node?.data?.addNewNode(node?.data, node?.id)
+                            node?.data?.mutations.addNewNode(
+                                node?.data,
+                                node?.id
+                            )
                         }
                     >
                         <AiOutlineAppstoreAdd className="cursor-pointer text-2xl hover:text-coral-main" />
@@ -100,7 +103,9 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         </div>
                         <div
                             className="flex w-1/6 cursor-pointer items-center justify-center bg-grey-dark  hover:border hover:border-coral-main hover:text-coral-main"
-                            onClick={() => node?.data?.onDeleteNode(id)}
+                            onClick={() =>
+                                node?.data?.mutations.onDeleteNode(id)
+                            }
                         >
                             <MdOutlineDelete
                                 className={`flex items-center text-xl`}
