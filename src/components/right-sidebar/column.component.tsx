@@ -60,13 +60,13 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                 <ButtonContainer onClick={onClose} label={'Close'} secondary />
             </div>
             <div
-                className="group flex h-10 w-full cursor-pointer  items-center justify-between rounded-sm bg-grey-main px-2 font-semibold text-white  hover:bg-grey-dark hover:text-coral-main"
+                className="group group flex h-10 w-full cursor-pointer items-center justify-between rounded-sm border border-grey-main bg-grey-dark px-2 font-semibold text-white hover:border-grey-lighter"
                 onClick={() => {
                     onColumnClick(node?.data?.tableId);
                 }}
             >
                 <p className="flex"> {tableName}</p>
-                <HiOutlinePencilSquare className="h-full rounded-sm text-2xl " />
+                <HiOutlinePencilSquare className="h-full rounded-sm text-2xl group-hover:text-coral-main" />
             </div>
             <div className="flex flex-col space-y-2">
                 <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">

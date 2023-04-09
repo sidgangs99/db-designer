@@ -55,10 +55,10 @@ export default function ReactFlowContainer() {
         saveWorkbookDebounce();
     };
 
-    const onDeleteNode = (id: string) => {
+    const onDeleteNode = async (id: string) => {
         const deletedNodes = new Set<string>();
         let deletedNode = {};
-        setNodes((_nodes) =>
+        await setNodes((_nodes) =>
             _nodes.filter((_node) => {
                 if (_node.id === id) {
                     deletedNodes.add(_node.id);
@@ -105,9 +105,14 @@ export default function ReactFlowContainer() {
         saveWorkbook();
     };
 
-    const updatePosition = (deletedNode: any) => {
+    const updatePosition = (deletedNode: Record<string, any>) => {
+        if (Object.keys(deletedNode).length === 0) {
+            console.error('Cannot update position, deletedNode is empty');
+            return;
+        }
+
         setNodes((_nodes) =>
-            _nodes.map((_node) => {
+            _nodes.map((_node: any) => {
                 if (
                     deletedNode.data.tableId === _node.data.tableId &&
                     _node.type !== ECustomNodeTypes.TableNode &&
@@ -118,6 +123,16 @@ export default function ReactFlowContainer() {
                         position: {
                             x: _node.position.x,
                             y: _node.position.y - 50
+                        }
+                    };
+                }
+
+                if (deletedNode.data.tableId === _node.id) {
+                    return {
+                        ..._node,
+                        style: {
+                            ..._node.style,
+                            height: _node.style.height - 50
                         }
                     };
                 }
