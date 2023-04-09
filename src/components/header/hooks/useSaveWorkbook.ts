@@ -17,7 +17,6 @@ export function useSaveWorkbook() {
     const edges: any = useEdges();
 
     const { user }: any = useAuthStore();
-    // const [saveWorkbookDebounce, setSaveWorkbookDebounce] = useState()
 
     const mutateFn = useMutation({
         mutationFn: () => {
@@ -43,6 +42,10 @@ export function useSaveWorkbook() {
     });
 
     const saveWorkbookDebounce = useRef(debounce(mutateFn.mutate, 2000));
+
+    // useEffect(() => {
+    //     console.log(saveWorkbookDebounce.current);
+    // }, [saveWorkbookDebounce.current]);
 
     const saveWorkbook = useCallback(() => {
         saveWorkbookDebounce.current.cancel();

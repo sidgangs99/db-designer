@@ -79,7 +79,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                     </div>
                 </div>
                 {columns.map(({ data, id }: any) => (
-                    <div className="w-ful flex space-x-2">
+                    <div className="w-ful flex space-x-2" key={id}>
                         <div
                             className={`flex h-10 w-5/6 cursor-pointer items-center justify-between rounded-sm bg-grey-dark px-3 hover:border hover:border-grey-lighter`}
                             onClick={() => onColumnClick(id)}

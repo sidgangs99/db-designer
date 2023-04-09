@@ -36,8 +36,7 @@ const CustomTableNodeComponent = ({
 
     return (
         <div
-            className="top-12 flex w-95 justify-center rounded-md border-2 border-grey-lighter bg-grey-darker"
-            style={{ height: `${(height - 1) * 50.25 + 58}px` }}
+            className="top-12 flex h-full w-95 justify-center rounded-md border-2 border-grey-lighter bg-grey-darker"
             onClick={handleOnNodeClick}
         >
             <div className="group relative m-2 flex h-10 w-90 items-center justify-center rounded-sm bg-grey-main font-semibold hover:border">

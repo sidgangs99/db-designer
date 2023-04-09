@@ -24,7 +24,7 @@ export interface INodeDetails {
     constraints: Record<string, any>;
     tableStyle?: any;
     additional: Record<string, any>;
-    defaultValue?: any;
+    defaultValue: any;
     mutations: INodeMutations;
 }
 
