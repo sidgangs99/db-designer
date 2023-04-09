@@ -6,7 +6,7 @@ import { useEdgesStore } from '../../store/edges/state';
 import { useNodesStore } from '../../store/nodes/state';
 import { INode, INodeDetails } from '../../store/nodes/types';
 import { uuid } from '../../util/helper';
-import { useSaveWorkbook } from '../header/hooks/useSaveWorkbook';
+import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import ReactFlowComponent from './component';
 import { newEdge } from './constants';
 import { isValidEdge } from './helper-functions';
@@ -19,11 +19,11 @@ export default function ReactFlowContainer() {
     const [nodes, setNodes, onNodesChange] = useNodesState(nodesState);
     const [edges, setEdges, onEdgesChange] = useEdgesState(edgesState);
 
+    useSaveWorkbook();
+
     const addEdge = (newEdge: any) => {
         setEdges((_edges: any) => [..._edges, newEdge]);
     };
-
-    const { saveWorkbook, saveWorkbookDebounce } = useSaveWorkbook();
 
     const onUpdateNode = (data: any, id: string) => {
         setNodes((_nodes) =>
@@ -52,7 +52,6 @@ export default function ReactFlowContainer() {
                 return _node;
             })
         );
-        saveWorkbookDebounce();
     };
 
     const onDeleteNode = async (id: string) => {
@@ -70,7 +69,6 @@ export default function ReactFlowContainer() {
 
         deleteEdgeFromNodes(deletedNodes);
         updatePosition(deletedNode);
-        saveWorkbookDebounce();
     };
 
     const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
@@ -81,7 +79,6 @@ export default function ReactFlowContainer() {
                     !deletedNode.has(_edge.target)
             );
         });
-        saveWorkbookDebounce();
     };
 
     const deleteEdgeFromEdgeId = (id: any) => {
@@ -102,7 +99,6 @@ export default function ReactFlowContainer() {
             })
         );
         deleteEdgeFromNodes(deletedNodes);
-        saveWorkbook();
     };
 
     const updatePosition = (deletedNode: Record<string, any>) => {
@@ -180,7 +176,6 @@ export default function ReactFlowContainer() {
 
             return [..._nodes, newNode];
         });
-        saveWorkbookDebounce();
     };
 
     const onReset = () => {

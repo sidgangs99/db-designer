@@ -4,7 +4,6 @@ import { useThemeStore } from '../../store/darkMode/state';
 
 import { downloadPngImageOfWorkbook } from '../../util/helper';
 import { SNAPSHOT_OPTION, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
-import { useSaveWorkbook } from './hooks/useSaveWorkbook';
 
 import useAuthStore from '../../store/firebase/state';
 import HeaderComponent from './component';
@@ -22,8 +21,6 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
-
-    const { saveWorkbook } = useSaveWorkbook();
 
     function exportDropdownOption(selectedOption: string) {
         switch (selectedOption) {
@@ -59,7 +56,6 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
             openResetViewModal={openResetViewModal}
             openDownloadSqlFileModal={openDownloadSqlFileModal}
             setOpenResetViewModal={setOpenResetViewModal}
-            saveWorkbook={saveWorkbook}
             exportDropdownOption={exportDropdownOption}
             setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
         />

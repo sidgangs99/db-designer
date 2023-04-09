@@ -5,7 +5,6 @@ import { useLayoutStore } from '../../store/layout/store';
 import { INodeDetails } from '../../store/nodes/types';
 import { ConstraintsLogic } from '../common/custom-node/helper/constraints-logic';
 import { sqlInputType } from '../common/sql-types/constants';
-import { useSaveWorkbook } from '../header/hooks/useSaveWorkbook';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';
 import { IRightHeaderContainerProps } from './types';
@@ -90,13 +89,10 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
         [newDataType]
     );
 
-    const { saveWorkbook } = useSaveWorkbook();
-
     const onSubmit: any = (_data: any) => {
         const newNodeData = { ...node.data, ..._data };
         newNodeData.mutations.onUpdateNode(newNodeData, node.id);
         setOpenRightSideBar(nodeId);
-        saveWorkbook();
     };
 
     const onClose = () => {

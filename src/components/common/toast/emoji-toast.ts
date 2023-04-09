@@ -14,5 +14,5 @@ export const emojiToast = ({
     toast(message, {
         icon: emoji,
         position,
-        className: `bg-lime-200 px-8 py-2 font-semibold text-slate-700 ${className}`
+        className: `bg-grey-darker rounded-md border border-grey-main px-8 py-2 font-semibold text-white ${className}`
     });
