@@ -55,7 +55,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                 <ButtonContainer
                     type={'submit'}
                     form={'editTableColumn'}
-                    label={'Save'}
+                    label={'Update'}
                     primary
                 />
                 <ButtonContainer onClick={onClose} label={'Close'} secondary />
