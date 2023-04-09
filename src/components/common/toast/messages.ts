@@ -5,3 +5,4 @@ export const MESSAGE_RETRIEVED_WORKBOOK = 'Last workbook restored';
 
 export const MESSAGE_SAVING_WORKBOOK = 'Saving workbook ...';
 export const MESSAGE_SAVED_WORKBOOK = 'Successfully saved workbook';
+export const MESSAGE_ERROR_SAVING_WORKBOOK = 'Failed to save workbook !';

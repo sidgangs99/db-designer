@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import { MdOutlineDelete } from 'react-icons/md';
 
 import ButtonContainer from '../common/button/container';
 import SQLDataTypesDropdown from '../common/sql-types/component';
@@ -59,19 +60,37 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                 />
                 <ButtonContainer onClick={onClose} label={'Close'} secondary />
             </div>
-            <div
-                className="group group flex h-10 w-full cursor-pointer items-center justify-between rounded-sm border border-grey-main bg-grey-dark px-2 font-semibold text-white hover:border-grey-lighter"
-                onClick={() => {
-                    onColumnClick(node?.data?.tableId);
-                }}
-            >
-                <p className="flex"> {tableName}</p>
-                <HiOutlinePencilSquare className="h-full rounded-sm text-2xl group-hover:text-coral-main" />
+
+            <div className="group flex h-10 w-full items-center justify-between space-x-2 rounded-sm font-semibold text-white">
+                <p className="flex h-full w-5/6 items-center justify-start bg-grey-main px-3">
+                    {tableName}
+                </p>
+                <div
+                    className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                    onClick={() => {
+                        onColumnClick(node?.data?.tableId);
+                    }}
+                >
+                    <HiOutlinePencilSquare className="cursor-pointer text-2xl hover:text-coral-main" />
+                </div>
             </div>
             <div className="flex flex-col space-y-2">
-                <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
-                    Column Details
-                </label>
+                <div className="flex h-10 w-full items-center justify-between space-x-2 rounded-sm font-semibold text-white">
+                    <div className="flex h-10 w-5/6 items-center rounded-sm bg-grey-main px-2 font-semibold text-white">
+                        Column Details
+                    </div>
+                    <div
+                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                        onClick={() => {
+                            node?.data?.mutations.onDeleteNode(node?.id);
+                            onColumnClick(node?.id);
+                        }}
+                    >
+                        <MdOutlineDelete
+                            className={`flex items-center text-2xl`}
+                        />
+                    </div>
+                </div>
                 <TextInput
                     register={register}
                     errors={errors}

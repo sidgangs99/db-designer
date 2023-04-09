@@ -8,7 +8,6 @@ export interface IHeaderComponentProps extends IHeaderContainerProps {
     openResetViewModal: boolean;
     openDownloadSqlFileModal: boolean;
     setOpenResetViewModal: any;
-    saveWorkbook: any;
     exportDropdownOption: any;
     setOpenDownloadSqlFileModal: any;
 }

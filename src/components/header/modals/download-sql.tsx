@@ -6,7 +6,7 @@ import { downloadFile } from '../../../util/helper';
 import EditorContainer from '../../common/editor/container';
 import IconButtonContainer from '../../common/icon-button/container';
 import ModalContainer from '../../common/modal/container';
-import { useGenerateSqlFile } from '../hooks/useGenerateSqlFile';
+import { useGenerateSqlFile } from '../../hooks/useGenerateSqlFile';
 
 interface IDownloadSqlFileModal {
     open: boolean;
