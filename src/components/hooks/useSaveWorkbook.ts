@@ -18,13 +18,23 @@ export function useSaveWorkbook() {
     const nodes: any = useNodes();
     const edges: any = useEdges();
 
-    const mutationRequestCount = useRef(0);
     const [previousVersionOfNodes, setPreviousVersionOfNodes] = useState([]);
     const [previousVersionOfEdges, setPreviousVersionOfEdges] = useState([]);
 
+    const extractValuesFromNodesAndEdges = () => {
+        const _nodes = nodes.map((node: any) => ({ data: node.data }));
+        const _edges = edges.map((edge: any) => ({
+            source: edge.source,
+            target: edge.target
+        }));
+
+        return { _nodes, _edges };
+    };
+
     const assignLatestValues = () => {
-        setPreviousVersionOfNodes(nodes);
-        setPreviousVersionOfEdges(edges);
+        const { _nodes, _edges } = extractValuesFromNodesAndEdges();
+        setPreviousVersionOfNodes(_nodes);
+        setPreviousVersionOfEdges(_edges);
     };
 
     const { user }: any = useAuthStore();
@@ -80,9 +90,10 @@ export function useSaveWorkbook() {
     }, []);
 
     useEffect(() => {
+        const { _nodes, _edges } = extractValuesFromNodesAndEdges();
         if (
-            !isEqual(previousVersionOfNodes, nodes) ||
-            !isEqual(previousVersionOfEdges, edges)
+            !isEqual(previousVersionOfNodes, _nodes) ||
+            !isEqual(previousVersionOfEdges, _edges)
         ) {
             saveWorkbookDebounce.current();
         } else {
