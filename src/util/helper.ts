@@ -28,12 +28,21 @@ export function downloadPngImageOfWorkbook() {
         return;
     }
 
+    // Trigger a click event on the "Screen fit" button in the React Flow controls
+    const screenFitButton = document.querySelector(
+        '.react-flow__controls-fitview'
+    ) as HTMLButtonElement;
+    if (screenFitButton) {
+        screenFitButton.click();
+    }
+
     toPng(reactFlowEl, {
         filter: (node) => {
             // we don't want to add the minimap and the controls to the image
             if (
                 node?.classList?.contains('react-flow__minimap') ||
-                node?.classList?.contains('react-flow__controls')
+                node?.classList?.contains('react-flow__controls') ||
+                node?.classList?.contains('react-flow__edge-path-cancel-button')
             ) {
                 return false;
             }

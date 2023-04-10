@@ -54,7 +54,7 @@ export default function CustomCancelEdge(props: any) {
                 x={labelX - foreignObjectSize / 2}
                 y={labelY - foreignObjectSize / 2}
                 requiredExtensions="http://www.w3.org/1999/xhtml"
-                className="react-flow__edge-path "
+                className="react-flow__edge-path-cancel-button"
             >
                 <div>
                     <button

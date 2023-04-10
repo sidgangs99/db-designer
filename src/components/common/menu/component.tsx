@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useCallback } from 'react';
 
-import { useNodes } from 'reactflow';
 import { uuid } from '../../../util/helper';
 import { IMenuComponentProps } from './types';
 
@@ -9,7 +8,6 @@ export default function MenuComponent(props: IMenuComponentProps) {
     const { user, options } = props;
 
     const { photoURL, displayName }: any = user;
-    const nodes = useNodes();
 
     const getInitials = useCallback(() => {
         const name = displayName.split(' ');
@@ -23,7 +21,7 @@ export default function MenuComponent(props: IMenuComponentProps) {
     return (
         <Menu as="div" className="relative items-center justify-center">
             <div>
-                <Menu.Button className="flex w-full items-center justify-center rounded-md text-sm font-medium">
+                <Menu.Button className="flex w-full items-center justify-center rounded-md border border-grey-dark text-sm font-medium hover:border-coral-main">
                     {photoURL ? (
                         <img
                             className="h-8 w-8 rounded border border-grey-main"
