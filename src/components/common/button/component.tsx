@@ -13,7 +13,7 @@ const ButtonComponent = (props: IButtonComponentProps) => {
     return (
         <button
             type={type}
-            className={`flex justify-center rounded-md border bg-grey-darker px-4 py-1 text-sm ${
+            className={`flex justify-center rounded-md border bg-grey-darker px-2 py-0.5 text-xs md:px-4 md:py-1 md:text-sm ${
                 disabled && 'cursor-not-allowed'
             } ${
                 primary &&

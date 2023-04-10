@@ -5,7 +5,6 @@ import 'ace-builds/src-noconflict/mode-sql';
 import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/theme-monokai';
 
-import { darkTheme } from '../../../store/darkMode/constants';
 import { IEditorComponentProps } from './types';
 
 const EditorComponent = (props: IEditorComponentProps) => {
@@ -15,7 +14,7 @@ const EditorComponent = (props: IEditorComponentProps) => {
         <div className={'w-full rounded-lg border border-grey-main p-1'}>
             <AceEditor
                 mode="sql"
-                theme={theme !== darkTheme ? 'github' : 'monokai'}
+                theme="monokai"
                 onChange={(data) => {
                     setValue(data);
                 }}
