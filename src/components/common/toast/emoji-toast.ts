@@ -1,4 +1,5 @@
 import toast, { ToastPosition } from 'react-hot-toast';
+import { customColors } from './../../../colors';
 
 export const emojiToast = ({
     message,
@@ -14,5 +15,10 @@ export const emojiToast = ({
     toast(message, {
         icon: emoji,
         position,
-        className: `bg-grey-darker rounded-md border border-grey-main px-8 py-2 font-semibold text-white ${className}`
+        className: `rounded-md border px-6 py-1 text-xs ${className}`,
+        style: {
+            backgroundColor: customColors.grey.darker,
+            borderColor: customColors.grey.main,
+            color: '#FFFFFF'
+        }
     });

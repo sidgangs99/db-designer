@@ -42,14 +42,14 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
         <ModalContainer
             open={open}
             setOpen={setOpen}
-            className={'h-1/2 w-5/12'}
+            className={'lg:6/12 h-full w-full lg:h-1/2 xl:w-7/12'}
             Body={
                 <form
                     className="space-y-4"
                     onSubmit={handleSubmit(onSubmit)}
                     id="sqlFileDownload"
                 >
-                    <div className="flex flex-row justify-between pr-2">
+                    <div className="flex flex-row justify-between text-xs md:pr-2 md:text-base">
                         <div className="flex items-end space-x-4">
                             <label className="font-semibold text-grey-light">
                                 File Name:
