@@ -22,7 +22,10 @@ export function useSaveWorkbook() {
     const [previousVersionOfEdges, setPreviousVersionOfEdges] = useState([]);
 
     const extractValuesFromNodesAndEdges = () => {
-        const _nodes = nodes.map((node: any) => ({ data: node.data }));
+        const _nodes = nodes.map((node: any) => ({
+            data: node.data,
+            position: node.position
+        }));
         const _edges = edges.map((edge: any) => ({
             source: edge.source,
             target: edge.target
