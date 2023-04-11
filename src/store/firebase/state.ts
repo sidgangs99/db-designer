@@ -16,13 +16,13 @@ import {
 import { create } from 'zustand';
 
 // const firebaseConfig = {
-//     apiKey: process.env.REACT_APP_FIRESTORE_API_KEY,
-//     authDomain: process.env.REACT_APP_FIRESTORE_AUTH_DOMAIN,
-//     projectId: process.env.REACT_APP_FIRESTORE_PROJECT_ID,
-//     storageBucket: process.env.REACT_APP_FIRESTORE_STORAGE_BUCKET,
-//     messagingSenderId: process.env.REACT_APP_FIRESTORE_MESSEGING_SENDER_FILE,
-//     appId: process.env.REACT_APP_FIRESTORE_APP_ID,
-//     measurementId: process.env.REACT_APP_FIRESTORE_MEASUREMENT_ID
+//     apiKey: import.meta.env.VITE_FIRESTORE_API_KEY,
+//     authDomain: import.meta.env.VITE_FIRESTORE_AUTH_DOMAIN,
+//     projectId: import.meta.env.VITE_FIRESTORE_PROJECT_ID,
+//     storageBucket: import.meta.env.VITE_FIRESTORE_STORAGE_BUCKET,
+//     messagingSenderId: import.meta.env.VITE_FIRESTORE_MESSEGING_SENDER_FILE,
+//     appId: import.meta.env.VITE_FIRESTORE_APP_ID,
+//     measurementId: import.meta.env.VITE_FIRESTORE_MEASUREMENT_ID
 // };
 
 const firebaseConfig = {

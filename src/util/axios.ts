@@ -2,12 +2,11 @@ import axios from 'axios';
 import useAuthStore from '../store/firebase/state';
 
 const authenticatedAxios = axios.create({
-    baseURL:
-        process.env.NODE_ENV === 'development'
-            ? 'http://localhost:8000'
-            : process.env.REACT_APP_BACKEND_API_URI
+    baseURL: import.meta.env.DEV
+        ? 'http://localhost:8000'
+        : import.meta.env.VITE_BACKEND_API_URI
 });
-
+console.log(import.meta.env.DEV);
 authenticatedAxios.interceptors.response.use(
     (response) => response,
     async (error) => {
