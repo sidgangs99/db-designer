@@ -8,7 +8,7 @@ import { darkTheme, lightTheme } from './store/darkMode/constants';
 import { useThemeStore } from './store/darkMode/state';
 
 Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
+    dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
     // Performance Monitoring
     tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!
