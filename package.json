@@ -41,7 +41,7 @@
     "scripts": {
         "start": "vite",
         "build": "tsc && vite build",
-        "serve": "vite preview",
+        "preview": "vite preview",
         "commit": "cz",
         "deploy": "yarn && yarn build && firebase deploy"
     },

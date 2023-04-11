@@ -51,3 +51,7 @@ export function downloadPngImageOfWorkbook() {
         }
     }).then(downloadImage);
 }
+
+export const getEnvVariable = (env: string) => {
+    return import.meta.env[env];
+};

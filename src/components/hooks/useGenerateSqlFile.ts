@@ -13,7 +13,7 @@ export function useGenerateSqlFile() {
     const edges: any = useEdges();
     const { user }: any = useAuthStore();
 
-    const { data, isFetching } = useQuery<any>('sql-generator', () =>
+    const { data, isFetching, isError } = useQuery<any>('sql-generator', () =>
         authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
             nodes,
             edges
@@ -25,5 +25,5 @@ export function useGenerateSqlFile() {
             emojiToast({ message: MESSAGE_GENERATE_SQL_FILE, emoji: '🔨' });
     }, [isFetching]);
 
-    return { data: data?.data, isFetching };
+    return { data: data?.data, isFetching, isError };
 }

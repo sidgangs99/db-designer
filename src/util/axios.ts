@@ -1,12 +1,18 @@
 import axios from 'axios';
 import useAuthStore from '../store/firebase/state';
+import { getEnvVariable } from './helper';
 
 const authenticatedAxios = axios.create({
-    baseURL: import.meta.env.DEV
+    baseURL: getEnvVariable('DEV')
         ? 'http://localhost:8000'
-        : import.meta.env.VITE_BACKEND_API_URI
+        : getEnvVariable('VITE_BACKEND_API_URI')
 });
-console.log(import.meta.env.DEV);
+
+console.log(
+    getEnvVariable('VITE_BACKEND_API_URI'),
+    getEnvVariable('DEV'),
+    getEnvVariable('VITE_FIRESTORE_API_KEY')
+);
 authenticatedAxios.interceptors.response.use(
     (response) => response,
     async (error) => {

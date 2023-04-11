@@ -1,48 +1,76 @@
-export const sqlTypes = [
-    {
-        name: 'varchar',
-        type: 'string'
-    },
-    {
-        name: 'char',
-        type: 'string'
-    },
-    {
-        name: 'text',
-        type: 'string'
-    },
-    {
-        name: 'int',
-        type: 'numeric'
-    },
-    {
-        name: 'bigint',
-        type: 'numeric'
-    },
-    {
-        name: 'tinyint',
-        type: 'numeric'
-    },
-    {
-        name: 'float',
-        type: 'numeric'
-    },
-    {
-        name: 'real',
-        type: 'numeric'
-    },
-    {
-        name: 'date',
-        type: 'dateTime'
-    },
-    {
-        name: 'time',
-        type: 'dateTime'
-    },
-    {
-        name: 'datetime',
-        type: 'dateTime'
-    }
+export const varchar = {
+    name: 'varchar',
+    type: 'string'
+};
+
+export const char = {
+    name: 'char',
+    type: 'string'
+};
+export const text = {
+    name: 'text',
+    type: 'string'
+};
+export const int = {
+    name: 'int',
+    type: 'numeric'
+};
+export const bigint = {
+    name: 'bigint',
+    type: 'numeric'
+};
+export const tinyint = {
+    name: 'tinyint',
+    type: 'numeric'
+};
+export const float = {
+    name: 'float',
+    type: 'numeric'
+};
+export const real = {
+    name: 'real',
+    type: 'numeric'
+};
+export const date = {
+    name: 'date',
+    type: 'dateTime'
+};
+export const time = {
+    name: 'time',
+    type: 'dateTime'
+};
+export const datetime = {
+    name: 'datetime',
+    type: 'dateTime'
+};
+export const xml = {
+    name: 'xml',
+    type: 'misc'
+};
+export const cursor = {
+    name: 'cursor',
+    type: 'misc'
+};
+export const blob = {
+    name: 'blob',
+    type: 'misc'
+};
+
+export const mySqlTypes = [
+    varchar,
+    char,
+    text,
+    int,
+    bigint,
+    tinyint,
+    float,
+    real,
+    date,
+    time,
+    datetime
+    // xml,
+    // cursor,
+    // blob,
     // {
     //     name: 'nchar',
     //     type: 'unicodeString'
@@ -67,18 +95,9 @@ export const sqlTypes = [
     //     name: 'clob',
     //     type: 'misc'
     // },
-    // {
-    //     name: 'blob',
-    //     type: 'misc'
-    // },
-    // {
-    //     name: 'xml',
-    //     type: 'misc'
-    // },
-    // {
-    //     name: 'cursor',
-    //     type: 'misc'
-    // },
+    // ,
+    // ,
+    //,
     // {
     //     name: 'table',
     //     type: 'misc'

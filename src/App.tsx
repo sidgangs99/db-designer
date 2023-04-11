@@ -6,9 +6,10 @@ import { ReactFlowProvider } from 'reactflow';
 import LayoutContainer from './components/layout/container';
 import { darkTheme, lightTheme } from './store/darkMode/constants';
 import { useThemeStore } from './store/darkMode/state';
+import { getEnvVariable } from './util/helper';
 
 Sentry.init({
-    dsn: import.meta.env.VITE_SENTRY_DSN,
+    dsn: getEnvVariable('VITE_SENTRY_DSN'),
     integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
     // Performance Monitoring
     tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!

@@ -2,7 +2,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
 
-import { sqlInputType, sqlTypeColor, sqlTypes } from './constants';
+import { mySqlTypes, sqlInputType, sqlTypeColor } from './constants';
 
 export default function SQLDataTypesDropdown(props: any) {
     const { setValue, watch, constraintsLogic } = props;
@@ -33,7 +33,7 @@ export default function SQLDataTypesDropdown(props: any) {
                     leaveTo="opacity-0"
                 >
                     <Listbox.Options className="shadow-xs absolute z-10 mt-8 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5">
-                        {sqlTypes.map((sqlType, index) => (
+                        {mySqlTypes.map((sqlType, index) => (
                             <Listbox.Option
                                 key={index}
                                 className={({ active }) =>

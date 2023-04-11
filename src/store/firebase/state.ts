@@ -14,26 +14,16 @@ import {
     where
 } from 'firebase/firestore';
 import { create } from 'zustand';
-
-// const firebaseConfig = {
-//     apiKey: import.meta.env.VITE_FIRESTORE_API_KEY,
-//     authDomain: import.meta.env.VITE_FIRESTORE_AUTH_DOMAIN,
-//     projectId: import.meta.env.VITE_FIRESTORE_PROJECT_ID,
-//     storageBucket: import.meta.env.VITE_FIRESTORE_STORAGE_BUCKET,
-//     messagingSenderId: import.meta.env.VITE_FIRESTORE_MESSEGING_SENDER_FILE,
-//     appId: import.meta.env.VITE_FIRESTORE_APP_ID,
-//     measurementId: import.meta.env.VITE_FIRESTORE_MEASUREMENT_ID
-// };
+import { getEnvVariable } from '../../util/helper';
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyDLYUArKcbfDSZJbBdX9iy78-3s_vtCvrI',
-    authDomain: 'db-designer-381205.firebaseapp.com',
-    databaseURL: 'https://db-designer-381205-default-rtdb.firebaseio.com',
-    projectId: 'db-designer-381205',
-    storageBucket: 'db-designer-381205.appspot.com',
-    messagingSenderId: '1092126992824',
-    appId: '1:1092126992824:web:28341e739760f40ff2874d',
-    measurementId: 'G-CH1WGSYYNP'
+    apiKey: getEnvVariable('VITE_FIRESTORE_API_KEY'),
+    authDomain: getEnvVariable('VITE_FIRESTORE_AUTH_DOMAIN'),
+    projectId: getEnvVariable('VITE_FIRESTORE_PROJECT_ID'),
+    storageBucket: getEnvVariable('VITE_FIRESTORE_STORAGE_BUCKET'),
+    messagingSenderId: getEnvVariable('VITE_FIRESTORE_MESSEGING_SENDER_FILE'),
+    appId: getEnvVariable('VITE_FIRESTORE_APP_ID'),
+    measurementId: getEnvVariable('VITE_FIRESTORE_MEASUREMENT_ID')
 };
 
 const app = initializeApp(firebaseConfig);
