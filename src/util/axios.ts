@@ -6,7 +6,7 @@ const authenticatedAxios = axios.create({
         ? 'http://localhost:8000'
         : import.meta.env.VITE_BACKEND_API_URI
 });
-console.log(import.meta.env.DEV);
+console.log(import.meta.env.DEV, import.meta.env.PROD);
 authenticatedAxios.interceptors.response.use(
     (response) => response,
     async (error) => {

@@ -15,7 +15,7 @@ interface IDownloadSqlFileModal {
 
 export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
     const { open, setOpen } = props;
-    const { data } = useGenerateSqlFile();
+    const { data, isFetching } = useGenerateSqlFile();
 
     const [fileContent, setFileContent] = useState<string>('');
 
@@ -27,12 +27,20 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
         }
     });
 
+    const errorMessage =
+        'Error: 500 Internal Server Error, will be fixed soon...';
     useEffect(() => {
-        if (data?.fileContent) {
-            setValue('fileContent', data?.fileContent);
-            setFileContent(data?.fileContent);
+        if (isFetching) {
+            setFileContent('');
+        } else {
+            if (data?.fileContent) {
+                setValue('fileContent', data?.fileContent);
+                setFileContent(data?.fileContent);
+            } else {
+                setFileContent(errorMessage);
+            }
         }
-    }, [data]);
+    }, [data, isFetching]);
 
     const onSubmit = ({ fileName, fileContent }: any) => {
         downloadFile(fileContent, 'sql', fileName);
