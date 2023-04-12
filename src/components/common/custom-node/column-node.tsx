@@ -1,10 +1,10 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { Handle, Position, useEdges, useNodes } from 'reactflow';
+import { Handle, Position, useEdges } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { useLayoutStore } from '../../../store/layout/store';
-import { INodeDetails } from '../../../store/nodes/types';
+import { INodeDetails } from '../../../store/workbook/types';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 
 export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
@@ -12,10 +12,7 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
 
     const { setOpenRightSideBar } = useLayoutStore();
 
-    const nodes = useNodes();
     const edges = useEdges();
-
-    useEffect(() => {}, [nodes, edges]);
 
     const handleOnNodeClick = () => {
         setOpenRightSideBar(id);

@@ -69,7 +69,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                     <div
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() =>
-                            node?.data?.mutations.addNewNode(
+                            node?.data?.mutations.addNewColumnNode(
                                 node?.data,
                                 node?.id
                             )

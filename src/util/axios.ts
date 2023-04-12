@@ -8,11 +8,6 @@ const authenticatedAxios = axios.create({
         : getEnvVariable('VITE_BACKEND_API_URI')
 });
 
-console.log(
-    getEnvVariable('VITE_BACKEND_API_URI'),
-    getEnvVariable('DEV'),
-    getEnvVariable('VITE_FIRESTORE_API_KEY')
-);
 authenticatedAxios.interceptors.response.use(
     (response) => response,
     async (error) => {

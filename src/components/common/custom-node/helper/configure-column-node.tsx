@@ -1,4 +1,4 @@
-import { INodeDetails } from '../../../../store/nodes/types';
+import { INodeDetails } from '../../../../store/workbook/types';
 
 // Header
 export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {

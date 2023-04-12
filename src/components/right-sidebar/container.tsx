@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useEdges, useNodes } from 'reactflow';
 import { useLayoutStore } from '../../store/layout/store';
-import { INodeDetails } from '../../store/nodes/types';
+import { INodeDetails } from '../../store/workbook/types';
 import { ConstraintsLogic } from '../common/custom-node/helper/constraints-logic';
 import { sqlInputType } from '../common/sql-types/constants';
 import RightSidebarColumnComponent from './column.component';
@@ -91,7 +91,7 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
 
     const onSubmit: any = (_data: any) => {
         const newNodeData = { ...node.data, ..._data };
-        newNodeData.mutations.onUpdateNode(newNodeData, node.id);
+        newNodeData.mutations.updateNodeData(newNodeData, node.id);
         setOpenRightSideBar(nodeId);
     };
 

@@ -3,7 +3,7 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { useNodes } from 'reactflow';
 
 import { useLayoutStore } from '../../../store/layout/store';
-import { INodeDetails } from '../../../store/nodes/types';
+import { INodeDetails } from '../../../store/workbook/types';
 
 const CustomTableNodeComponent = ({
     id,

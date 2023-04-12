@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { XYPosition, useEdgesState, useNodesState } from 'reactflow';
-import { Set } from 'typescript';
+import { useEdgesState, useNodesState } from 'reactflow';
 
 import { useEdgesStore } from '../../store/edges/state';
 import { useNodesStore } from '../../store/nodes/state';
-import { INode, INodeDetails } from '../../store/nodes/types';
+import { INode } from '../../store/workbook/types';
 import { uuid } from '../../util/helper';
 import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import ReactFlowComponent from './component';
@@ -25,178 +24,12 @@ export default function ReactFlowContainer() {
         setEdges((_edges: any) => [..._edges, newEdge]);
     };
 
-    const onUpdateNode = (data: any, id: string) => {
-        setNodes((_nodes) =>
-            _nodes.map((_node) => {
-                if (_node.id === id) {
-                    return {
-                        ..._node,
-                        data: {
-                            ..._node.data,
-                            ...data
-                        }
-                    };
-                } else if (
-                    _node.data.tableId === data.tableId &&
-                    _node.data.tableName !== data.tableName
-                ) {
-                    return {
-                        ..._node,
-                        data: {
-                            ..._node.data,
-                            tableName: data.tableName
-                        }
-                    };
-                }
-
-                return _node;
-            })
-        );
-    };
-
-    const onDeleteNode = async (id: string) => {
-        const deletedNodes = new Set<string>();
-        let deletedNode = {};
-        await setNodes((_nodes) =>
-            _nodes.filter((_node) => {
-                if (_node.id === id) {
-                    deletedNodes.add(_node.id);
-                    deletedNode = _node;
-                }
-                return _node.id !== id;
-            })
-        );
-
-        deleteEdgeFromNodes(deletedNodes);
-        updatePosition(deletedNode);
-    };
-
-    const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
-        setEdges((_edges) => {
-            return _edges.filter(
-                (_edge) =>
-                    !deletedNode.has(_edge.source) &&
-                    !deletedNode.has(_edge.target)
-            );
-        });
-    };
-
-    const deleteEdgeFromEdgeId = (id: any) => {
-        setEdges((_edges) => {
-            return _edges.filter((_edge) => {
-                return _edge.id !== id;
-            });
-        });
-    };
-
-    const onDeleteTable = (id: string) => {
-        const deletedNodes = new Set<string>();
-
-        setNodes((_nodes) =>
-            _nodes.filter((_node) => {
-                if (_node.data.tableId === id) deletedNodes.add(_node.id);
-                return _node.data.tableId !== id;
-            })
-        );
-        deleteEdgeFromNodes(deletedNodes);
-    };
-
-    const updatePosition = (deletedNode: Record<string, any>) => {
-        if (Object.keys(deletedNode).length === 0) {
-            console.error('Cannot update position, deletedNode is empty');
-            return;
-        }
-
-        setNodes((_nodes) =>
-            _nodes.map((_node: any) => {
-                if (
-                    deletedNode.data.tableId === _node.data.tableId &&
-                    _node.type !== ECustomNodeTypes.TableNode &&
-                    deletedNode.position.y < _node.position.y
-                ) {
-                    return {
-                        ..._node,
-                        position: {
-                            x: _node.position.x,
-                            y: _node.position.y - 50
-                        }
-                    };
-                }
-
-                if (deletedNode.data.tableId === _node.id) {
-                    return {
-                        ..._node,
-                        style: {
-                            ..._node.style,
-                            height: _node.style.height - 50
-                        }
-                    };
-                }
-                return _node;
-            })
-        );
-    };
-
-    const addNewNode = (data: INodeDetails, id: string) => {
-        setNodes((_nodes: any[]) => {
-            let newNodePosition: XYPosition = { x: 0, y: 50 };
-            _nodes.forEach((_node) => {
-                if (
-                    _node.data.tableId === data.tableId &&
-                    _node.data?.columnName
-                ) {
-                    newNodePosition = {
-                        x: 0,
-                        y: Math.max(
-                            _node.position.y + 50,
-                            newNodePosition.y + 50
-                        )
-                    };
-                }
-            });
-
-            const newNode = {
-                id: uuid(),
-                draggable: false,
-                position: newNodePosition,
-                data: {
-                    ...data,
-                    columnName: 'new_column',
-                    dataType: 'varchar',
-                    constraints: {
-                        defaultValue: '',
-                        ...data.constraints
-                    }
-                },
-                parentNode: id,
-                extent: 'parent',
-                type: ECustomNodeTypes.ColumnNode,
-                expandParent: true
-            };
-
-            return [..._nodes, newNode];
-        });
-    };
-
-    const onReset = () => {
-        setNodes(() => []);
-        setEdges(() => []);
-    };
-
     useEffect(() => {
         setNodes((_nodes: any) => {
             return _nodes.map((_node: INode) => ({
                 ..._node,
                 data: {
-                    ..._node.data,
-                    mutations: {
-                        onUpdateNode,
-                        onDeleteNode,
-                        addNewNode,
-                        deleteEdgeFromEdgeId,
-                        onDeleteTable,
-                        onReset
-                    }
+                    ..._node.data
                 }
             }));
         });
@@ -251,15 +84,7 @@ export default function ReactFlowContainer() {
                 position,
                 data: {
                     tableName,
-                    tableId,
-                    mutations: {
-                        onUpdateNode,
-                        onDeleteNode,
-                        addNewNode,
-                        deleteEdgeFromEdgeId,
-                        onDeleteTable,
-                        onReset
-                    }
+                    tableId
                 }
             };
 
@@ -274,17 +99,8 @@ export default function ReactFlowContainer() {
                     dataType: 'varchar',
                     constraints: {
                         defaultValue: ''
-                    },
-                    mutations: {
-                        onUpdateNode,
-                        onDeleteNode,
-                        addNewNode,
-                        deleteEdgeFromEdgeId,
-                        onDeleteTable,
-                        onReset
                     }
                 },
-
                 type: ECustomNodeTypes.ColumnNode,
                 parentNode: uid,
                 extent: 'parent',
