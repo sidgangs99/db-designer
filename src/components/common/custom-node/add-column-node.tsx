@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { TfiPlus } from 'react-icons/tfi';
 
-import { INodeDetails } from '../../../store/workbook/types';
+import useWorkbookStore from '../../../store/workbook/state';
+import { INodeData } from '../../../store/workbook/types';
 import ButtonContainer from '../button/container';
 import ModalContainer from '../modal/container';
 
@@ -10,11 +11,11 @@ const CustomAddNodeComponent = ({
     data,
     id
 }: {
-    data: INodeDetails;
+    data: INodeData;
     id: string;
 }) => {
-    const { mutations, tableId, tableName } = data;
-    const { addNewColumnNode, onDeleteTable } = mutations;
+    const { tableId, tableName } = data;
+    const { addNewColumnNode, deleteTable } = useWorkbookStore();
 
     const [openModal, setOpenModal] = useState(false);
     const [deleteEnabled, setDeleteEnabled] = useState(false);
@@ -24,7 +25,7 @@ const CustomAddNodeComponent = ({
             <div className=" mx-2.5 my-1 flex h-10 w-90 items-center justify-center space-x-4 text-grey-light">
                 <div
                     className="w-4/5 rounded-md border border-dashed border-grey-main py-2 text-lg hover:border-grey-light hover:text-grey-lighter"
-                    onClick={() => addNewColumnNode(data, tableId)}
+                    onClick={() => addNewColumnNode(tableId)}
                 >
                     <TfiPlus className="w-full align-middle text-xs " />
                 </div>
@@ -68,7 +69,7 @@ const CustomAddNodeComponent = ({
                             <ButtonContainer
                                 label={'Delete'}
                                 onClick={() => {
-                                    onDeleteTable(tableId);
+                                    deleteTable(tableId);
                                     setOpenModal(false);
                                 }}
                                 disabled={!deleteEnabled}

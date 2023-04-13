@@ -1,7 +1,7 @@
-import { INodeDetails } from '../../../../store/workbook/types';
+import { INodeData } from '../../../../store/workbook/types';
 
 // Header
-export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {
+export function ConfigureColumnNodeHeader({ data }: { data: INodeData }) {
     const { columnName, tableName } = data;
     return (
         <div className="text-chelsea-cucumber-600 flex space-x-1">
@@ -13,7 +13,7 @@ export function ConfigureColumnNodeHeader({ data }: { data: INodeDetails }) {
 }
 
 interface IConfigureColumnNodeBodyP {
-    data: INodeDetails;
+    data: INodeData;
     id: string;
     edges: any;
 }

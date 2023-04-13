@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNodes } from 'reactflow';
+import useWorkbookStore from '../../../store/workbook/state';
 import ButtonContainer from '../../common/button/container';
 import ModalContainer from '../../common/modal/container';
 
@@ -12,7 +12,7 @@ export default function ResetViewModal(props: IResetViewModal) {
     const { open, setOpen } = props;
     const [deleteEnabled, setDeleteEnabled] = useState(false);
 
-    const nodes: any = useNodes();
+    const { onReset } = useWorkbookStore();
 
     return (
         <ModalContainer
@@ -42,7 +42,7 @@ export default function ResetViewModal(props: IResetViewModal) {
                     <ButtonContainer
                         label={'Reset'}
                         onClick={() => {
-                            nodes?.[0]?.data?.mutations?.onReset();
+                            onReset();
                             setOpen(false);
                         }}
                         disabled={!deleteEnabled}

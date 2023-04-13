@@ -4,12 +4,6 @@ export interface IReactFlowContainerProps {}
 
 
 export interface IReactFlowComponentProps extends IReactFlowContainerProps {
-    onConnect: any;
-    nodes: any;
-    setNodes: any;
-    onNodesChange: any;
-    onEdgesChange: any;
-    edges: any;
     reactFlowWrapper: any;
     onDrop: any;
     onDragOver: any;

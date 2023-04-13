@@ -1,11 +1,11 @@
 import debounce from 'lodash/debounce';
 import { useMutation } from 'react-query';
-import { useEdges, useNodes } from 'reactflow';
 
 import { isEqual } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { API_WORKBOOK } from '../../api/workbook';
 import useAuthStore from '../../store/firebase/state';
+import useWorkbookStore from '../../store/workbook/state';
 import { authenticatePutAPI } from '../../util/axios';
 import { emojiToast } from '../common/toast/emoji-toast';
 import {
@@ -15,18 +15,16 @@ import {
 } from '../common/toast/messages';
 
 export function useSaveWorkbook() {
-    const nodes: any = useNodes();
-    const edges: any = useEdges();
-
+    const { nodes, edges } = useWorkbookStore();
     const [previousVersionOfNodes, setPreviousVersionOfNodes] = useState([]);
     const [previousVersionOfEdges, setPreviousVersionOfEdges] = useState([]);
 
     const extractValuesFromNodesAndEdges = () => {
-        const _nodes = nodes.map((node: any) => ({
+        const _nodes: any = nodes.map((node: any) => ({
             data: node.data,
             position: node.position
         }));
-        const _edges = edges.map((edge: any) => ({
+        const _edges: any = edges.map((edge: any) => ({
             source: edge.source,
             target: edge.target
         }));

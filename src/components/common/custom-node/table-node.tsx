@@ -1,34 +1,17 @@
-import { useEffect, useState } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { useNodes } from 'reactflow';
 
 import { useLayoutStore } from '../../../store/layout/store';
-import { INodeDetails } from '../../../store/workbook/types';
+import { INodeData } from '../../../store/workbook/types';
 
 const CustomTableNodeComponent = ({
     id,
     data
 }: {
-    data: INodeDetails;
+    data: INodeData;
     id: string;
 }) => {
     const { tableName, tableId } = data;
-    const [height, setHeight] = useState<number>(0);
-
-    const nodes = useNodes();
-
     const { setOpenRightSideBar } = useLayoutStore();
-
-    useEffect(() => {
-        heightOfTable();
-    }, [nodes]);
-
-    const heightOfTable = () => {
-        const totalColumns = nodes.filter(
-            (_node: any) => _node.data.tableId === tableId
-        );
-        setHeight(totalColumns.length);
-    };
 
     const handleOnNodeClick = () => {
         setOpenRightSideBar(id);

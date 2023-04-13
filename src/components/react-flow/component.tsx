@@ -8,20 +8,15 @@ import { nodeTypes } from './constants';
 import { customEdgeTypes, IReactFlowComponentProps } from './types';
 
 import { useStore } from 'zustand';
+import useWorkbookStore from '../../store/workbook/state';
 import './controls.styles.css';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
-    const {
-        nodes,
-        edges,
-        onNodesChange,
-        onEdgesChange,
-        onConnect,
-        reactFlowWrapper,
-        setReactFlowInstance,
-        onDrop,
-        onDragOver
-    } = props;
+    const { reactFlowWrapper, setReactFlowInstance, onDrop, onDragOver } =
+        props;
+
+    const { nodes, edges, onEdgesChange, onNodesChange, onConnect } =
+        useWorkbookStore();
 
     const { openRightSideBar } = useStore(useLayoutStore);
 

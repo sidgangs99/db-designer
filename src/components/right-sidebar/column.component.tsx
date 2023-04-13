@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { MdOutlineDelete } from 'react-icons/md';
 
+import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
 import SQLDataTypesDropdown from '../common/sql-types/component';
 import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
@@ -29,6 +30,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
         onColumnClick
     } = props;
 
+    const { deleteNode } = useWorkbookStore();
     const autoIncrement = useCallback(
         () => constraintsLogic?.getIsAutoIncrementDetails(newDataType),
         [newDataType]
@@ -82,7 +84,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                     <div
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => {
-                            node?.data?.mutations.onDeleteNode(node?.id);
+                            deleteNode(node?.id);
                             onColumnClick(node?.id);
                         }}
                     >

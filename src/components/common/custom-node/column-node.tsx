@@ -1,18 +1,17 @@
 import { memo } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { Handle, Position, useEdges } from 'reactflow';
+import { Handle, Position } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { useLayoutStore } from '../../../store/layout/store';
-import { INodeDetails } from '../../../store/workbook/types';
+import useWorkbookStore from '../../../store/workbook/state';
+import { INodeData } from '../../../store/workbook/types';
 import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
 
-export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
-    const { columnName, dataType } = data;
-
+export default memo(({ data, id }: { data: INodeData; id: string }) => {
+    const { columnName, dataType = 'varchar' } = data;
     const { setOpenRightSideBar } = useLayoutStore();
-
-    const edges = useEdges();
+    const { edges } = useWorkbookStore();
 
     const handleOnNodeClick = () => {
         setOpenRightSideBar(id);
@@ -48,7 +47,9 @@ export default memo(({ data, id }: { data: INodeDetails; id: string }) => {
                     <div className="flex w-1/5 ">
                         {(isPrimaryKey || isForeignKey) && (
                             <p className="flex rounded-full bg-grey-main px-2 py-1 text-sm">
-                                {isPrimaryKey ? 'PK' : isForeignKey ? 'FK' : ''}
+                                {isPrimaryKey ? 'PK' : ''}
+                                {isPrimaryKey && isForeignKey ? '|' : ''}
+                                {isForeignKey ? 'FK' : ''}
                             </p>
                         )}
                     </div>

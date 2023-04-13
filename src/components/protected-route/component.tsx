@@ -4,9 +4,8 @@ import { HashLoader } from 'react-spinners';
 import { API_WORKBOOK } from '../../api/workbook';
 
 import { Navigate } from 'react-router-dom';
-import { useEdgesStore } from '../../store/edges/state';
 import useAuthStore, { IUseAuthStore } from '../../store/firebase/state';
-import { useNodesStore } from '../../store/nodes/state';
+import useWorkbookStore from '../../store/workbook/state';
 import { authenticateGetAPI } from '../../util/axios';
 import LoaderComponent from '../common/loader/component';
 
@@ -14,9 +13,8 @@ export const ProtectedRoute = ({ Component }: any) => {
     const { user, setUser, auth }: IUseAuthStore = useAuthStore(
         (state: any) => state
     );
-    const { setNodes }: any = useNodesStore();
-    const { setEdges }: any = useEdgesStore();
 
+    const { setEdges, setNodes } = useWorkbookStore();
     const [isAuthenticating, setIsAuthenticating] = useState(true);
     const [isFetchingData, setIsFetchingData] = useState(true);
 

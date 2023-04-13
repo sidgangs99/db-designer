@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useEdges, useNodes } from 'reactflow';
 import { useLayoutStore } from '../../store/layout/store';
-import { INodeDetails } from '../../store/workbook/types';
+import useWorkbookStore from '../../store/workbook/state';
+import { INodeData } from '../../store/workbook/types';
 import { ConstraintsLogic } from '../common/custom-node/helper/constraints-logic';
 import { sqlInputType } from '../common/sql-types/constants';
 import RightSidebarColumnComponent from './column.component';
@@ -10,19 +10,18 @@ import RightSidebarTableComponent from './table.component';
 import { IRightHeaderContainerProps } from './types';
 
 const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
-    const nodes = useNodes();
-    const edges = useEdges();
+    const { nodes, edges, updateNodeData } = useWorkbookStore();
 
     const [node, setNode] = useState<any>({});
     const { data } = node;
     const {
         tableName,
         columnName,
-        dataType,
+        dataType = 'varchar',
         constraints,
         additional,
         defaultValue
-    }: INodeDetails = data || {};
+    }: INodeData = data || {};
 
     const [newDataType, setNewDataType] = useState<string>('');
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
@@ -91,7 +90,7 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
 
     const onSubmit: any = (_data: any) => {
         const newNodeData = { ...node.data, ..._data };
-        newNodeData.mutations.updateNodeData(newNodeData, node.id);
+        updateNodeData(newNodeData, node.id);
         setOpenRightSideBar(nodeId);
     };
 

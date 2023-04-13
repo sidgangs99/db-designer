@@ -1,6 +1,7 @@
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 import { MdOutlineDelete } from 'react-icons/md';
 
+import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
 import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
 import TextAreaInput from './textAreaInput';
@@ -18,6 +19,8 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
         errors,
         onColumnClick
     } = props;
+
+    const { deleteTable, deleteNode, addNewColumnNode } = useWorkbookStore();
 
     return (
         <form
@@ -43,7 +46,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => {
                             const tableId = node?.data?.tableId;
-                            node?.data?.mutations.onDeleteTable(tableId);
+                            deleteTable(tableId);
                             onColumnClick(tableId);
                         }}
                     >
@@ -68,12 +71,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                     </p>
                     <div
                         className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
-                        onClick={() =>
-                            node?.data?.mutations.addNewColumnNode(
-                                node?.data,
-                                node?.id
-                            )
-                        }
+                        onClick={() => addNewColumnNode(node.data.tableId)}
                     >
                         <AiOutlineAppstoreAdd className="cursor-pointer text-2xl hover:text-coral-main" />
                     </div>
@@ -103,9 +101,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         </div>
                         <div
                             className="flex w-1/6 cursor-pointer items-center justify-center bg-grey-dark  hover:border hover:border-coral-main hover:text-coral-main"
-                            onClick={() =>
-                                node?.data?.mutations.onDeleteNode(id)
-                            }
+                            onClick={() => deleteNode(id)}
                         >
                             <MdOutlineDelete
                                 className={`flex items-center text-xl`}

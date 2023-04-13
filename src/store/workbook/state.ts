@@ -6,29 +6,53 @@ import {
     OnConnect,
     OnEdgesChange,
     OnNodesChange,
+    XYPosition,
     addEdge,
     applyEdgeChanges,
     applyNodeChanges
 } from 'reactflow';
 import { create } from 'zustand';
 
-import { newColumnNode } from './constants';
+import { ECustomEdgeTypes } from '../../components/react-flow/types';
+import {
+    addNewTable,
+    deleteEdgesForTable,
+    deleteNodesAndUpdatePosition,
+    isValidEdge,
+    newColumnNode
+} from './helper';
 import { INode, INodeData } from './types';
 
 export type RFState = {
     nodes: INode[];
+    setNodes: (nodes: INode[]) => void;
     edges: Edge[];
+    setEdges: (edges: Edge[]) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
     updateNodeData: (data: INodeData, nodeId: string) => void;
-    deleteNode: (nodeId: string, tableId: string) => void;
+    deleteNode: (nodeId: string) => void;
     deleteTable: (tableId: string) => void;
+    addNewColumnNode: (tableId: string) => void;
+    dropNewTable: (position: XYPosition) => void;
+    onReset: () => void;
 };
 
 const useWorkbookStore = create<RFState>((set, get) => ({
     nodes: [],
     edges: [],
+    setNodes: (nodes: INode[]) => {
+        set({
+            nodes
+        });
+    },
+    setEdges: (edges: Edge[]) => {
+        set({
+            edges
+        });
+    },
+
     onNodesChange: (changes: NodeChange[]) => {
         set({
             nodes: applyNodeChanges(changes, get().nodes)
@@ -41,7 +65,12 @@ const useWorkbookStore = create<RFState>((set, get) => ({
     },
     onConnect: (connection: Connection) => {
         set({
-            edges: addEdge(connection, get().edges)
+            edges: isValidEdge(connection, get().nodes)
+                ? addEdge(
+                      { ...connection, type: ECustomEdgeTypes.ReferenceKey },
+                      get().edges
+                  )
+                : get().edges
         });
     },
 
@@ -49,12 +78,12 @@ const useWorkbookStore = create<RFState>((set, get) => ({
         set({
             nodes: get().nodes.map((node) => {
                 if (node.id === nodeId) {
-                    node.data = { ...node.data, ...data };
+                    node.data = data;
                 } else if (
-                    node.data.tableId === data.tableId &&
+                    node.parentNode === data.tableId &&
                     node.data.tableName !== data.tableName
                 ) {
-                    node.data = { ...node.data, tableName: data.tableName };
+                    node.data.tableName = data.tableName;
                 }
 
                 return node;
@@ -62,52 +91,31 @@ const useWorkbookStore = create<RFState>((set, get) => ({
         });
     },
 
-    deleteNode: (nodeId: string, tableId: string) => {
+    deleteNode: (nodeId: string) => {
         set({
-            nodes: get()
-                .nodes.filter((node: INode) => node.id !== nodeId)
-                .map((node: INode, index: number) => {
-                    if (tableId !== node.id && tableId === node.data.tableId) {
-                        node.position.y = index * 50;
-                    }
-                    return node;
-                })
+            nodes: deleteNodesAndUpdatePosition(nodeId, get().nodes),
+            edges: get().edges.filter(
+                (edge) => !(edge.source === nodeId || edge.target === nodeId)
+            )
         });
     },
-
-    // const deleteEdgeFromNodes = (deletedNode: Set<string>) => {
-    //     setEdges((_edges) => {
-    //         return _edges.filter(
-    //             (_edge) =>
-    //                 !deletedNode.has(_edge.source) &&
-    //                 !deletedNode.has(_edge.target)
-    //         );
-    //     });
-    // };
-
-    // const deleteEdgeFromEdgeId = (id: any) => {
-    //     setEdges((_edges) => {
-    //         return _edges.filter((_edge) => {
-    //             return _edge.id !== id;
-    //         });
-    //     });
-    // };
 
     deleteTable: (tableId: string) => {
         set({
-            nodes: get().nodes.filter((node) => node.data.tableId !== tableId)
-        });
-    },
-
-    updateNodeColor: (tableId: string) => {
-        set({
-            nodes: newColumnNode(get().nodes, tableId)
+            nodes: get().nodes.filter((node) => node.data.tableId !== tableId),
+            edges: deleteEdgesForTable(get().edges, get().nodes, tableId)
         });
     },
 
     addNewColumnNode: (tableId: string) => {
         set({
             nodes: newColumnNode(get().nodes, tableId)
+        });
+    },
+
+    dropNewTable: (position: XYPosition) => {
+        set({
+            nodes: [...get().nodes, ...addNewTable(position)]
         });
     },
 
