@@ -47,15 +47,15 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                     </div>
                     <div className="flex w-1/5 ">
                         {(isPrimaryKey || isForeignKey) && (
-                            <p className="flex rounded-full bg-grey-main px-2 py-1 text-sm">
-                                {isPrimaryKey ? <p>PK</p> : ''}
+                            <div className="flex rounded-full bg-grey-main px-2 py-1 text-sm">
+                                {isPrimaryKey ? <div>PK</div> : ''}
                                 {isPrimaryKey && isForeignKey ? (
-                                    <p className="px-0.5"> : </p>
+                                    <div className="px-0.5"> : </div>
                                 ) : (
                                     ''
                                 )}
-                                {isForeignKey ? <p>FK</p> : ''}
-                            </p>
+                                {isForeignKey ? <div>FK</div> : ''}
+                            </div>
                         )}
                     </div>
                 </div>

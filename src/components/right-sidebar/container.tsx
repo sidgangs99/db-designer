@@ -7,7 +7,6 @@ import { useLayoutStore } from '../../store/layout/store';
 import useWorkbookStore from '../../store/workbook/state';
 import { INodeData } from '../../store/workbook/types';
 import { ConstraintsLogic } from '../../util/constraints-logic';
-import { ECustomNodeTypes } from '../react-flow/types';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';
 import { IRightHeaderContainerProps } from './types';
@@ -28,7 +27,9 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
     }: INodeData = data || {};
 
     const [newDataType, setNewDataType] = useState<Record<string, any>>({});
-    const [newDefaultValueOption, setNewDefaultValueOption] = useState<Record<string, any>>({});
+    const [newDefaultValueOption, setNewDefaultValueOption] = useState<
+        Record<string, any>
+    >({});
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
 
     const { openRightSideBar, nodeId, setOpenRightSideBar } = useLayoutStore();
@@ -70,7 +71,7 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
 
     useEffect(() => {
         if (node?.data) {
-            setNewDefaultValueOption(defaultValueOption)
+            setNewDefaultValueOption(defaultValueOption);
             setNewDataType(dataType);
             setValue('tableName', tableName);
             setValue('columnName', columnName);
@@ -100,7 +101,8 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === 'dataType') setNewDataType(value?.dataType || {});
-            else if(name === 'defaultValueOption') setNewDefaultValueOption(value?.defaultValueOption || {})
+            else if (name === 'defaultValueOption')
+                setNewDefaultValueOption(value?.defaultValueOption || {});
         });
         return () => subscription.unsubscribe();
     }, [watch]);
@@ -113,11 +115,7 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
     const onSubmit: any = (_data: any) => {
         const newNodeData = { ...node.data, ..._data };
         updateNodeData(newNodeData, node.id);
-        setOpenRightSideBar(
-            node?.type === ECustomNodeTypes.ColumnNode
-                ? node?.parentNode
-                : node?.id
-        );
+        setOpenRightSideBar(node?.id);
     };
 
     const onClose = () => {

@@ -66,7 +66,7 @@ export function useSaveWorkbook() {
         emojiToast({
             message: MESSAGE_ERROR_SAVING_WORKBOOK,
             emoji: '❌',
-            position: 'bottom-right'
+            position: 'top-center'
         });
     };
 

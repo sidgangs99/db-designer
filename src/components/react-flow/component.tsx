@@ -4,16 +4,16 @@ import 'reactflow/dist/style.css';
 import { customColors } from '../../colors';
 import { useLayoutStore } from '../../store/layout/store';
 import RightHeaderContainer from '../right-sidebar/container';
-import { customEdgeTypes, IReactFlowComponentProps, nodeTypes } from './types';
+import { IReactFlowComponentProps } from './types';
 
 import { useStore } from 'zustand';
 import useWorkbookStore from '../../store/workbook/state';
+import { customEdgeTypes, nodeTypes } from './constant';
 import './controls.styles.css';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { reactFlowWrapper, setReactFlowInstance, onDrop, onDragOver } =
         props;
-
     const { nodes, edges, onEdgesChange, onNodesChange, onConnect } =
         useWorkbookStore();
 
