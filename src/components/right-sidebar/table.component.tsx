@@ -1,9 +1,9 @@
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 import { MdOutlineDelete } from 'react-icons/md';
 
+import { sqlTypeColor } from '../../constants/column.constants';
 import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
-import { sqlTypeColor } from '../common/single-select-dropdown/constants';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
 import { IRightSidebarTableProps } from './types';
@@ -90,7 +90,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                             >
                                 <p
                                     className={` ${
-                                        sqlTypeColor[data?.dataType.type]
+                                        sqlTypeColor[data?.dataType?.type]
                                     }`}
                                 >
                                     {data?.dataType?.label}

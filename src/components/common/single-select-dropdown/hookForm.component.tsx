@@ -2,10 +2,17 @@ import { Listbox, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
 
-import { sqlTypeColor } from './constants';
+import { sqlTypeColor } from '../../../constants/column.constants';
 
 export default function SingleSelectDropdownHookFormContainer(props: any) {
-    const { setValue, constraintsLogic, keyName, values, keyNameValue } = props;
+    const {
+        setValue,
+        constraintsLogic,
+        keyName,
+        values,
+        keyNameValue,
+        optionsClassName
+    } = props;
 
     const setSelectedDataType = (value: any) => {
         setValue(keyName, value);
@@ -33,7 +40,9 @@ export default function SingleSelectDropdownHookFormContainer(props: any) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <Listbox.Options className="shadow-xs absolute z-10 mt-8 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5">
+                    <Listbox.Options
+                        className={`shadow-xs absolute z-10 mt-8 max-h-60 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 pt-1 text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
+                    >
                         {values.map((value: any, index: number) => (
                             <Listbox.Option
                                 key={index}

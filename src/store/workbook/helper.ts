@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 import { Connection, Edge, XYPosition } from 'reactflow';
-import { defaultValuesOptions } from '../../components/common/single-select-dropdown/constants';
-import { postgresDataTypeInputTypeMapping } from '../../components/common/single-select-dropdown/postgres.constants';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
+import { defaultValuesOptions } from '../../constants/column.constants';
+import { postgresDataTypeInputTypeMapping } from '../../constants/postgres.constants';
 import { uuid } from '../../util/helper';
 import { INode, INodeData } from './types';
 

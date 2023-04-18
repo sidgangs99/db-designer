@@ -3,11 +3,11 @@ import { Controller } from 'react-hook-form';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { MdOutlineDelete } from 'react-icons/md';
 
+import { sqlTypeColor } from '../../constants/column.constants';
+import { postgresDataTypeInputTypeMapping } from '../../constants/postgres.constants';
 import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
-import { sqlTypeColor } from '../common/single-select-dropdown/constants';
 import SingleSelectDropdownHookFormContainer from '../common/single-select-dropdown/hookForm.component';
-import { postgresDataTypeInputTypeMapping } from '../common/single-select-dropdown/postgres.constants';
 import SwitchContainer from '../common/switch/container';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
@@ -29,8 +29,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
         newDataType,
         onClose,
         onColumnClick,
-        newDefaultValueOption,
-
+        newDefaultValueOption
     } = props;
 
     const { deleteNode } = useWorkbookStore();
@@ -47,8 +46,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
         autoIncrement()
     ];
 
-    const { disabled, defaultValues } =
-        constraintsLogic.getDefaultValueDetails();
+    const { defaultValues } = constraintsLogic.getDefaultValueDetails();
     const { tableName } = getValues();
 
     return (
@@ -144,23 +142,48 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                     </div>
                 </div>
 
-                {newDefaultValueOption?.isDefaultValueInputVisible && (
-                    <TextInput
-                        register={register}
-                        errors={errors}
-                        keyName="defaultValue"
-                        label={'Default'}
-                        type={defaultValueInputType}
-                        pattern={newDataType.regex}
-                        inputStyle={
-                            ['number', 'text'].includes(defaultValueInputType)
-                                ? 'text-sm'
-                                : 'text-xs'
-                        }
-                        customStyle={sqlTypeColor[newDataType.type]}
-                        placeholder={'none'}
-                    />
-                )}
+                {newDefaultValueOption?.isDefaultValueInputVisible &&
+                    (newDataType?.type === 'textarea' &&
+                    newDefaultValueOption?.id !== 'expression' ? (
+                        <TextAreaInput
+                            register={register}
+                            errors={errors}
+                            keyName="defaultValue"
+                            label={'Default'}
+                            pattern={newDataType.regex}
+                            inputStyle={
+                                ['number', 'text'].includes(
+                                    defaultValueInputType
+                                )
+                                    ? 'text-sm'
+                                    : 'text-xs'
+                            }
+                            customStyle={sqlTypeColor[newDataType.type]}
+                            placeholder={'none'}
+                        />
+                    ) : (
+                        <TextInput
+                            register={register}
+                            errors={errors}
+                            keyName="defaultValue"
+                            label={'Default'}
+                            type={
+                                newDefaultValueOption?.id === 'expression'
+                                    ? 'text'
+                                    : defaultValueInputType
+                            }
+                            pattern={newDataType.regex}
+                            inputStyle={
+                                ['number', 'text'].includes(
+                                    defaultValueInputType
+                                )
+                                    ? 'text-sm'
+                                    : 'text-xs'
+                            }
+                            customStyle={sqlTypeColor[newDataType.type]}
+                            placeholder={'none'}
+                        />
+                    ))}
             </div>
             <div className="flex w-full flex-col space-y-2">
                 <label className="flex h-10 w-full items-center rounded-sm bg-grey-main px-2 font-semibold text-white">

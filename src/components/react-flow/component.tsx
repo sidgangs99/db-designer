@@ -4,8 +4,7 @@ import 'reactflow/dist/style.css';
 import { customColors } from '../../colors';
 import { useLayoutStore } from '../../store/layout/store';
 import RightHeaderContainer from '../right-sidebar/container';
-import { nodeTypes } from './constants';
-import { customEdgeTypes, IReactFlowComponentProps } from './types';
+import { customEdgeTypes, IReactFlowComponentProps, nodeTypes } from './types';
 
 import { useStore } from 'zustand';
 import useWorkbookStore from '../../store/workbook/state';

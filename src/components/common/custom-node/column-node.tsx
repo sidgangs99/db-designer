@@ -3,11 +3,11 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { Handle, Position } from 'reactflow';
 
 import 'reactflow/dist/style.css';
+import { sqlTypeColor } from '../../../constants/column.constants';
+import { postgresDataTypeInputTypeMapping } from '../../../constants/postgres.constants';
 import { useLayoutStore } from '../../../store/layout/store';
 import useWorkbookStore from '../../../store/workbook/state';
 import { INodeData } from '../../../store/workbook/types';
-import { sqlTypeColor } from '../single-select-dropdown/constants';
-import { postgresDataTypeInputTypeMapping } from '../single-select-dropdown/postgres.constants';
 
 export default memo(({ data, id }: { data: INodeData; id: string }) => {
     const { columnName, dataType = postgresDataTypeInputTypeMapping[0] } = data;

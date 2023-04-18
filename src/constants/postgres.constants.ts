@@ -48,8 +48,8 @@ export const postgresDataTypeInputTypeMapping: any[] = [
     },
     {
         id: 'big.serial',
-        inputType: 'number',
-        type: 'bigserial',
+        type: 'number',
+        dataType: 'bigserial',
         regex: /^\d{1,19}$/,
         label: 'Big Serial'
     },
@@ -62,7 +62,7 @@ export const postgresDataTypeInputTypeMapping: any[] = [
     },
     {
         id: 'date',
-        type: 'date',
+        type: 'text',
         dataType: 'date',
         regex: /^(\d{4})-(\d{2})-(\d{2})$/,
         label: 'Date'
@@ -124,7 +124,7 @@ export const postgresDataTypeInputTypeMapping: any[] = [
         label: 'Small Serial'
     },
     {
-        id: 'serial',
+        id: '.serial',
         type: 'number',
         dataType: 'serial',
         regex: /^\d{1,10}$/,
@@ -140,28 +140,28 @@ export const postgresDataTypeInputTypeMapping: any[] = [
     },
     {
         id: 'time',
-        type: 'time',
+        type: 'text',
         dataType: 'time',
         regex: /^(0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/,
         label: 'Time'
     },
     {
         id: 'timeWithTimeZone',
-        type: 'time',
+        type: 'text',
         dataType: 'timeWithTimeZone',
         regex: /^(0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9][+-](0?[0-9]|1[0-4]):[0-5][0-9]$/,
         label: 'Time with Time Zone'
     },
     {
         id: 'timestamp',
-        type: 'datetime-local',
+        type: 'text',
         dataType: 'timestamp',
         regex: /^[0-9]{4}-([0][1-9]|[1][0-2])-([0-2][1-9]|[3][0-1]) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/,
         label: 'Timestamp'
     },
     {
         id: 'timestampWithTimeZone',
-        type: 'datetime-local',
+        type: 'text',
         dataType: 'timestampWithTimeZone',
         regex: /^[0-9]{4}-([0][1-9]|[1][0-2])-([0-2][1-9]|[3][0-1]) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])[+-](0?[0-9]|1[0-4]):[0-5][0-9]$/,
         label: 'Time Stamp with Time Zone'

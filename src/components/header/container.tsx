@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useThemeStore } from '../../store/darkMode/state';
 
+import { SNAPSHOT_OPTION, SQL_FILE_OPTION, UPCOMING_OPTION } from '../../constants/export.constants';
 import { downloadPngImageOfWorkbook } from '../../util/helper';
-import { SNAPSHOT_OPTION, SQL_FILE_OPTION, UPCOMING_OPTION } from './constants';
 
 import useAuthStore from '../../store/firebase/state';
 import HeaderComponent from './component';
@@ -22,8 +22,8 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
 
-    function exportDropdownOption(selectedOption: string) {
-        switch (selectedOption) {
+    function exportDropdownOption(selectedOption: any) {
+        switch (selectedOption?.value) {
             case SQL_FILE_OPTION:
                 setOpenDownloadSqlFileModal(true);
                 break;

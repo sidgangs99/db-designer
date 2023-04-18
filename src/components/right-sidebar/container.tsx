@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { defaultValuesOptions } from '../../constants/column.constants';
+import { postgresDataTypeInputTypeMapping } from '../../constants/postgres.constants';
 import { useLayoutStore } from '../../store/layout/store';
 import useWorkbookStore from '../../store/workbook/state';
 import { INodeData } from '../../store/workbook/types';
 import { ConstraintsLogic } from '../../util/constraints-logic';
-import { defaultValuesOptions } from '../common/single-select-dropdown/constants';
-import { postgresDataTypeInputTypeMapping } from '../common/single-select-dropdown/postgres.constants';
 import { ECustomNodeTypes } from '../react-flow/types';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';

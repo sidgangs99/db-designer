@@ -24,7 +24,7 @@ export interface INodeData {
     tableStyle?: any;
     additional?: Record<string, any>;
     defaultValue?: any;
-    defaultValueOption: Record<string, any>;
+    defaultValueOption?: Record<string, any>;
 }
 
 export interface INode extends Node<INodeData> {}

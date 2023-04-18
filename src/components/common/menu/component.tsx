@@ -21,7 +21,7 @@ export default function MenuComponent(props: IMenuComponentProps) {
     return (
         <Menu as="div" className="relative items-center justify-center">
             <div>
-                <Menu.Button className="flex w-full items-center justify-center rounded-md border border-grey-dark text-sm font-medium hover:border-coral-main">
+                <Menu.Button className="flex w-full items-center justify-center rounded-md border border-grey-dark text-sm font-medium hover:border-grey-light">
                     {photoURL ? (
                         <img
                             className="h-8 w-8 rounded border border-grey-main"

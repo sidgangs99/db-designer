@@ -10,6 +10,7 @@ export interface ISingleSelectDropdownContainerProps {
     value: Record<string, any>;
     className?: string;
     Icon?: any;
+    optionsClassName?: string;
 }
 
 export interface ISingleSelectDropdownComponentProps

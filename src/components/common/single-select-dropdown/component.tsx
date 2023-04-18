@@ -2,13 +2,19 @@ import { Listbox, Transition } from '@headlessui/react';
 import { HiSelector } from 'react-icons/hi';
 
 import { Fragment } from 'react';
-import { uuid } from '../../../util/helper';
 import { ISingleSelectDropdownComponentProps } from './types';
 
 export default function SingleSelectDropdownComponent(
     props: ISingleSelectDropdownComponentProps
 ) {
-    const { values = [], setValue, value, className, Icon } = props;
+    const {
+        values = [],
+        setValue,
+        value,
+        className,
+        Icon,
+        optionsClassName
+    } = props;
 
     return (
         <Listbox value={value} onChange={setValue}>
@@ -35,13 +41,13 @@ export default function SingleSelectDropdownComponent(
                     >
                         <Listbox.Options
                             static
-                            className="shadow-xs absolute z-20 mt-8 h-60 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5"
+                            className={`shadow-xs absolute z-20 mt-8 max-h-60 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
                         >
-                            {values.map((data: any) => {
-                                const { label, value, id = uuid() } = data;
+                            {values.map((data: any, index: number) => {
+                                const { label } = data;
                                 return (
                                     <Listbox.Option
-                                        key={id}
+                                        key={index}
                                         value={data}
                                         className={({ active }) =>
                                             `relative cursor-pointer px-2 py-1 text-xs hover:bg-grey-main md:text-sm`

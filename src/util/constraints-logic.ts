@@ -1,5 +1,5 @@
-import { defaultValuesOptions } from '../components/common/single-select-dropdown/constants';
-import { postgresDataTypeInputTypeMapping } from '../components/common/single-select-dropdown/postgres.constants';
+import { defaultValuesOptions } from '../constants/column.constants';
+import { postgresDataTypeInputTypeMapping } from '../constants/postgres.constants';
 
 export class ConstraintsLogic {
     dataType: Record<string, any>;

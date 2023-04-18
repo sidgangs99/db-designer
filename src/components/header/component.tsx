@@ -2,9 +2,9 @@ import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
 import { TbFileExport } from 'react-icons/tb';
 
+import { exportOptions } from '../../constants/export.constants';
 import IconButtonContainer from '../common/icon-button/container';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
-import { exportOptions } from './constants';
 import DownloadSqlFileModal from './modals/download-sql';
 import ResetViewModal from './modals/reset-view';
 
@@ -37,8 +37,12 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                         <SingleSelectDropdownContainer
                             Icon={TbFileExport}
                             value={{ label: 'Export' }}
-                            setValue={(e: any) => exportDropdownOption(e)}
+                            setValue={(e: any) => {
+                                exportDropdownOption(e);
+                            }}
                             values={exportOptions}
+                            className="rounded-md border border-grey-main hover:border-coral-light hover:text-coral-light"
+                            optionsClassName={"bg-grey-darker"}
                         />
                     </div>
                     <div
