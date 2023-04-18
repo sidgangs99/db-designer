@@ -48,9 +48,13 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                     <div className="flex w-1/5 ">
                         {(isPrimaryKey || isForeignKey) && (
                             <p className="flex rounded-full bg-grey-main px-2 py-1 text-sm">
-                                {isPrimaryKey ? 'PK' : ''}
-                                {isPrimaryKey && isForeignKey ? '|' : ''}
-                                {isForeignKey ? 'FK' : ''}
+                                {isPrimaryKey ? <p>PK</p> : ''}
+                                {isPrimaryKey && isForeignKey ? (
+                                    <p className="px-0.5"> : </p>
+                                ) : (
+                                    ''
+                                )}
+                                {isForeignKey ? <p>FK</p> : ''}
                             </p>
                         )}
                     </div>
