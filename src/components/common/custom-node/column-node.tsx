@@ -6,10 +6,11 @@ import 'reactflow/dist/style.css';
 import { useLayoutStore } from '../../../store/layout/store';
 import useWorkbookStore from '../../../store/workbook/state';
 import { INodeData } from '../../../store/workbook/types';
-import { sqlInputType, sqlTypeColor } from '../sql-types/constants';
+import { sqlTypeColor } from '../single-select-dropdown/constants';
+import { postgresDataTypeInputTypeMapping } from '../single-select-dropdown/postgres.constants';
 
 export default memo(({ data, id }: { data: INodeData; id: string }) => {
-    const { columnName, dataType = 'varchar' } = data;
+    const { columnName, dataType = postgresDataTypeInputTypeMapping[0] } = data;
     const { setOpenRightSideBar } = useLayoutStore();
     const { edges } = useWorkbookStore();
 
@@ -39,10 +40,10 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                     </div>
                     <div
                         className={`flex w-2/5 items-center ${
-                            sqlTypeColor[sqlInputType[dataType]]
+                            sqlTypeColor[dataType.type]
                         }`}
                     >
-                        {dataType}
+                        {dataType.label}
                     </div>
                     <div className="flex w-1/5 ">
                         {(isPrimaryKey || isForeignKey) && (

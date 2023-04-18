@@ -159,3 +159,10 @@ export const sqlInputType: Record<string, string> = {
     // cursor: 'misc',
     // table: 'misc'
 };
+
+export const defaultValuesOptions: any[] = [
+    { label: 'Not set', value: null, id:'notSet', isDefaultValueInputVisible: false },
+    { label: 'NULL', value: null, id : "label", isDefaultValueInputVisible: false },
+    { label: 'Custom text', value: '', id: "customText", isDefaultValueInputVisible: true },
+    { label: 'Expression', value: '', id: "expression", isDefaultValueInputVisible: true }
+];

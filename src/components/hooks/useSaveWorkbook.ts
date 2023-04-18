@@ -10,9 +10,9 @@ import { authenticatePutAPI } from '../../util/axios';
 import { emojiToast } from '../common/toast/emoji-toast';
 import {
     MESSAGE_ERROR_SAVING_WORKBOOK,
-    MESSAGE_SAVED_WORKBOOK,
-    MESSAGE_SAVING_WORKBOOK
+    MESSAGE_SAVED_WORKBOOK
 } from '../common/toast/messages';
+import { darkToast } from '../common/toast/toast';
 
 export function useSaveWorkbook() {
     const { nodes, edges } = useWorkbookStore();
@@ -41,11 +41,10 @@ export function useSaveWorkbook() {
     const { user }: any = useAuthStore();
 
     const mutateFnc = () => {
-        emojiToast({
-            message: MESSAGE_SAVING_WORKBOOK,
-            emoji: '📚',
-            position: 'bottom-right'
-        });
+        // darkToast({
+        //     message: MESSAGE_SAVING_WORKBOOK,
+        //     position: 'top-center'
+        // });
         return authenticatePutAPI(user.accessToken, API_WORKBOOK, {
             nodes,
             edges
@@ -53,10 +52,9 @@ export function useSaveWorkbook() {
     };
 
     const onSuccessFn = (data: any, variables: any, context: any) => {
-        emojiToast({
+        darkToast({
             message: MESSAGE_SAVED_WORKBOOK,
-            emoji: '💾',
-            position: 'bottom-right'
+            position: 'top-center'
         });
     };
 

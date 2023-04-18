@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { useLayoutStore } from '../../store/layout/store';
 import useWorkbookStore from '../../store/workbook/state';
 import { INodeData } from '../../store/workbook/types';
-import { ConstraintsLogic } from '../common/custom-node/helper/constraints-logic';
-import { sqlInputType } from '../common/sql-types/constants';
+import { ConstraintsLogic } from '../../util/constraints-logic';
+import { defaultValuesOptions } from '../common/single-select-dropdown/constants';
+import { postgresDataTypeInputTypeMapping } from '../common/single-select-dropdown/postgres.constants';
+import { ECustomNodeTypes } from '../react-flow/types';
 import RightSidebarColumnComponent from './column.component';
 import RightSidebarTableComponent from './table.component';
 import { IRightHeaderContainerProps } from './types';
@@ -17,13 +20,15 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
     const {
         tableName,
         columnName,
-        dataType = 'varchar',
+        dataType = postgresDataTypeInputTypeMapping[0],
         constraints,
         additional,
-        defaultValue
+        defaultValue = '',
+        defaultValueOption = defaultValuesOptions[0]
     }: INodeData = data || {};
 
-    const [newDataType, setNewDataType] = useState<string>('');
+    const [newDataType, setNewDataType] = useState<Record<string, any>>({});
+    const [newDefaultValueOption, setNewDefaultValueOption] = useState<Record<string, any>>({});
     const [constraintsLogic, setConstraintsLogic] = useState<any>();
 
     const { openRightSideBar, nodeId, setOpenRightSideBar } = useLayoutStore();
@@ -58,12 +63,14 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
             dataType,
             constraints,
             additional,
-            defaultValue
+            defaultValue,
+            defaultValueOption
         }
     });
 
     useEffect(() => {
         if (node?.data) {
+            setNewDefaultValueOption(defaultValueOption)
             setNewDataType(dataType);
             setValue('tableName', tableName);
             setValue('columnName', columnName);
@@ -71,27 +78,46 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
             setValue('additional', additional);
             setValue('dataType', dataType);
             setValue('defaultValue', defaultValue);
+            setValue('defaultValueOption', defaultValueOption);
         }
     }, [node]);
+
+    useEffect(() => {
+        constraintsLogic?.setDataType(newDataType);
+        if (newDataType?.id?.split('.')[1] === 'serial') {
+            setValue('constraints.autoIncrement', true);
+        } else {
+            setValue('constraints.autoIncrement', false);
+        }
+    }, [newDataType]);
+
+    useEffect(() => {
+        constraintsLogic?.setDefaultValueOption(newDefaultValueOption);
+    }, [newDefaultValueOption]);
 
     const { errors }: any = formState;
 
     useEffect(() => {
         const subscription = watch((value, { name }) => {
-            if (name === 'dataType') setNewDataType(value?.dataType || '');
+            if (name === 'dataType') setNewDataType(value?.dataType || {});
+            else if(name === 'defaultValueOption') setNewDefaultValueOption(value?.defaultValueOption || {})
         });
         return () => subscription.unsubscribe();
     }, [watch]);
 
     const defaultValueInputType: string = useMemo(
-        () => sqlInputType[newDataType],
+        () => newDataType?.type,
         [newDataType]
     );
 
     const onSubmit: any = (_data: any) => {
         const newNodeData = { ...node.data, ..._data };
         updateNodeData(newNodeData, node.id);
-        setOpenRightSideBar(nodeId);
+        setOpenRightSideBar(
+            node?.type === ECustomNodeTypes.ColumnNode
+                ? node?.parentNode
+                : node?.id
+        );
     };
 
     const onClose = () => {
@@ -129,6 +155,7 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
                 newDataType={newDataType}
                 onClose={onClose}
                 onColumnClick={onColumnClick}
+                newDefaultValueOption={newDefaultValueOption}
             />
         ) : (
             <RightSidebarTableComponent

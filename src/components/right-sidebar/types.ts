@@ -12,9 +12,10 @@ export interface IRightHeaderComponentProps extends IRightHeaderContainerProps {
     handleSubmit: any;
     onSubmit: any;
     register: any;
-    newDataType: string;
+    newDataType: Record<string, any>;
     onClose: any;
     onColumnClick?: any;
+    newDefaultValueOption?: any;
 }
 
 export interface IRightSidebarTableProps extends IRightHeaderContainerProps {

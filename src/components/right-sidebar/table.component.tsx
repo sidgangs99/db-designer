@@ -3,7 +3,7 @@ import { MdOutlineDelete } from 'react-icons/md';
 
 import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
-import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
+import { sqlTypeColor } from '../common/single-select-dropdown/constants';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
 import { IRightSidebarTableProps } from './types';
@@ -43,7 +43,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         Table Details
                     </div>
                     <div
-                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-dark hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => {
                             const tableId = node?.data?.tableId;
                             deleteTable(tableId);
@@ -70,7 +70,7 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                         Columns
                     </p>
                     <div
-                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-dark hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => addNewColumnNode(node.data.tableId)}
                     >
                         <AiOutlineAppstoreAdd className="cursor-pointer text-2xl hover:text-coral-main" />
@@ -90,12 +90,10 @@ const RightSidebarTableComponent = (props: IRightSidebarTableProps) => {
                             >
                                 <p
                                     className={` ${
-                                        sqlTypeColor[
-                                            sqlInputType[data?.dataType]
-                                        ]
+                                        sqlTypeColor[data?.dataType.type]
                                     }`}
                                 >
-                                    {data?.dataType}
+                                    {data?.dataType?.label}
                                 </p>
                             </div>
                         </div>

@@ -1,14 +1,15 @@
 export interface IDropdownOptions {
     label: string;
     value: string;
+    id?: string;
 }
 
 export interface ISingleSelectDropdownContainerProps {
     values: IDropdownOptions[];
     setValue: any;
-    value: string;
+    value: Record<string, any>;
     className?: string;
-    Icon: any;
+    Icon?: any;
 }
 
 export interface ISingleSelectDropdownComponentProps

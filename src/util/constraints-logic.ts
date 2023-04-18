@@ -1,7 +1,9 @@
-import { sqlTypeCategory } from '../../sql-types/constants';
+import { defaultValuesOptions } from '../components/common/single-select-dropdown/constants';
+import { postgresDataTypeInputTypeMapping } from '../components/common/single-select-dropdown/postgres.constants';
 
 export class ConstraintsLogic {
-    dataType: string = '';
+    dataType: Record<string, any>;
+    defaultValueOption: Record<string, any>;
 
     isPrimaryKey = false;
     isPrimaryKeyDisabled = true;
@@ -21,22 +23,33 @@ export class ConstraintsLogic {
     isAutoIncrement = true;
     isAutoIncrementDisabled = false;
 
-    minRange = '';
-    maxRange = '';
-
-    formUpdateWatch = undefined;
+    dateTimeInputTypes: string[] = ['date', 'time', 'datetime-local'];
+    date = { label: `CURRENT_DATE` };
+    time = { label: `CURRENT_TIME` };
+    timestampWithTimeZone = { label: `NOW()` };
 
     constructor(nodeId: string, nodeData: any, edges: any) {
         this.isForeignKey = edges.some((edge: any) => edge.target === nodeId);
-        this.dataType = nodeData.dataType;
+        this.dataType =
+            nodeData?.dataType || postgresDataTypeInputTypeMapping[0];
+        this.defaultValueOption =
+            nodeData?.defaultValueOption || defaultValuesOptions[0];
     }
 
-    setDataType(dataType: string) {
+    setDataType(dataType: any) {
         this.dataType = dataType;
     }
 
     getDataType() {
         return this.dataType;
+    }
+
+    setDefaultValueOption(option: any){
+        this.defaultValueOption = option;
+    }
+    
+    getDefaultValueOption(){
+        return this.defaultValueOption;
     }
 
     getPrimaryKeyDetails() {
@@ -111,10 +124,11 @@ export class ConstraintsLogic {
         };
     }
 
-    getDefaultValueDetails() {
+    getDefaultValueDetails(dataType = this.dataType) {
         let value = this.defaultValue;
         let disabled = this.isPrimaryKey;
         let disabledTooltip = '';
+        let defaultValues: any[] = defaultValuesOptions;
 
         if (this.isPrimaryKey) {
             disabled = true;
@@ -122,10 +136,14 @@ export class ConstraintsLogic {
                 'This key is primary key, cannot have a default value';
         }
 
+        if (this.dateTimeInputTypes.includes(dataType.inputType)) {
+        }
+
         return {
             label: 'Default Value',
             defaultValue: value,
             formValue: 'constraints.defaultValue',
+            defaultValues,
             disabled,
             type: Text,
             disabledTooltip
@@ -137,7 +155,11 @@ export class ConstraintsLogic {
         let disabled = false;
         let disabledTooltip = '';
 
-        if (sqlTypeCategory[dataType] === 'numeric') {
+        if (dataType?.id?.split('.')?.[1] === 'serial') {
+            value = true;
+            disabled = true;
+            disabledTooltip = 'Serial data types are always autoIncrement';
+        } else if (dataType.type === 'number') {
             value = false;
             disabled = false;
         } else {
@@ -155,66 +177,6 @@ export class ConstraintsLogic {
             type: Boolean,
             disabledTooltip,
             defaultValueDisabled: false
-        };
-    }
-
-    getMinRangeDetails(dataType: string) {
-        let minRangeValue: any = '';
-        const signedInt = true;
-
-        if (dataType === 'tinyint') minRangeValue = signedInt ? -128 : 0;
-        else if (dataType === 'smallint')
-            minRangeValue = signedInt ? -32768 : 0;
-        else if (dataType === 'int')
-            minRangeValue = signedInt ? -2147483648 : 0;
-        else if (dataType === 'bigint')
-            minRangeValue = signedInt ? -9223372036854775808 : 0;
-        else if (dataType === 'float') minRangeValue = -3.40282347e38;
-        else if (dataType === 'double') minRangeValue = -1.7976931348623157e308;
-        else if (dataType === 'decimal') minRangeValue = -10 ^ (38 + 1);
-        else if (dataType === 'char') minRangeValue = 0;
-        else if (dataType === 'varchar') minRangeValue = 0;
-        else if (dataType === 'date') minRangeValue = '1000-01-01';
-        else if (dataType === 'time') minRangeValue = '00:00:00';
-        else if (dataType === 'datetime') minRangeValue = '1000-01-01 00:00:00';
-
-        return {
-            label: '',
-            value: minRangeValue,
-            formValue: '',
-            disabled: false,
-            disabledTooltip: ''
-        };
-    }
-
-    getMaxRangeDetails(dataType: string) {
-        let maxRangeValue: any = 0;
-        const signedInt = true;
-
-        if (dataType === 'tinyint') maxRangeValue = signedInt ? 127 : 255;
-        else if (dataType === 'smallint')
-            maxRangeValue = signedInt ? 32767 : 65535;
-        else if (dataType === 'int')
-            maxRangeValue = signedInt ? -2147483648 : 4294967295;
-        else if (dataType === 'bigint')
-            maxRangeValue = signedInt
-                ? -9223372036854775808
-                : 18446744073709551615;
-        else if (dataType === 'float') maxRangeValue = 3.40282347e38;
-        else if (dataType === 'double') maxRangeValue = 1.7976931348623157e308;
-        else if (dataType === 'decimal') maxRangeValue = 10 ^ (38 - 1);
-        else if (dataType === 'char') maxRangeValue = 255;
-        else if (dataType === 'varchar') maxRangeValue = 65535;
-        else if (dataType === 'date') maxRangeValue = '9999-12-31';
-        else if (dataType === 'time') maxRangeValue = '23:59:59.999999';
-        else if (dataType === 'datetime') maxRangeValue = '9999-12-31 23:59:59';
-
-        return {
-            label: '',
-            value: maxRangeValue,
-            formValue: '',
-            disabled: false,
-            disabledTooltip: ''
         };
     }
 }

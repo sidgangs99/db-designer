@@ -36,7 +36,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                         />
                         <SingleSelectDropdownContainer
                             Icon={TbFileExport}
-                            value={'Export'}
+                            value={{ label: 'Export' }}
                             setValue={(e: any) => exportDropdownOption(e)}
                             values={exportOptions}
                         />

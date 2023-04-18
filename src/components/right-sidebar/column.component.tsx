@@ -5,8 +5,9 @@ import { MdOutlineDelete } from 'react-icons/md';
 
 import useWorkbookStore from '../../store/workbook/state';
 import ButtonContainer from '../common/button/container';
-import SQLDataTypesDropdown from '../common/sql-types/component';
-import { sqlInputType, sqlTypeColor } from '../common/sql-types/constants';
+import { sqlTypeColor } from '../common/single-select-dropdown/constants';
+import SingleSelectDropdownHookFormContainer from '../common/single-select-dropdown/hookForm.component';
+import { postgresDataTypeInputTypeMapping } from '../common/single-select-dropdown/postgres.constants';
 import SwitchContainer from '../common/switch/container';
 import TextAreaInput from './textAreaInput';
 import TextInput from './textInput';
@@ -27,7 +28,9 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
         control,
         newDataType,
         onClose,
-        onColumnClick
+        onColumnClick,
+        newDefaultValueOption,
+
     } = props;
 
     const { deleteNode } = useWorkbookStore();
@@ -44,7 +47,8 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
         autoIncrement()
     ];
 
-    const { disabled } = constraintsLogic.getDefaultValueDetails();
+    const { disabled, defaultValues } =
+        constraintsLogic.getDefaultValueDetails();
     const { tableName } = getValues();
 
     return (
@@ -59,6 +63,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                     form={'editTableColumn'}
                     label={'Update'}
                     primary
+                    disabled={Object.keys(errors).length !== 0}
                 />
                 <ButtonContainer onClick={onClose} label={'Close'} secondary />
             </div>
@@ -68,7 +73,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                     {tableName}
                 </p>
                 <div
-                    className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                    className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-dark hover:border hover:border-coral-main hover:text-coral-main"
                     onClick={() => {
                         onColumnClick(node?.data?.tableId);
                     }}
@@ -82,7 +87,7 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                         Column Details
                     </div>
                     <div
-                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-main hover:border hover:border-coral-main hover:text-coral-main"
+                        className="flex h-full w-1/6 cursor-pointer items-center justify-center bg-grey-dark hover:border hover:border-coral-main hover:text-coral-main"
                         onClick={() => {
                             deleteNode(node?.id);
                             onColumnClick(node?.id);
@@ -104,35 +109,55 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
 
                 <div
                     className={`flex h-10 w-full items-center justify-between rounded-sm bg-grey-dark px-3 ${
-                        sqlTypeColor[sqlInputType[newDataType]]
+                        sqlTypeColor[newDataType.type]
                     }`}
                 >
                     <label className="flex w-3/12 items-center justify-start">
                         Type :
                     </label>
                     <div className="flex w-8/12 items-center justify-center">
-                        <SQLDataTypesDropdown
-                            getValues={getValues}
-                            watch={watch}
+                        <SingleSelectDropdownHookFormContainer
                             setValue={setValue}
+                            values={postgresDataTypeInputTypeMapping}
+                            keyNameValue={newDataType}
+                            keyName={'dataType'}
+                            constraintsLogic={constraintsLogic}
+                        />
+                    </div>
+                </div>
+                <div
+                    className={`flex h-10 w-full items-center justify-between rounded-sm bg-grey-dark px-3 ${
+                        sqlTypeColor[newDataType.type]
+                    }`}
+                >
+                    <label className="flex w-3/12 items-center justify-start">
+                        Value :
+                    </label>
+                    <div className="flex w-8/12 items-center justify-center">
+                        <SingleSelectDropdownHookFormContainer
+                            setValue={setValue}
+                            values={defaultValues}
+                            keyNameValue={newDefaultValueOption}
+                            keyName={'defaultValueOption'}
                             constraintsLogic={constraintsLogic}
                         />
                     </div>
                 </div>
 
-                {!disabled && (
+                {newDefaultValueOption?.isDefaultValueInputVisible && (
                     <TextInput
                         register={register}
                         errors={errors}
                         keyName="defaultValue"
                         label={'Default'}
                         type={defaultValueInputType}
+                        pattern={newDataType.regex}
                         inputStyle={
                             ['number', 'text'].includes(defaultValueInputType)
                                 ? 'text-sm'
                                 : 'text-xs'
                         }
-                        customStyle={sqlTypeColor[sqlInputType[newDataType]]}
+                        customStyle={sqlTypeColor[newDataType.type]}
                         placeholder={'none'}
                     />
                 )}

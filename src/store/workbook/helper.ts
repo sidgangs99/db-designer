@@ -1,5 +1,7 @@
 import { CSSProperties } from 'react';
 import { Connection, Edge, XYPosition } from 'reactflow';
+import { defaultValuesOptions } from '../../components/common/single-select-dropdown/constants';
+import { postgresDataTypeInputTypeMapping } from '../../components/common/single-select-dropdown/postgres.constants';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
 import { uuid } from '../../util/helper';
 import { INode, INodeData } from './types';
@@ -14,7 +16,7 @@ export const newColumnNode = (nodes: INode[], tableId: string): INode[] => {
 
     const newNodeData: INodeData = {
         columnName: 'new_column',
-        dataType: 'varchar',
+        dataType: postgresDataTypeInputTypeMapping[0],
         defaultValue: '',
         tableName: columnNodes[0]?.data?.tableName,
         tableId: tableId
@@ -124,6 +126,9 @@ export const isValidEdge = (connection: Connection, nodes: INode[]) => {
     return sourceTableId !== targetTableId;
 };
 
+// *************************************
+// Add a new table with custom fields
+// *************************************
 const defaultTable = (
     tableId: string,
     tableName: string,
@@ -151,7 +156,8 @@ const defaultNode = (
         tableName,
         tableId,
         columnName,
-        dataType: 'varchar',
+        dataType: postgresDataTypeInputTypeMapping[0],
+        defaultValueOption: defaultValuesOptions[0],
         defaultValue: ''
     },
     type: ECustomNodeTypes.ColumnNode,

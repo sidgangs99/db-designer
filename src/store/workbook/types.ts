@@ -17,13 +17,14 @@ export interface INodeMutations {
 
 export interface INodeData {
     columnName?: string;
-    dataType?: string;
+    dataType?: Record<string, any>;
     tableName: string;
     tableId: string;
     constraints?: Record<string, any>;
     tableStyle?: any;
     additional?: Record<string, any>;
     defaultValue?: any;
+    defaultValueOption: Record<string, any>;
 }
 
 export interface INode extends Node<INodeData> {}
