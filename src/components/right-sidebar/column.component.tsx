@@ -172,7 +172,8 @@ const RightSidebarColumnComponent = (props: IRightHeaderComponentProps) => {
                                     ? 'text'
                                     : defaultValueInputType
                             }
-                            pattern={newDataType.regex}
+                            pattern={newDefaultValueOption?.id === 'expression'
+                            ? '' : newDataType.regex}
                             inputStyle={
                                 ['number', 'text'].includes(
                                     defaultValueInputType
