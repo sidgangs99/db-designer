@@ -1,4 +1,5 @@
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
+
 import LandingScreenHeader from './header';
 
 export default function LandingScreenComponent(props: any) {
@@ -17,7 +18,7 @@ export default function LandingScreenComponent(props: any) {
                     </Parallax>
                     <Parallax scale={[1, 0]} easing="easeInSine">
                         <img
-                            src="src/asset/images/db-design.png"
+                            src="https://ik.imagekit.io/dbDesigner/Screenshot_2023-04-19_at_10.36.21_PM.png?updatedAt=1681926960583"
                             alt="DB - design"
                             className="flex"
                         />
