@@ -131,8 +131,8 @@ const RightHeaderContainer = (props: IRightHeaderContainerProps) => {
         [node, nodes]
     );
 
-    const onColumnClick = (id: string) => {
-        setOpenRightSideBar(id);
+    const onColumnClick = (id: string, wasTableId = false) => {
+        setOpenRightSideBar(id, wasTableId);
     };
 
     return openRightSideBar && node?.data ? (

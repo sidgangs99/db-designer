@@ -13,7 +13,7 @@ export const useLayoutStore: UseBoundStore<StoreApi<IUseLayoutStore>> = create(
         nodeId: '',
         previousNodeId: '',
 
-        setOpenRightSideBar: (nodeId: string) =>
+        setOpenRightSideBar: (nodeId: string, wasTableNode = false) =>
             set((_state) => {
                 if (_state.nodeId === nodeId) {
                     if (_state.previousNodeId.length) {
@@ -35,7 +35,7 @@ export const useLayoutStore: UseBoundStore<StoreApi<IUseLayoutStore>> = create(
                         ..._state,
                         openRightSideBar: true,
                         nodeId,
-                        previousNodeId: _state.nodeId
+                        previousNodeId: wasTableNode ? _state.nodeId : ''
                     };
                 }
             })
