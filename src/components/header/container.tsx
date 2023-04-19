@@ -2,7 +2,12 @@ import { useState } from 'react';
 
 import { useThemeStore } from '../../store/darkMode/state';
 
-import { SNAPSHOT_OPTION, SQL_FILE_OPTION, UPCOMING_OPTION } from '../../constants/export.constants';
+import {
+    FAST_API_DATA_MODAL_OPTION,
+    SNAPSHOT_OPTION,
+    SQL_FILE_OPTION,
+    UPCOMING_OPTION
+} from '../../constants/export.constants';
 import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
@@ -21,11 +26,16 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
+    const [openDownloadFastApiModal, setOpenDownloadFastApiModal] =
+        useState(false);
 
     function exportDropdownOption(selectedOption: any) {
         switch (selectedOption?.value) {
             case SQL_FILE_OPTION:
                 setOpenDownloadSqlFileModal(true);
+                break;
+            case FAST_API_DATA_MODAL_OPTION:
+                setOpenDownloadFastApiModal(true)
                 break;
             case SNAPSHOT_OPTION:
                 downloadPngImageOfWorkbook();
@@ -58,6 +68,8 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
             setOpenResetViewModal={setOpenResetViewModal}
             exportDropdownOption={exportDropdownOption}
             setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
+            openDownloadFastApiModal={openDownloadFastApiModal}
+            setOpenDownloadFastApiModal={setOpenDownloadFastApiModal}
         />
     );
 }

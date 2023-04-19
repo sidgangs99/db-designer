@@ -10,4 +10,6 @@ export interface IHeaderComponentProps extends IHeaderContainerProps {
     setOpenResetViewModal: any;
     exportDropdownOption: any;
     setOpenDownloadSqlFileModal: any;
+    openDownloadFastApiModal: any;
+    setOpenDownloadFastApiModal:any;
 }

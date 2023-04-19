@@ -41,7 +41,7 @@ export default function SingleSelectDropdownHookFormContainer(props: any) {
                     leaveTo="opacity-0"
                 >
                     <Listbox.Options
-                        className={`shadow-xs absolute z-10 mt-8 max-h-60 w-full overflow-auto rounded-b-lg border-x border-b bg-grey-dark py-1 pt-1 text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
+                        className={`shadow-xs absolute z-10 mt-8 max-h-60 w-full overflow-auto rounded-b-lg border-x border-b border-grey-light bg-grey-dark py-1 pt-1 text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
                     >
                         {values.map((value: any, index: number) => (
                             <Listbox.Option

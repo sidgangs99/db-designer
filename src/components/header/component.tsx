@@ -10,6 +10,7 @@ import ResetViewModal from './modals/reset-view';
 
 import { Tooltip } from 'react-tooltip';
 import MenuContainer from '../common/menu/container';
+import DownloadFastApiModal from './modals/download-fast-api-modal';
 import { IHeaderComponentProps } from './types';
 
 const HeaderComponent = (props: IHeaderComponentProps) => {
@@ -20,7 +21,9 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
         openDownloadSqlFileModal,
         setOpenResetViewModal,
         exportDropdownOption,
-        setOpenDownloadSqlFileModal
+        setOpenDownloadSqlFileModal,
+        openDownloadFastApiModal,
+        setOpenDownloadFastApiModal,
     } = props;
 
     return (
@@ -90,6 +93,12 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                 <DownloadSqlFileModal
                     open={openDownloadSqlFileModal}
                     setOpen={setOpenDownloadSqlFileModal}
+                />
+            )}
+            {openDownloadFastApiModal && (
+                <DownloadFastApiModal
+                    open={openDownloadFastApiModal}
+                    setOpen={setOpenDownloadFastApiModal}
                 />
             )}
         </>
