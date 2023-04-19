@@ -3,9 +3,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 
 import useAuthStore from '../../store/firebase/state';
-import LoginComponent from './component';
+import LandingScreenComponent from './component';
 
-export default function LoginContainer(props: any) {
+export default function LandingScreenContainer() {
     const { auth, loginWithGoogle }: any = useAuthStore();
     const [user, loading] = useAuthState(auth);
 
@@ -19,5 +19,13 @@ export default function LoginContainer(props: any) {
         if (user) navigate('/design');
     }, [user, loading]);
 
-    return <LoginComponent loginWithGoogle={loginWithGoogle} />;
+    const options = [
+        { label: 'About' },
+        { label: 'Community' },
+        { label: 'Pricing' },
+        { label: 'Contact Us' },
+        { label: 'Log In', onClick: loginWithGoogle }
+    ];
+
+    return <LandingScreenComponent headerOptions={options} />;
 }
