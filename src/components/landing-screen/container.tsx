@@ -40,10 +40,11 @@ export default function LandingScreenContainer() {
         {
             label: 'Log In',
             onClick: user
-                ? () => navigate('/design')
-                : async () => {
-                      await loginWithGoogle();
+                ? () => {
                       navigate('/design');
+                  }
+                : async () => {
+                      loginWithGoogle().then(() => navigate('/design'));
                   }
         }
     ];

@@ -5,7 +5,7 @@ export default function HomeComponent() {
         <ParallaxProvider>
             <div className="flex h-full w-full flex-col items-center justify-center">
                 <Parallax scale={[1, 0]} easing="easeInSine">
-                    <div className="flex h-screen flex-col items-center justify-center space-x-2 space-y-8 text-6xl md:text-8xl">
+                    <div className="flex h-screen flex-col items-center justify-center space-x-2 space-y-8 text-4xl md:text-5xl lg:text-6xl 2xl:text-8xl">
                         <div>Worried about designing your DB</div>
                         <div className="text-2xl text-grey-lighter md:text-4xl">
                             One stop solution for all your needs.

@@ -41,7 +41,7 @@ export default function SingleSelectDropdownComponent(
                     >
                         <Listbox.Options
                             static
-                            className={`shadow-xs absolute z-20 mt-8 max-h-60 w-full overflow-auto rounded-b-lg border-x border-b border-grey-light bg-grey-dark py-1 text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
+                            className={`shadow-xs absolute z-20 mr-8 mt-8 max-h-60 w-auto overflow-auto rounded-md border border-x border-grey-light bg-grey-dark text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
                         >
                             {values.map((data: any, index: number) => {
                                 const { label } = data;
@@ -50,7 +50,7 @@ export default function SingleSelectDropdownComponent(
                                         key={index}
                                         value={data}
                                         className={({ active }) =>
-                                            `relative cursor-pointer px-2 py-1 text-xs hover:bg-grey-main md:text-sm`
+                                            `relative m-1 cursor-pointer rounded-md px-2 py-1 text-xs hover:bg-grey-main md:text-sm`
                                         }
                                     >
                                         {({ selected, active }) => (

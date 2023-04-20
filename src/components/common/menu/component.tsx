@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useCallback } from 'react';
 
-import { uuid } from '../../../util/helper';
 import { IMenuComponentProps } from './types';
 
 export default function MenuComponent(props: IMenuComponentProps) {
@@ -46,14 +45,13 @@ export default function MenuComponent(props: IMenuComponentProps) {
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items className="absolute right-0 z-20 mt-2 w-24 origin-top-right cursor-pointer divide-y divide-gray-100 rounded-md border border-grey-lighter bg-stone-900 shadow-lg">
-                    {options.map(({ label, onClick }: any) => (
-                        <Menu.Item key={uuid()}>
+                    {options.map(({ label, onClick }: any, index: number) => (
+                        <Menu.Item key={index}>
                             {({ active }) => (
                                 <button
-                                    className={`group flex w-full items-center rounded-md px-2 py-2 text-sm text-white hover:bg-grey-dark`}
+                                    className={`group m-1 flex w-full items-center rounded-md text-sm text-white hover:bg-grey-dark`}
                                     onClick={onClick}
                                 >
-                                    {/* {active ? 'a->' : 'i->'} */}
                                     {label}
                                 </button>
                             )}

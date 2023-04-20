@@ -10,7 +10,7 @@ export default function LandingScreenHeader(props: any) {
                 className="cursor-pointer text-6xl font-extrabold hover:text-coral-main"
                 onClick={() => navigate('/')}
             >
-                KRUK
+                KRUD
             </p>
             <div className="flex space-x-24 pt-7">
                 {headerOptions.map(({ label, onClick }: any, index: number) => (

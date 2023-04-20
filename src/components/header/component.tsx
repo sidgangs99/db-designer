@@ -9,7 +9,7 @@ import DownloadSqlFileModal from './modals/download-sql';
 import ResetViewModal from './modals/reset-view';
 
 import { Tooltip } from 'react-tooltip';
-import MenuContainer from '../common/menu/container';
+import AvatarDropdownComponent from '../common/single-select-dropdown/avatar.component';
 import DownloadFastApiModal from './modals/download-fast-api-modal';
 import { IHeaderComponentProps } from './types';
 
@@ -45,7 +45,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             }}
                             values={exportOptions}
                             className="rounded-md border border-grey-main hover:border-coral-light hover:text-coral-light"
-                            optionsClassName={"bg-grey-darker"}
+                            optionsClassName={'bg-grey-darker'}
                         />
                     </div>
                     <div
@@ -80,7 +80,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             updateTheme(newTheme);
                         }}
                     /> */}
-                    <MenuContainer options={avatarMenuOptions} />
+                    <AvatarDropdownComponent values={avatarMenuOptions} />
                 </div>
             </div>
             {openResetViewModal && (

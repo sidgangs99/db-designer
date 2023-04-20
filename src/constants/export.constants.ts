@@ -5,19 +5,15 @@ export const UPCOMING_OPTION = 'subscribeForExports';
 
 export const exportOptions = [
     {
-        label: '.sql',
+        label: 'SQL Schema',
         value: SQL_FILE_OPTION
     },
     {
-        label: 'fast api modal',
+        label: 'Fast_API Model',
         value: FAST_API_DATA_MODAL_OPTION
     },
     {
-        label: 'snapshot',
+        label: 'Screenshot',
         value: SNAPSHOT_OPTION
-    },
-    {
-        label: 'upcoming ...',
-        value: UPCOMING_OPTION
     }
 ];
