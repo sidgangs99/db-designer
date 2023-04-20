@@ -7,7 +7,7 @@ export default function LandingScreenHeader(props: any) {
     return (
         <div className="flex w-full items-center justify-around">
             <p
-                className="cursor-pointer text-6xl font-extrabold hover:text-coral-main"
+                className="mt-3 flex cursor-pointer items-end font-sans text-4xl font-extrabold hover:text-coral-main md:text-6xl"
                 onClick={() => navigate('/')}
             >
                 KRUD

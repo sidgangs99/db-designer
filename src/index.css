@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'brandon';
+    src: url('/fonts/Brandon_reg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gilroy';
+    src: url('/fonts/Gilroy_reg.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

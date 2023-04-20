@@ -4,6 +4,10 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['brandon', 'Helvetica', 'Arial', 'sans-serif'],
+                serif: ['gilroy', 'Helvetica', 'Arial', 'sans-serif']
+            },
             height: {
                 '5/100': '5%',
                 '92/100': '92%',

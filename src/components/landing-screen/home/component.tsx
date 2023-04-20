@@ -12,7 +12,11 @@ export default function HomeComponent() {
                         </div>
                     </div>
                 </Parallax>
-                <Parallax scale={[1, 0]} easing="easeInSine">
+                <Parallax
+                    scale={[0.4, 1]}
+                    easing="easeInSine"
+                    opacity={[1, 0.5]}
+                >
                     <img
                         src="https://ik.imagekit.io/dbDesigner/Screenshot_2023-04-19_at_10.36.21_PM.png?updatedAt=1681926960583"
                         alt="DB - design"

@@ -52,7 +52,7 @@ function App() {
         <>
             <QueryClientProvider client={queryClient}>
                 <ReactFlowProvider>
-                    <div className="flex h-screen w-full fill-white text-white">
+                    <div className="flex h-screen w-full fill-white font-serif tracking-wide text-white">
                         <LayoutContainer />
                     </div>
                 </ReactFlowProvider>
