@@ -26,6 +26,20 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
                         element={<Navigate replace to="/" />}
                     /> */}
                     <Route path="/" element={<LandingScreenContainer />} />
+                    <Route path="/about" element={<LandingScreenContainer />} />
+                    <Route
+                        path="/contact-us"
+                        element={<LandingScreenContainer />}
+                    />
+                    <Route
+                        path="/pricing"
+                        element={<LandingScreenContainer />}
+                    />
+                    <Route
+                        path="/community"
+                        element={<LandingScreenContainer />}
+                    />
+
                     <Route
                         path="/design"
                         element={<ProtectedRoute Component={HomeContainer} />}
