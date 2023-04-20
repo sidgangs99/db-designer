@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function LandingScreenHeader(props: any) {
     const { headerOptions } = props;
     const navigate = useNavigate();
+    const location = useLocation();
+    const pathnames = ['/', '/community', '/pricing', '/contact-us'];
 
     return (
         <div className="flex w-full items-center justify-around">
@@ -15,7 +17,10 @@ export default function LandingScreenHeader(props: any) {
             <div className="flex space-x-24 pt-7">
                 {headerOptions.map(({ label, onClick }: any, index: number) => (
                     <div
-                        className="cursor-pointer hover:text-coral-light"
+                        className={`cursor-pointer hover:text-coral-light ${
+                            location.pathname === pathnames[index] &&
+                            'text-coral-light'
+                        }`}
                         onClick={onClick}
                         key={index}
                     >
