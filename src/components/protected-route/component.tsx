@@ -56,7 +56,7 @@ export const ProtectedRoute = ({ Component }: any) => {
     ) : (
         <Navigate
             to={{
-                pathname: '/login'
+                pathname: '/'
             }}
         />
     );

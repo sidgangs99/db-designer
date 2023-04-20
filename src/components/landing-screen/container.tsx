@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { HashLoader } from 'react-spinners';
 import useAuthStore from '../../store/firebase/state';
+import LoaderComponent from '../common/loader/component';
 import CommunityComponent from './community/component';
 import LandingScreenComponent from './component';
 import ContactUsComponent from './contact-us/component';
@@ -21,7 +23,6 @@ export default function LandingScreenContainer() {
             // maybe trigger a loading screen
             return;
         }
-        if (user) navigate('/design');
     }, [user, loading]);
 
     const pathnameMapping: Record<string, any> = {
@@ -36,10 +37,20 @@ export default function LandingScreenContainer() {
         { label: 'Community', onClick: () => navigate('/community') },
         { label: 'Pricing', onClick: () => navigate('/pricing') },
         { label: 'Contact Us', onClick: () => navigate('/contact-us') },
-        { label: 'Log In', onClick: loginWithGoogle }
+        {
+            label: 'Log In',
+            onClick: user
+                ? () => navigate('/design')
+                : async () => {
+                      await loginWithGoogle();
+                      navigate('/design');
+                  }
+        }
     ];
 
-    return (
+    return loading ? (
+        <LoaderComponent Component={HashLoader} speedMultiplier={0.4} />
+    ) : (
         <LandingScreenComponent
             headerOptions={options}
             bodyComponent={

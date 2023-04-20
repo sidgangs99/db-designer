@@ -13,10 +13,11 @@ export default function LandingScreenHeader(props: any) {
                 KRUK
             </p>
             <div className="flex space-x-24 pt-7">
-                {headerOptions.map(({ label, onClick }: any) => (
+                {headerOptions.map(({ label, onClick }: any, index: number) => (
                     <div
                         className="cursor-pointer hover:text-coral-light"
                         onClick={onClick}
+                        key={index}
                     >
                         {label}
                     </div>
