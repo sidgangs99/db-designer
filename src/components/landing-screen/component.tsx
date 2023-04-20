@@ -30,7 +30,7 @@ export default function LandingScreenComponent(props: any) {
                                 impress!
                             </p>
                             <p className="flex w-full justify-end pr-10 pt-10 text-4xl">
-                                - Developers
+                                - Nikhil Lad
                             </p>
                         </p>
                     </Parallax>
