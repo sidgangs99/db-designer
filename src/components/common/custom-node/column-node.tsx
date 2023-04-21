@@ -35,15 +35,19 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                             : 'text-coral-darker'
                     } `}
                 >
-                    <div className="flex w-2/5 items-center px-2 line-clamp-1">
-                        {columnName}
+                    <div className="flex w-2/5 items-center px-2">
+                        <p className="overflow-hidden text-ellipsis">
+                            {columnName}
+                        </p>
                     </div>
                     <div
-                        className={`flex w-2/5 items-center ${
+                        className={`flex w-2/5 items-center px-2 ${
                             sqlTypeColor[dataType.type]
                         }`}
                     >
-                        {dataType.label}
+                        <p className="overflow-hidden text-ellipsis">
+                            {dataType.label}
+                        </p>
                     </div>
                     <div className="flex w-1/5 ">
                         {(isPrimaryKey || isForeignKey) && (

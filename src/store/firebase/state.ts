@@ -3,13 +3,16 @@ import {
     getAuth,
     GoogleAuthProvider,
     signInWithPopup,
-    signOut
+    signOut,
+    User
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { create } from 'zustand';
 import { API_USER } from '../../api/auth';
-import { axiosInstance } from '../../util/axios';
+import { API_WORKBOOK } from '../../api/workbook';
+import { authenticateGetAPI, axiosInstance } from '../../util/axios';
 import { getEnvVariable } from '../../util/helper';
+import useWorkbookStore from '../workbook/state';
 
 const firebaseConfig = {
     apiKey: getEnvVariable('VITE_FIRESTORE_API_KEY'),
@@ -47,9 +50,21 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
 
     loginWithGoogle: async () => {
         try {
-            const result = await signInWithPopup(auth, provider);
-            await axiosInstance.put(API_USER, result.user);
-            set((state: any) => ({ ...state, user: result.user }));
+            const { user }: { user: User } = await signInWithPopup(
+                auth,
+                provider
+            );
+            await axiosInstance.put(API_USER, user);
+            const accessToken = await user.getIdToken();
+
+            // Updating workbook
+            const { data }: any = await authenticateGetAPI(
+                accessToken,
+                API_WORKBOOK
+            );
+            useWorkbookStore.setState({ nodes: data.nodes, edges: data.edges });
+
+            set((state: any) => ({ ...state, user: user }));
         } catch (error) {
             console.error(error);
         }
@@ -58,6 +73,10 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
     logout: async () => {
         try {
             await signOut(auth);
+
+            // Delete workbook in localhost on logout
+            useWorkbookStore.setState({ nodes: [], edges: [] });
+
             set((state: any) => ({ ...state, user: null }));
         } catch (error) {
             console.error(error);

@@ -5,7 +5,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['brandon', 'Helvetica', 'Arial', 'sans-serif'],
+                sans: ['gilroy', 'Helvetica', 'Arial', 'sans-serif'],
                 serif: ['gilroy', 'Helvetica', 'Arial', 'sans-serif']
             },
             height: {
