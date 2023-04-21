@@ -12,6 +12,7 @@ import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
 import HeaderComponent from './component';
+import ProfileViewModal from './modals/profile';
 import { IHeaderContainerProps } from './types';
 
 export default function HeaderContainer(props: IHeaderContainerProps) {
@@ -24,6 +25,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const { theme, updateTheme }: any = useThemeStore();
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
+    const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
     const [openDownloadFastApiModal, setOpenDownloadFastApiModal] =
@@ -35,7 +37,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                 setOpenDownloadSqlFileModal(true);
                 break;
             case FAST_API_DATA_MODAL_OPTION:
-                setOpenDownloadFastApiModal(true)
+                setOpenDownloadFastApiModal(true);
                 break;
             case SNAPSHOT_OPTION:
                 downloadPngImageOfWorkbook();
@@ -51,25 +53,33 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
         {
             label: 'Profile',
             onClick: () => {
-                console.log(user.displayName);
+                setOpenProfileModal(true);
             }
         },
         { label: 'Logout', onClick: () => logout(user) }
     ];
 
     return (
-        <HeaderComponent
-            onDragStart={onDragStart}
-            avatarMenuOptions={avatarMenuOptions}
-            theme={theme}
-            updateTheme={updateTheme}
-            openResetViewModal={openResetViewModal}
-            openDownloadSqlFileModal={openDownloadSqlFileModal}
-            setOpenResetViewModal={setOpenResetViewModal}
-            exportDropdownOption={exportDropdownOption}
-            setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
-            openDownloadFastApiModal={openDownloadFastApiModal}
-            setOpenDownloadFastApiModal={setOpenDownloadFastApiModal}
-        />
+        <>
+            <HeaderComponent
+                onDragStart={onDragStart}
+                avatarMenuOptions={avatarMenuOptions}
+                theme={theme}
+                updateTheme={updateTheme}
+                openResetViewModal={openResetViewModal}
+                openDownloadSqlFileModal={openDownloadSqlFileModal}
+                setOpenResetViewModal={setOpenResetViewModal}
+                exportDropdownOption={exportDropdownOption}
+                setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
+                openDownloadFastApiModal={openDownloadFastApiModal}
+                setOpenDownloadFastApiModal={setOpenDownloadFastApiModal}
+            />
+            {openProfileModal && (
+                <ProfileViewModal
+                    open={openProfileModal}
+                    setOpen={setOpenProfileModal}
+                />
+            )}
+        </>
     );
 }

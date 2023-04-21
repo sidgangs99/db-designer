@@ -34,7 +34,7 @@ export interface IUseAuthStore {
     db: any;
     auth: any;
     provider: any;
-    user: any;
+    user: User | undefined;
     setUser: Function;
     loginWithGoogle: Function;
     logout: Function;
@@ -45,7 +45,7 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
     auth,
     provider,
 
-    user: null,
+    user: undefined,
     setUser: (user: any) => set((state: any) => ({ ...state, user: user })),
 
     loginWithGoogle: async () => {

@@ -48,12 +48,12 @@ export default function ModalComponent(props: IModalComponentProps) {
                             {Header && (
                                 <Dialog.Title
                                     as="h3"
-                                    className="border-b pb-2 text-lg font-medium leading-6 text-white"
+                                    className="mb-2 text-lg font-medium leading-6 text-white"
                                 >
                                     {Header}
                                 </Dialog.Title>
                             )}
-                            <div className="accent-coral-darker pt-2 text-sm text-white focus:accent-coral-light">
+                            <div className="accent-coral-darker my-4 pt-2 text-sm text-white focus:accent-coral-light">
                                 {Body}
                             </div>
 
