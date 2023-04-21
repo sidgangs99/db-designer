@@ -2,6 +2,12 @@ import axios from 'axios';
 import useAuthStore from '../store/firebase/state';
 import { getEnvVariable } from './helper';
 
+export const axiosInstance = axios.create({
+    baseURL: getEnvVariable('DEV')
+        ? 'http://localhost:8000'
+        : getEnvVariable('VITE_BACKEND_API_URI')
+});
+
 const authenticatedAxios = axios.create({
     baseURL: getEnvVariable('DEV')
         ? 'http://localhost:8000'

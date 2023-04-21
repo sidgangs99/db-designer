@@ -5,15 +5,10 @@ import {
     signInWithPopup,
     signOut
 } from 'firebase/auth';
-import {
-    addDoc,
-    collection,
-    getDocs,
-    getFirestore,
-    query,
-    where
-} from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { create } from 'zustand';
+import { API_USER } from '../../api/auth';
+import { axiosInstance } from '../../util/axios';
 import { getEnvVariable } from '../../util/helper';
 
 const firebaseConfig = {
@@ -53,20 +48,7 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
     loginWithGoogle: async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-            const { uid, displayName, email, photoURL } = result.user;
-
-            // Check if the user exists in the users collection
-            const q = query(collection(db, 'users'), where('uid', '==', uid));
-            const docs = await getDocs(q);
-            if (docs.docs.length === 0) {
-                await addDoc(collection(db, 'users'), {
-                    uid: uid,
-                    name: displayName,
-                    authProvider: 'google',
-                    email: email,
-                    photoURL: photoURL
-                });
-            }
+            await axiosInstance.put(API_USER, result.user);
             set((state: any) => ({ ...state, user: result.user }));
         } catch (error) {
             console.error(error);
