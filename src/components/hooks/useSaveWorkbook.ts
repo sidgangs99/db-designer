@@ -15,7 +15,7 @@ export function useSaveWorkbook() {
     const { nodes, edges } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
-    const mutateFnc = () => {
+    const onMutateFn = () => {
         return authenticatePutAPI(user.accessToken, API_WORKBOOK, {
             nodes,
             edges
@@ -37,10 +37,10 @@ export function useSaveWorkbook() {
         });
     };
 
-    const { mutateAsync } = useMutation(mutateFnc, {
+    const { mutateAsync: saveWorkbook } = useMutation(onMutateFn, {
         onSuccess: onSuccessFn,
         onError: onErrorFn
     });
 
-    return { saveWorkbook: mutateAsync };
+    return { saveWorkbook };
 }

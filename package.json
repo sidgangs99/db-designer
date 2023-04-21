@@ -27,6 +27,7 @@
         "react-firebase-hooks": "^5.1.1",
         "react-hook-form": "^7.43.7",
         "react-hot-toast": "^2.4.0",
+        "react-hotkeys": "^2.0.0",
         "react-icons": "^4.8.0",
         "react-query": "^3.39.3",
         "react-router-dom": "^6.10.0",

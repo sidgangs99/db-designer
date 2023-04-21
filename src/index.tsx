@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import 'react-tooltip/dist/react-tooltip.css';
 import App from './App';
 import './index.css';
@@ -9,9 +11,26 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: (failureCount, error: any) => {
+                if (error?.response?.status === 401 && failureCount === 0) {
+                    return true;
+                }
+                return false;
+            },
+            refetchOnWindowFocus: false
+        }
+    }
+});
+
 root.render(
     <React.StrictMode>
-        <App />
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
     </React.StrictMode>
 );
 

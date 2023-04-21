@@ -1,8 +1,9 @@
 import * as Sentry from '@sentry/react';
 import { Toaster } from 'react-hot-toast';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactFlowProvider } from 'reactflow';
 
+import { HotKeys } from 'react-hotkeys';
+import { useSaveWorkbook } from './components/hooks/useSaveWorkbook';
 import LayoutContainer from './components/layout/container';
 import { darkTheme, lightTheme } from './store/darkMode/constants';
 import { useThemeStore } from './store/darkMode/state';
@@ -19,20 +20,6 @@ Sentry.init({
 });
 
 function App() {
-    const queryClient = new QueryClient({
-        defaultOptions: {
-            queries: {
-                retry: (failureCount, error: any) => {
-                    if (error?.response?.status === 401 && failureCount === 0) {
-                        return true;
-                    }
-                    return false;
-                },
-                refetchOnWindowFocus: false
-            }
-        }
-    });
-
     const userTheme = localStorage.getItem('userTheme');
     const { theme, updateTheme }: any = useThemeStore();
 
@@ -48,16 +35,32 @@ function App() {
         updateTheme(darkTheme);
     }
 
+    const { saveWorkbook } = useSaveWorkbook();
+
+    const isMac = navigator.userAgent.includes('Mac OS X');
+    const keyMapping = {
+        save: isMac ? 'cmd+s' : 'ctrl+s'
+    };
+
+    const KeyMappingHandlers = {
+        save: (event: any) => {
+            if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+                event.preventDefault();
+            }
+            return saveWorkbook({});
+        }
+    };
+
     return (
         <>
-            <QueryClientProvider client={queryClient}>
+            <HotKeys keyMap={keyMapping} handlers={KeyMappingHandlers}>
                 <ReactFlowProvider>
                     <div className="flex h-screen w-full fill-white font-serif tracking-wide text-white">
                         <LayoutContainer />
                     </div>
                 </ReactFlowProvider>
                 <Toaster position="bottom-right" reverseOrder={false} />
-            </QueryClientProvider>
+            </HotKeys>
         </>
     );
 }
