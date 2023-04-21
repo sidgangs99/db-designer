@@ -45,7 +45,7 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                             sqlTypeColor[dataType.type]
                         }`}
                     >
-                        <p className="overflow-hidden text-ellipsis">
+                        <p className="overflow-hidden text-ellipsis lowercase">
                             {dataType.label}
                         </p>
                     </div>
