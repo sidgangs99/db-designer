@@ -21,7 +21,7 @@ export default function SnapshotModalComponent(props: ISnapshotModal) {
     const { workbookId } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
-    const { data, isFetching }: QueryObserverResult = useQuery(
+    const { data, isFetching, isError }: QueryObserverResult = useQuery(
         'previous-snapshots',
         () => authenticateGetAPI(user.accessToken, SNAPSHOTS + '/' + workbookId)
     );
@@ -42,6 +42,10 @@ export default function SnapshotModalComponent(props: ISnapshotModal) {
                         Component={HashLoader}
                         speedMultiplier={0.4}
                     />
+                ) : isError || snapshots.length === 0 ? (
+                    <div className="flex flex-col items-start justify-center space-y-4">
+                        No Previous Snapshots found
+                    </div>
                 ) : (
                     <div className="flex flex-col items-start justify-center space-y-4">
                         {snapshots.map((snapshot: any) => (

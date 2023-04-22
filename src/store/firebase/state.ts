@@ -79,7 +79,7 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
             await signOut(auth);
 
             // Delete workbook in localhost on logout
-            useWorkbookStore.setState({ nodes: [], edges: [] });
+            useWorkbookStore.setState({ nodes: [], edges: [], workbookId: '' });
 
             set((state: any) => ({ ...state, user: null }));
         } catch (error) {
