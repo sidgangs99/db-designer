@@ -26,8 +26,9 @@ import { INode, INodeData } from './types';
 
 export type INodeStore = {
     nodes: INode[];
-    setNodes: (nodes: INode[]) => void;
     edges: Edge[];
+    workbookId: string;
+    setNodes: (nodes: INode[]) => void;
     setEdges: (edges: Edge[]) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
@@ -45,6 +46,8 @@ const useWorkbookStore = create<INodeStore>()(
         (set, get) => ({
             nodes: [],
             edges: [],
+            workbookId: '',
+
             setNodes: (nodes: INode[]) => {
                 set({
                     nodes

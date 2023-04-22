@@ -47,7 +47,7 @@ export const authenticateGetAPI = (
     bearerToken: string,
     api: string,
     queryParam?: object
-) =>
+): any =>
     authenticatedAxios.get(api, {
         params: queryParam,
         headers: {

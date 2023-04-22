@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { useThemeStore } from '../../store/darkMode/state';
 
 import {
     FAST_API_DATA_MODAL_OPTION,
@@ -12,7 +11,11 @@ import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
 import HeaderComponent from './component';
+import DownloadFastApiModal from './modals/download-fast-api-modal';
+import DownloadSqlFileModal from './modals/download-sql';
 import ProfileViewModal from './modals/profile';
+import ResetViewModal from './modals/reset-view';
+import SnapshotModalComponent from './modals/snapshot-modal';
 import { IHeaderContainerProps } from './types';
 
 export default function HeaderContainer(props: IHeaderContainerProps) {
@@ -22,9 +25,9 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     };
 
     const { user, logout }: any = useAuthStore();
-    const { theme, updateTheme }: any = useThemeStore();
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
+    const [openSnapshotModal, setOpenSnapshotModal] = useState(false);
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
@@ -64,20 +67,38 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
             <HeaderComponent
                 onDragStart={onDragStart}
                 avatarMenuOptions={avatarMenuOptions}
-                theme={theme}
-                updateTheme={updateTheme}
-                openResetViewModal={openResetViewModal}
-                openDownloadSqlFileModal={openDownloadSqlFileModal}
                 setOpenResetViewModal={setOpenResetViewModal}
                 exportDropdownOption={exportDropdownOption}
-                setOpenDownloadSqlFileModal={setOpenDownloadSqlFileModal}
-                openDownloadFastApiModal={openDownloadFastApiModal}
-                setOpenDownloadFastApiModal={setOpenDownloadFastApiModal}
+                setOpenSnapshotModal={setOpenSnapshotModal}
             />
+            {openResetViewModal && (
+                <ResetViewModal
+                    open={openResetViewModal}
+                    setOpen={setOpenResetViewModal}
+                />
+            )}
+            {openDownloadSqlFileModal && (
+                <DownloadSqlFileModal
+                    open={openDownloadSqlFileModal}
+                    setOpen={setOpenDownloadSqlFileModal}
+                />
+            )}
+            {openDownloadFastApiModal && (
+                <DownloadFastApiModal
+                    open={openDownloadFastApiModal}
+                    setOpen={setOpenDownloadFastApiModal}
+                />
+            )}
             {openProfileModal && (
                 <ProfileViewModal
                     open={openProfileModal}
                     setOpen={setOpenProfileModal}
+                />
+            )}
+            {openSnapshotModal && (
+                <SnapshotModalComponent
+                    open={openSnapshotModal}
+                    setOpen={setOpenSnapshotModal}
                 />
             )}
         </>

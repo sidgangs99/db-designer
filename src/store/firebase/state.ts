@@ -62,7 +62,11 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
                 accessToken,
                 API_WORKBOOK
             );
-            useWorkbookStore.setState({ nodes: data.nodes, edges: data.edges });
+            useWorkbookStore.setState({
+                nodes: data.nodes,
+                edges: data.edges,
+                workbookId: data._id
+            });
 
             set((state: any) => ({ ...state, user: user }));
         } catch (error) {

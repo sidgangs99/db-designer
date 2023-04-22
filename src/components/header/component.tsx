@@ -1,29 +1,22 @@
 import { AiOutlineClear } from 'react-icons/ai';
 import { BiSpreadsheet } from 'react-icons/bi';
-import { TbFileExport } from 'react-icons/tb';
+import { TbFileExport, TbVersions } from 'react-icons/tb';
 
 import { exportOptions } from '../../constants/export.constants';
 import IconButtonContainer from '../common/icon-button/container';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
-import DownloadSqlFileModal from './modals/download-sql';
-import ResetViewModal from './modals/reset-view';
 
 import { Tooltip } from 'react-tooltip';
 import AvatarDropdownComponent from '../common/single-select-dropdown/avatar.component';
-import DownloadFastApiModal from './modals/download-fast-api-modal';
 import { IHeaderComponentProps } from './types';
 
 const HeaderComponent = (props: IHeaderComponentProps) => {
     const {
         onDragStart,
         avatarMenuOptions,
-        openResetViewModal,
-        openDownloadSqlFileModal,
         setOpenResetViewModal,
         exportDropdownOption,
-        setOpenDownloadSqlFileModal,
-        openDownloadFastApiModal,
-        setOpenDownloadFastApiModal,
+        setOpenSnapshotModal
     } = props;
 
     return (
@@ -36,6 +29,12 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             className={''}
                             Icon={AiOutlineClear}
                             onClick={() => setOpenResetViewModal(true)}
+                        />
+                        <IconButtonContainer
+                            label={'Snapshots'}
+                            Icon={TbVersions}
+                            className={''}
+                            onClick={() => setOpenSnapshotModal(true)}
                         />
                         <SingleSelectDropdownContainer
                             Icon={TbFileExport}
@@ -80,27 +79,10 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             updateTheme(newTheme);
                         }}
                     /> */}
+
                     <AvatarDropdownComponent values={avatarMenuOptions} />
                 </div>
             </div>
-            {openResetViewModal && (
-                <ResetViewModal
-                    open={openResetViewModal}
-                    setOpen={setOpenResetViewModal}
-                />
-            )}
-            {openDownloadSqlFileModal && (
-                <DownloadSqlFileModal
-                    open={openDownloadSqlFileModal}
-                    setOpen={setOpenDownloadSqlFileModal}
-                />
-            )}
-            {openDownloadFastApiModal && (
-                <DownloadFastApiModal
-                    open={openDownloadFastApiModal}
-                    setOpen={setOpenDownloadFastApiModal}
-                />
-            )}
         </>
     );
 };

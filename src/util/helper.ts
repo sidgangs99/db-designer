@@ -55,3 +55,6 @@ export function downloadPngImageOfWorkbook() {
 export const getEnvVariable = (env: string) => {
     return import.meta.env[env];
 };
+
+export const getReadableDateTime = (dateTime: string) =>
+    new Date(dateTime).toLocaleString();
