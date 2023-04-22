@@ -1,5 +1,5 @@
 import { AiOutlineClear } from 'react-icons/ai';
-import { BiSpreadsheet } from 'react-icons/bi';
+import { BiSave, BiSpreadsheet } from 'react-icons/bi';
 import { TbFileExport, TbVersions } from 'react-icons/tb';
 
 import { exportOptions } from '../../constants/export.constants';
@@ -16,7 +16,8 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
         avatarMenuOptions,
         setOpenResetViewModal,
         exportDropdownOption,
-        setOpenSnapshotModal
+        setOpenSnapshotModal,
+        setOpenSaveWorkbookModal
     } = props;
 
     return (
@@ -47,27 +48,37 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             optionsClassName={'bg-grey-darker'}
                         />
                     </div>
-                    <div
-                        className="flex items-center border-l border-grey-light px-4"
-                        data-tooltip-id={`new-table-button`}
-                        data-tooltip-content={'Hey, drag me to the workbook'}
-                    >
+
+                    <div className="flex items-center space-x-4 border-l border-grey-light px-4">
                         <IconButtonContainer
-                            label={'New Table'}
-                            Icon={BiSpreadsheet}
-                            onDragStart={(event: any) => {
-                                onDragStart(event, 'Table');
-                            }}
-                            draggable
-                            className={'cursor-move'}
+                            label={'Save'}
+                            className={''}
+                            Icon={BiSave}
+                            onClick={() => setOpenSaveWorkbookModal(true)}
                         />
-                        <Tooltip
-                            id={`new-table-button`}
-                            place="bottom"
-                            className="align-middle"
-                            openOnClick
-                            closeOnEsc
-                        />
+                        <div
+                            data-tooltip-id={`new-table-button`}
+                            data-tooltip-content={
+                                'Hey, drag me to the workbook'
+                            }
+                        >
+                            <IconButtonContainer
+                                label={'New Table'}
+                                Icon={BiSpreadsheet}
+                                onDragStart={(event: any) => {
+                                    onDragStart(event, 'Table');
+                                }}
+                                draggable
+                                className={'cursor-move'}
+                            />
+                            <Tooltip
+                                id={`new-table-button`}
+                                place="bottom"
+                                className="align-middle"
+                                openOnClick
+                                closeOnEsc
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="flex h-full items-center justify-center space-x-4">

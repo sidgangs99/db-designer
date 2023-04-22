@@ -32,7 +32,7 @@ export default function SnapshotModalComponent(props: ISnapshotModal) {
         <ModalContainer
             open={open}
             setOpen={setOpen}
-            className={'w-1/3'}
+            className={'w-2/3'}
             Header={
                 <div className="flex whitespace-nowrap">Pervious Snapshots</div>
             }
@@ -47,20 +47,24 @@ export default function SnapshotModalComponent(props: ISnapshotModal) {
                         No Previous Snapshots found
                     </div>
                 ) : (
-                    <div className="flex flex-col items-start justify-center space-y-4">
-                        {snapshots.map((snapshot: any) => (
-                            <>
-                                <div className="flex items-start justify-center space-x-4">
-                                    <div>version ( {snapshot?.version} )</div>
-                                    <div>-</div>
-                                    <div>
-                                        {getReadableDateTime(
-                                            snapshot?.createdAt
+                    <div className="flex max-h-96 flex-col items-start justify-center space-y-4 overflow-y-scroll">
+                        {snapshots.map(
+                            ({ version, createdAt }: any, index: number) => (
+                                <>
+                                    <div className="flex items-start justify-center space-x-4">
+                                        {index === 0 ? (
+                                            <div>current</div>
+                                        ) : (
+                                            <div>version ( {version} )</div>
                                         )}
+                                        <div>-</div>
+                                        <div>
+                                            {getReadableDateTime(createdAt)}
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                        ))}
+                                </>
+                            )
+                        )}
                     </div>
                 )
             }

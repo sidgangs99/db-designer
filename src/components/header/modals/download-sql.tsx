@@ -29,6 +29,7 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
 
     const errorMessage =
         'Error: 500 Internal Server Error, will be fixed soon...';
+
     useEffect(() => {
         if (isFetching) {
             setFileContent('');

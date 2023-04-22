@@ -24,12 +24,16 @@ import {
 } from './helper';
 import { INode, INodeData } from './types';
 
-export type INodeStore = {
+export type IWorkbookStore = {
     nodes: INode[];
-    edges: Edge[];
-    workbookId: string;
     setNodes: (nodes: INode[]) => void;
+    edges: Edge[];
     setEdges: (edges: Edge[]) => void;
+    workbookId: string;
+    __v: string;
+    setVersion: (__v: string) => void;
+    openSaveWorkbook: boolean;
+    setOpenSaveWorkbook: (openSaveWorkbook: boolean) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
@@ -41,12 +45,20 @@ export type INodeStore = {
     onReset: () => void;
 };
 
-const useWorkbookStore = create<INodeStore>()(
+const useWorkbookStore = create<IWorkbookStore>()(
     persist(
         (set, get) => ({
             nodes: [],
             edges: [],
             workbookId: '',
+            __v: '',
+            openSaveWorkbook: false,
+
+            setOpenSaveWorkbook: (openSaveWorkbook: boolean) => {
+                set({
+                    openSaveWorkbook
+                });
+            },
 
             setNodes: (nodes: INode[]) => {
                 set({
@@ -59,16 +71,24 @@ const useWorkbookStore = create<INodeStore>()(
                 });
             },
 
+            setVersion: (__v: string) => {
+                set({
+                    __v
+                });
+            },
+
             onNodesChange: (changes: NodeChange[]) => {
                 set({
                     nodes: applyNodeChanges(changes, get().nodes)
                 });
             },
+
             onEdgesChange: (changes: EdgeChange[]) => {
                 set({
                     edges: applyEdgeChanges(changes, get().edges)
                 });
             },
+
             onConnect: (connection: Connection) => {
                 set({
                     edges: isValidEdge(connection, get().nodes)

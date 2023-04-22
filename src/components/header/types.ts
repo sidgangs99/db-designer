@@ -6,4 +6,5 @@ export interface IHeaderComponentProps extends IHeaderContainerProps {
     setOpenResetViewModal: any;
     exportDropdownOption: any;
     setOpenSnapshotModal: any;
+    setOpenSaveWorkbookModal: any;
 }

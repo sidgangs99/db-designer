@@ -3,10 +3,8 @@ import { Toaster } from 'react-hot-toast';
 import { ReactFlowProvider } from 'reactflow';
 
 import { HotKeys } from 'react-hotkeys';
-import { useSaveWorkbook } from './components/hooks/useSaveWorkbook';
+import { useHotkeys } from './components/hooks/useHotkeys';
 import LayoutContainer from './components/layout/container';
-import { darkTheme, lightTheme } from './store/darkMode/constants';
-import { useThemeStore } from './store/darkMode/state';
 import { getEnvVariable } from './util/helper';
 
 Sentry.init({
@@ -20,40 +18,11 @@ Sentry.init({
 });
 
 function App() {
-    const userTheme = localStorage.getItem('userTheme');
-    const { theme, updateTheme }: any = useThemeStore();
-
-    if (theme !== userTheme) {
-        if (userTheme === lightTheme) {
-            updateTheme(lightTheme);
-        } else if (userTheme === darkTheme) {
-            updateTheme(darkTheme);
-        } else {
-            // localStorage.setItem('userTheme', darkTheme);
-        }
-    } else if (!userTheme) {
-        updateTheme(darkTheme);
-    }
-
-    const { saveWorkbook } = useSaveWorkbook();
-
-    const isMac = navigator.userAgent.includes('Mac OS X');
-    const keyMapping = {
-        save: isMac ? 'cmd+s' : 'ctrl+s'
-    };
-
-    const KeyMappingHandlers = {
-        save: (event: any) => {
-            if ((event.metaKey || event.ctrlKey) && event.key === 's') {
-                event.preventDefault();
-            }
-            return saveWorkbook({});
-        }
-    };
+    const { keyMapping, keyMappingHandlers } = useHotkeys();
 
     return (
         <>
-            <HotKeys keyMap={keyMapping} handlers={KeyMappingHandlers}>
+            <HotKeys keyMap={keyMapping} handlers={keyMappingHandlers}>
                 <ReactFlowProvider>
                     <div className="flex h-screen w-full fill-white font-serif tracking-wide text-white">
                         <LayoutContainer />

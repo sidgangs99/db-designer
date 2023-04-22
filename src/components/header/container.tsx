@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 import {
     FAST_API_DATA_MODAL_OPTION,
     SNAPSHOT_OPTION,
@@ -10,12 +9,14 @@ import {
 import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
+import useWorkbookStore, { IWorkbookStore } from '../../store/workbook/state';
 import HeaderComponent from './component';
 import DownloadFastApiModal from './modals/download-fast-api-modal';
 import DownloadSqlFileModal from './modals/download-sql';
 import ProfileViewModal from './modals/profile';
 import ResetViewModal from './modals/reset-view';
 import SnapshotModalComponent from './modals/snapshot-modal';
+import SaveWorkbookModalComponent from './save-workbook/save-workbook-modal';
 import { IHeaderContainerProps } from './types';
 
 export default function HeaderContainer(props: IHeaderContainerProps) {
@@ -25,6 +26,8 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     };
 
     const { user, logout }: any = useAuthStore();
+    const { openSaveWorkbook, setOpenSaveWorkbook }: IWorkbookStore =
+        useWorkbookStore();
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openSnapshotModal, setOpenSnapshotModal] = useState(false);
@@ -70,6 +73,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                 setOpenResetViewModal={setOpenResetViewModal}
                 exportDropdownOption={exportDropdownOption}
                 setOpenSnapshotModal={setOpenSnapshotModal}
+                setOpenSaveWorkbookModal={setOpenSaveWorkbook}
             />
             {openResetViewModal && (
                 <ResetViewModal
@@ -99,6 +103,12 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                 <SnapshotModalComponent
                     open={openSnapshotModal}
                     setOpen={setOpenSnapshotModal}
+                />
+            )}
+            {openSaveWorkbook && (
+                <SaveWorkbookModalComponent
+                    open={openSaveWorkbook}
+                    setOpen={setOpenSaveWorkbook}
                 />
             )}
         </>

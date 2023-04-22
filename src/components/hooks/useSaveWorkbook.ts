@@ -12,17 +12,35 @@ import {
 import { darkToast } from '../common/toast/toast';
 
 export function useSaveWorkbook() {
-    const { nodes, edges } = useWorkbookStore();
+    const {
+        nodes,
+        edges,
+        setOpenSaveWorkbook,
+        setEdges,
+        setNodes,
+        setVersion
+    } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
-    const onMutateFn = () => {
+    const mutationFu = ({
+        __v,
+        commitMessage
+    }: {
+        __v: string;
+        commitMessage: string;
+    }) => {
         return authenticatePutAPI(user.accessToken, API_WORKBOOK, {
             nodes,
-            edges
+            edges,
+            __v,
+            commitMessage
         });
     };
 
-    const onSuccessFn = (data: any, variables: any, context: any) => {
+    const onSuccessFn = ({ data }: any) => {
+        const { nodes = [], edges = [], __v } = data || {};
+        setEdges(edges), setNodes(nodes), setVersion(__v);
+
         darkToast({
             message: MESSAGE_SAVED_WORKBOOK,
             position: 'top-center'
@@ -37,10 +55,18 @@ export function useSaveWorkbook() {
         });
     };
 
-    const { mutateAsync: saveWorkbook } = useMutation(onMutateFn, {
+    const { mutate, isSuccess } = useMutation((data) => mutationFu(data), {
         onSuccess: onSuccessFn,
         onError: onErrorFn
     });
 
-    return { saveWorkbook };
+    const onSubmit = (data: { __v: string; commitMessage: string }) => {
+        setOpenSaveWorkbook(false);
+        mutate(data);
+    };
+
+    return {
+        onSubmit,
+        isSuccess
+    };
 }
