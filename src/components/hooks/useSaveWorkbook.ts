@@ -23,23 +23,23 @@ export function useSaveWorkbook() {
     const { user }: any = useAuthStore();
 
     const mutationFu = ({
-        __v,
+        v,
         commitMessage
     }: {
-        __v: string;
+        v: string;
         commitMessage: string;
     }) => {
         return authenticatePutAPI(user.accessToken, API_WORKBOOK, {
             nodes,
             edges,
-            __v,
+            v,
             commitMessage
         });
     };
 
     const onSuccessFn = ({ data }: any) => {
-        const { nodes = [], edges = [], __v } = data || {};
-        setEdges(edges), setNodes(nodes), setVersion(__v);
+        const { nodes = [], edges = [], v } = data || {};
+        setEdges(edges), setNodes(nodes), setVersion(v);
 
         darkToast({
             message: MESSAGE_SAVED_WORKBOOK,
@@ -60,7 +60,7 @@ export function useSaveWorkbook() {
         onError: onErrorFn
     });
 
-    const onSubmit = (data: { __v: string; commitMessage: string }) => {
+    const onSubmit = (data: { v: string; commitMessage: string }) => {
         setOpenSaveWorkbook(false);
         mutate(data);
     };

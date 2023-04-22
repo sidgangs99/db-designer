@@ -66,7 +66,7 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
                 nodes: data.nodes,
                 edges: data.edges,
                 workbookId: data._id,
-                __v: data.__v
+                v: data.v
             });
 
             set((state: any) => ({ ...state, user: user }));
@@ -84,7 +84,7 @@ const useAuthStore = create<IUseAuthStore>((set) => ({
                 nodes: [],
                 edges: [],
                 workbookId: '',
-                __v: 0
+                v: 0
             });
 
             set((state: any) => ({ ...state, user: null }));

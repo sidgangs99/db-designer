@@ -16,12 +16,12 @@ interface ISaveWorkbookModal {
 export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
     const { open, setOpen } = props;
     const { onSubmit } = useSaveWorkbook();
-    const { __v } = useWorkbookStore();
+    const { v } = useWorkbookStore();
 
     const { register, handleSubmit, formState } = useForm({
         mode: 'onChange',
         defaultValues: {
-            __v,
+            v,
             commitMessage: 'Added a new table ...'
         }
     });
@@ -100,11 +100,11 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
                         </label>
                         <div
                             className="flex w-1/6 space-x-2 font-normal"
-                            data-tooltip-id={`tooltip-__v`}
-                            data-tooltip-content={`Version should be greater than ${__v}`}
+                            data-tooltip-id={`tooltip-v`}
+                            data-tooltip-content={`Version should be greater than ${v}`}
                         >
                             <input
-                                {...register('__v', {
+                                {...register('v', {
                                     required: true
                                 })}
                                 type="text"
@@ -112,10 +112,10 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
                             />
                         </div>
                         <Tooltip
-                            id={`tooltip-__v`}
+                            id={`tooltip-v`}
                             place="bottom"
                             className="bg-coral-light px-6 py-0 align-middle text-black"
-                            isOpen={isTooltipVisible('__v')}
+                            isOpen={isTooltipVisible('v')}
                         />
                     </div>
                     <div></div>

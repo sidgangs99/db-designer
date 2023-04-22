@@ -30,8 +30,8 @@ export type IWorkbookStore = {
     edges: Edge[];
     setEdges: (edges: Edge[]) => void;
     workbookId: string;
-    __v: string;
-    setVersion: (__v: string) => void;
+    v: string;
+    setVersion: (v: string) => void;
     openSaveWorkbook: boolean;
     setOpenSaveWorkbook: (openSaveWorkbook: boolean) => void;
     onNodesChange: OnNodesChange;
@@ -51,7 +51,7 @@ const useWorkbookStore = create<IWorkbookStore>()(
             nodes: [],
             edges: [],
             workbookId: '',
-            __v: '',
+            v: '',
             openSaveWorkbook: false,
 
             setOpenSaveWorkbook: (openSaveWorkbook: boolean) => {
@@ -71,9 +71,9 @@ const useWorkbookStore = create<IWorkbookStore>()(
                 });
             },
 
-            setVersion: (__v: string) => {
+            setVersion: (v: string) => {
                 set({
-                    __v
+                    v
                 });
             },
 

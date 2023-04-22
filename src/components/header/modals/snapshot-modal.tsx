@@ -47,18 +47,36 @@ export default function SnapshotModalComponent(props: ISnapshotModal) {
                         No Previous Snapshots found
                     </div>
                 ) : (
-                    <div className="flex max-h-96 flex-col items-start justify-center space-y-4 overflow-y-scroll">
+                    <div className="flex max-h-96 flex-col items-start justify-center space-y-4 overflow-y-auto">
                         {snapshots.map(
-                            ({ version, createdAt }: any, index: number) => (
+                            (
+                                { v, createdAt, commitMessage }: any,
+                                index: number
+                            ) => (
                                 <>
-                                    <div className="flex items-start justify-center space-x-4">
+                                    <div className="flex flex-nowrap items-center justify-center space-x-4 overflow-hidden text-ellipsis">
                                         {index === 0 ? (
-                                            <div>current</div>
+                                            <div className="flex items-center justify-center text-grey-lighter">
+                                                current (
+                                                <div className="px-1 text-lg text-white">
+                                                    {v}
+                                                </div>
+                                                )
+                                            </div>
                                         ) : (
-                                            <div>version ( {version} )</div>
+                                            <div className="flex items-center justify-center text-grey-lighter">
+                                                version (
+                                                <div className="px-1 text-lg text-white">
+                                                    {v}
+                                                </div>
+                                                )
+                                            </div>
                                         )}
                                         <div>-</div>
-                                        <div>
+                                        <div className="text-lg">
+                                            {commitMessage}
+                                        </div>
+                                        <div className="text-grey-lighter">
                                             {getReadableDateTime(createdAt)}
                                         </div>
                                     </div>
