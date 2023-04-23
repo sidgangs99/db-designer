@@ -2,15 +2,13 @@ import { Listbox, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiCodeSLine } from 'react-icons/ri';
 
-import { sqlTypeColor } from '../../../constants/column.constants';
-
 interface ISingleSelectDropdownHookFormContainer {
     setValue: any;
     constraintsLogic: any;
     keyName: string;
     values: any[];
-    keyNameValue?: any;
-    optionsClassName?: string;
+    keyNameValue: any[];
+    optionsClassName: string;
 }
 
 export default function SingleSelectDropdownHookFormContainer(
@@ -33,14 +31,8 @@ export default function SingleSelectDropdownHookFormContainer(
     return (
         <Listbox value={keyNameValue} onChange={setSelectedDataType}>
             <div className="relative flex w-full align-middle">
-                <Listbox.Button
-                    className={`relative flex w-full items-center justify-between space-x-1 border-b px-2 py-1 text-left text-sm transition duration-150 ease-in-out sm:leading-5 ${
-                        sqlTypeColor[keyNameValue.type]
-                    }`}
-                >
-                    <div className="block truncate text-sm">
-                        {keyNameValue?.label}
-                    </div>
+                <Listbox.Button className="relative flex w-full items-center justify-between space-x-1 border-b px-2 py-1 text-left text-sm transition duration-150 ease-in-out sm:leading-5">
+                    <div className="block truncate text-sm">{keyName}</div>
                     <div className="flex h-full rotate-90 items-center justify-center text-sm">
                         <RiCodeSLine />
                     </div>
@@ -57,9 +49,7 @@ export default function SingleSelectDropdownHookFormContainer(
                         {values.map((value: any, index: number) => (
                             <Listbox.Option
                                 key={index}
-                                className={({ active }) =>
-                                    `relative cursor-pointer px-2 py-1 text-xs hover:bg-grey-main md:text-sm`
-                                }
+                                className="relative cursor-pointer px-2 py-1 text-xs hover:bg-grey-main md:text-sm"
                                 value={value}
                             >
                                 {({ selected }) => (

@@ -34,6 +34,8 @@ export type IWorkbookStore = {
     setVersion: (v: string) => void;
     openSaveWorkbook: boolean;
     setOpenSaveWorkbook: (openSaveWorkbook: boolean) => void;
+    workbookSynced: boolean;
+    setWorkbookSynced: (workbookSynced: boolean) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
@@ -46,13 +48,20 @@ export type IWorkbookStore = {
 };
 
 const useWorkbookStore = create<IWorkbookStore>()(
-    persist(
+    persist<IWorkbookStore>(
         (set, get) => ({
             nodes: [],
             edges: [],
             workbookId: '',
             v: '',
             openSaveWorkbook: false,
+            workbookSynced: true,
+
+            setWorkbookSynced: (workbookSynced: boolean) => {
+                set({
+                    workbookSynced
+                });
+            },
 
             setOpenSaveWorkbook: (openSaveWorkbook: boolean) => {
                 set({
@@ -79,18 +88,21 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             onNodesChange: (changes: NodeChange[]) => {
                 set({
+                    workbookSynced: false,
                     nodes: applyNodeChanges(changes, get().nodes)
                 });
             },
 
             onEdgesChange: (changes: EdgeChange[]) => {
                 set({
+                    workbookSynced: false,
                     edges: applyEdgeChanges(changes, get().edges)
                 });
             },
 
             onConnect: (connection: Connection) => {
                 set({
+                    workbookSynced: false,
                     edges: isValidEdge(connection, get().nodes)
                         ? addEdge(
                               {

@@ -12,11 +12,13 @@ export function useGenerateFastApiModal() {
     const { nodes, edges } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
-    const { data, isFetching, isError } = useQuery<any>('fast-api-modal-generator', () =>
-        authenticatePostAPI(user.accessToken, API_FAST_API_MODAL_GENERATE, {
-            nodes,
-            edges
-        })
+    const { data, isFetching, isError }: any = useQuery<any>(
+        'fast-api-modal-generator',
+        () =>
+            authenticatePostAPI(user.accessToken, API_FAST_API_MODAL_GENERATE, {
+                nodes,
+                edges
+            })
     );
 
     useEffect(() => {

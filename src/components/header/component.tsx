@@ -8,6 +8,7 @@ import SingleSelectDropdownContainer from '../common/single-select-dropdown/cont
 
 import { Tooltip } from 'react-tooltip';
 import AvatarDropdownComponent from '../common/single-select-dropdown/avatar.component';
+import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import { IHeaderComponentProps } from './types';
 
 const HeaderComponent = (props: IHeaderComponentProps) => {
@@ -16,9 +17,10 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
         avatarMenuOptions,
         setOpenResetViewModal,
         exportDropdownOption,
-        setOpenSnapshotModal,
-        setOpenSaveWorkbookModal
+        setOpenMigrationModal
     } = props;
+
+    const { onSubmit } = useSaveWorkbook();
 
     return (
         <>
@@ -32,10 +34,10 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             onClick={() => setOpenResetViewModal(true)}
                         />
                         <IconButtonContainer
-                            label={'Snapshots'}
+                            label={'Migrations'}
                             Icon={TbVersions}
                             className={''}
-                            onClick={() => setOpenSnapshotModal(true)}
+                            onClick={() => setOpenMigrationModal(true)}
                         />
                         <SingleSelectDropdownContainer
                             Icon={TbFileExport}
@@ -54,7 +56,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             label={'Save'}
                             className={''}
                             Icon={BiSave}
-                            onClick={() => setOpenSaveWorkbookModal(true)}
+                            onClick={() => onSubmit()}
                         />
                         <div
                             data-tooltip-id={`new-table-button`}

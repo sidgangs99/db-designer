@@ -1,21 +1,22 @@
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiSave } from 'react-icons/bi';
-
-import { useCallback } from 'react';
 import { Tooltip } from 'react-tooltip';
+
 import useWorkbookStore from '../../../store/workbook/state';
 import IconButtonContainer from '../../common/icon-button/container';
 import ModalContainer from '../../common/modal/container';
-import { useSaveWorkbook } from '../../hooks/useSaveWorkbook';
 
-interface ISaveWorkbookModal {
+interface ICommitWorkbookModal {
     open: boolean;
     setOpen: any;
+    onVersionUpdate: any;
 }
 
-export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
-    const { open, setOpen } = props;
-    const { onSubmit } = useSaveWorkbook();
+export default function CommitWorkbookModalComponent(
+    props: ICommitWorkbookModal
+) {
+    const { open, setOpen, onVersionUpdate } = props;
     const { v } = useWorkbookStore();
 
     const { register, handleSubmit, formState } = useForm({
@@ -45,7 +46,7 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
             Header={
                 <div className="flex items-center justify-between">
                     <div className="flex whitespace-nowrap text-gray-300">
-                        Save Workbook
+                        Save this version as
                     </div>
                     <IconButtonContainer
                         label={'Save'}
@@ -58,10 +59,11 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
                 </div>
             }
             Body={
-                // isSuccess ? (
                 <form
                     className="mt-4 flex w-full flex-col justify-between space-y-8 text-xs md:pr-2 md:text-base"
-                    onSubmit={handleSubmit((data: any) => onSubmit(data))}
+                    onSubmit={handleSubmit((data: any) =>
+                        onVersionUpdate(data)
+                    )}
                     id="save-workbook"
                 >
                     <div className="flex w-full items-end space-x-4">
@@ -101,11 +103,17 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
                         <div
                             className="flex w-1/6 space-x-2 font-normal"
                             data-tooltip-id={`tooltip-v`}
-                            data-tooltip-content={`Version should be greater than ${v}`}
+                            data-tooltip-content={
+                                errors['v']?.type === 'required'
+                                    ? 'This is a required field'
+                                    : 'No space allowed'
+                            }
                         >
                             <input
                                 {...register('v', {
-                                    required: true
+                                    required: true,
+                                    maxLength: 10,
+                                    pattern: /^[^\s]+$/
                                 })}
                                 type="text"
                                 className="outline-border-coral-dark focus:border-coral-darkest border-b border-grey-main bg-stone-900 px-2 font-normal tracking-wider text-white focus:outline-none focus:ring-0"
@@ -120,12 +128,6 @@ export default function SaveWorkbookModalComponent(props: ISaveWorkbookModal) {
                     </div>
                     <div></div>
                 </form>
-                // ) : (
-                //     <LoaderComponent
-                //         Component={HashLoader}
-                //         speedMultiplier={0.4}
-                //     />
-                // )
             }
             Footer={<></>}
         />

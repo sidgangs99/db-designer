@@ -12,11 +12,13 @@ export function useGenerateSqlFile() {
     const { nodes, edges } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
-    const { data, isFetching, isError } = useQuery<any>('sql-generator', () =>
-        authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
-            nodes,
-            edges
-        })
+    const { data, isFetching, isError }: any = useQuery<any>(
+        'sql-generator',
+        () =>
+            authenticatePostAPI(user.accessToken, API_SQL_GENERATE, {
+                nodes,
+                edges
+            })
     );
 
     useEffect(() => {

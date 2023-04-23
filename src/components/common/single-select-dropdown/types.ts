@@ -11,6 +11,7 @@ export interface ISingleSelectDropdownContainerProps {
     className?: string;
     Icon?: any;
     optionsClassName?: string;
+    getLabel?: Function;
 }
 
 export interface ISingleSelectDropdownComponentProps

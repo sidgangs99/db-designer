@@ -13,7 +13,8 @@ export default function SingleSelectDropdownComponent(
         value,
         className,
         Icon,
-        optionsClassName
+        optionsClassName,
+        getLabel = (value: any) => value?.label
     } = props;
 
     return (
@@ -25,7 +26,7 @@ export default function SingleSelectDropdownComponent(
                     >
                         {Icon ? <Icon className="text-lg" /> : <></>}
                         <div className="block truncate text-sm">
-                            {value?.label}
+                            {getLabel(value)}
                         </div>
                         <div className="flex h-full items-center justify-center text-sm">
                             <HiSelector />
@@ -44,7 +45,6 @@ export default function SingleSelectDropdownComponent(
                             className={`shadow-xs absolute z-20 mr-8 mt-8 max-h-60 w-auto overflow-auto rounded-md border border-x border-grey-light bg-grey-dark text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
                         >
                             {values.map((data: any, index: number) => {
-                                const { label } = data;
                                 return (
                                     <Listbox.Option
                                         key={index}
@@ -61,7 +61,7 @@ export default function SingleSelectDropdownComponent(
                                                         : 'font-normal'
                                                 }`}
                                             >
-                                                {label}
+                                                {getLabel(data)}
                                             </div>
                                         )}
                                     </Listbox.Option>

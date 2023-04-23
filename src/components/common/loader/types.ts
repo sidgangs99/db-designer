@@ -3,4 +3,5 @@ export interface ILoaderComponentProps {
     color?: string;
     speedMultiplier?: number;
     size?: number;
+    className?: string;
 }

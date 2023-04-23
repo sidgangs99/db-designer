@@ -6,10 +6,13 @@ export default function LoaderComponent(props: ILoaderComponentProps) {
         Component,
         color = customColors.grey.light,
         speedMultiplier,
-        size
+        size,
+        className
     } = props;
     return (
-        <div className="flex h-full w-full items-center justify-center bg-grey-darker">
+        <div
+            className={`flex h-full w-full items-center justify-center bg-grey-darker ${className}`}
+        >
             <Component
                 color={color}
                 speedMultiplier={speedMultiplier}

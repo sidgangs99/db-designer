@@ -10,13 +10,14 @@ import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
 import useWorkbookStore, { IWorkbookStore } from '../../store/workbook/state';
+import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import HeaderComponent from './component';
+import CommitWorkbookModalComponent from './migration/commit-workbook-modal';
+import MigrateModalComponent from './migration/migration-modal';
 import DownloadFastApiModal from './modals/download-fast-api-modal';
 import DownloadSqlFileModal from './modals/download-sql';
 import ProfileViewModal from './modals/profile';
 import ResetViewModal from './modals/reset-view';
-import SnapshotModalComponent from './modals/snapshot-modal';
-import SaveWorkbookModalComponent from './save-workbook/save-workbook-modal';
 import { IHeaderContainerProps } from './types';
 
 export default function HeaderContainer(props: IHeaderContainerProps) {
@@ -26,16 +27,18 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     };
 
     const { user, logout }: any = useAuthStore();
-    const { openSaveWorkbook, setOpenSaveWorkbook }: IWorkbookStore =
+    const { setOpenSaveWorkbook, workbookSynced }: IWorkbookStore =
         useWorkbookStore();
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
-    const [openSnapshotModal, setOpenSnapshotModal] = useState(false);
+    const [openMigrationModal, setOpenMigrationModal] = useState(false);
     const [openProfileModal, setOpenProfileModal] = useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
     const [openDownloadFastApiModal, setOpenDownloadFastApiModal] =
         useState(false);
+
+    const { onVersionUpdate, isSuccess } = useSaveWorkbook();
 
     function exportDropdownOption(selectedOption: any) {
         switch (selectedOption?.value) {
@@ -72,7 +75,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                 avatarMenuOptions={avatarMenuOptions}
                 setOpenResetViewModal={setOpenResetViewModal}
                 exportDropdownOption={exportDropdownOption}
-                setOpenSnapshotModal={setOpenSnapshotModal}
+                setOpenMigrationModal={setOpenMigrationModal}
                 setOpenSaveWorkbookModal={setOpenSaveWorkbook}
             />
             {openResetViewModal && (
@@ -99,18 +102,20 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                     setOpen={setOpenProfileModal}
                 />
             )}
-            {openSnapshotModal && (
-                <SnapshotModalComponent
-                    open={openSnapshotModal}
-                    setOpen={setOpenSnapshotModal}
-                />
-            )}
-            {openSaveWorkbook && (
-                <SaveWorkbookModalComponent
-                    open={openSaveWorkbook}
-                    setOpen={setOpenSaveWorkbook}
-                />
-            )}
+            {openMigrationModal &&
+                (workbookSynced ? (
+                    <MigrateModalComponent
+                        open={openMigrationModal}
+                        setOpen={setOpenMigrationModal}
+                        isSuccess={isSuccess}
+                    />
+                ) : (
+                    <CommitWorkbookModalComponent
+                        open={openMigrationModal}
+                        setOpen={setOpenMigrationModal}
+                        onVersionUpdate={onVersionUpdate}
+                    />
+                ))}
         </>
     );
 }
