@@ -34,7 +34,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             onClick={() => setOpenResetViewModal(true)}
                         />
                         <IconButtonContainer
-                            label={'Migrations'}
+                            label={'Versions'}
                             Icon={TbVersions}
                             className={''}
                             onClick={() => setOpenMigrationModal(true)}

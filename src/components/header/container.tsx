@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     FAST_API_DATA_MODAL_OPTION,
@@ -29,6 +29,10 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const { user, logout }: any = useAuthStore();
     const { setOpenSaveWorkbook, workbookSynced }: IWorkbookStore =
         useWorkbookStore();
+
+    useEffect(() => {
+        console.log(workbookSynced);
+    }, [workbookSynced]);
 
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openMigrationModal, setOpenMigrationModal] = useState(false);

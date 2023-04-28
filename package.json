@@ -19,7 +19,6 @@
         "firebase": "^9.18.0",
         "html-to-image": "^1.11.11",
         "lodash": "^4.17.21",
-        "object-hash": "^3.0.0",
         "react": "^18.2.0",
         "react-ace": "^10.1.0",
         "react-dom": "^18.2.0",

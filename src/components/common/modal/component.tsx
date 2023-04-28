@@ -13,7 +13,7 @@ export default function ModalComponent(props: IModalComponentProps) {
                 open={open}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-90 transition-opacity" />
-                <div className="min-h-screen px-4 text-center">
+                <div className="h-full min-h-screen px-4 text-center">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"

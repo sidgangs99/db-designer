@@ -42,7 +42,7 @@ export default function SingleSelectDropdownComponent(
                     >
                         <Listbox.Options
                             static
-                            className={`shadow-xs absolute z-20 mr-8 mt-8 max-h-60 w-auto overflow-auto rounded-md border border-x border-grey-light bg-grey-dark text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
+                            className={`shadow-xs absolute z-20 mr-8 mt-8 max-h-60 w-auto min-w-full overflow-auto rounded-md border border-x border-grey-light bg-grey-dark text-base leading-6 focus:outline-none sm:leading-5 ${optionsClassName}`}
                         >
                             {values.map((data: any, index: number) => {
                                 return (

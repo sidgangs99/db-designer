@@ -88,7 +88,6 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             onNodesChange: (changes: NodeChange[]) => {
                 set({
-                    workbookSynced: false,
                     nodes: applyNodeChanges(changes, get().nodes)
                 });
             },
@@ -117,6 +116,7 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             updateNodeData: (data: INodeData, nodeId: string) => {
                 set({
+                    workbookSynced: false,
                     nodes: get().nodes.map((node) => {
                         if (node.id === nodeId) {
                             node.data = data;
@@ -134,6 +134,7 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             deleteNode: (nodeId: string) => {
                 set({
+                    workbookSynced: false,
                     nodes: deleteNodesAndUpdatePosition(nodeId, get().nodes),
                     edges: get().edges.filter(
                         (edge) =>
@@ -144,6 +145,7 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             deleteTable: (tableId: string) => {
                 set({
+                    workbookSynced: false,
                     nodes: get().nodes.filter(
                         (node) => node.data.tableId !== tableId
                     ),
@@ -157,18 +159,21 @@ const useWorkbookStore = create<IWorkbookStore>()(
 
             addNewColumnNode: (tableId: string) => {
                 set({
+                    workbookSynced: false,
                     nodes: newColumnNode(get().nodes, tableId)
                 });
             },
 
             dropNewTable: (position: XYPosition) => {
                 set({
+                    workbookSynced: false,
                     nodes: [...get().nodes, ...addNewTable(position)]
                 });
             },
 
             onReset: () => {
                 set({
+                    workbookSynced: false,
                     nodes: [],
                     edges: []
                 });

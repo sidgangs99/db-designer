@@ -53,7 +53,7 @@ export default function MigrateModalComponent(props: IMigrateModal) {
         <ModalContainer
             open={open}
             setOpen={setOpen}
-            className={'w-2/3'}
+            className={'h-2/4 w-2/3'}
             Header={
                 <div className="flex items-center justify-between">
                     <div className="flex whitespace-nowrap text-gray-300">
