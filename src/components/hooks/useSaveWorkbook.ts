@@ -38,8 +38,8 @@ export function useSaveWorkbook() {
     const onSuccessFn = ({ data }: any) => {
         const { nodes = [], edges = [], v } = data || {};
         setEdges(edges),
-            setNodes(nodes),
-            setVersion(v),
+            //     setNodes(nodes),
+            //     setVersion(v),
             setWorkbookSynced(true);
 
         darkToast({

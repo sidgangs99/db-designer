@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { HiOutlineDocumentDownload } from 'react-icons/hi';
 import { downloadFile } from '../../../util/helper';
@@ -6,42 +5,24 @@ import { downloadFile } from '../../../util/helper';
 import EditorContainer from '../../common/editor/container';
 import IconButtonContainer from '../../common/icon-button/container';
 import ModalContainer from '../../common/modal/container';
-import { useGenerateSqlFile } from '../../hooks/useGenerateSqlFile';
 
 interface IDownloadSqlFileModal {
     open: boolean;
     setOpen: any;
+    data: string;
+    setData: any;
 }
 
 export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
-    const { open, setOpen } = props;
-    const { data, isFetching } = useGenerateSqlFile();
-
-    const [fileContent, setFileContent] = useState<string>('');
+    const { open, setOpen, data, setData } = props;
 
     const { register, setValue, handleSubmit } = useForm({
         mode: 'onChange',
         defaultValues: {
             fileName: 'databaseSchema',
-            fileContent: data?.fileContent
+            fileContent: data
         }
     });
-
-    const errorMessage =
-        'Error: 500 Internal Server Error, will be fixed soon...';
-
-    useEffect(() => {
-        if (isFetching) {
-            setFileContent('');
-        } else {
-            if (data?.fileContent) {
-                setValue('fileContent', data?.fileContent);
-                setFileContent(data?.fileContent);
-            } else {
-                setFileContent(errorMessage);
-            }
-        }
-    }, [data, isFetching]);
 
     const onSubmit = ({ fileName, fileContent }: any) => {
         downloadFile(fileContent, 'sql', fileName);
@@ -51,7 +32,7 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
         <ModalContainer
             open={open}
             setOpen={setOpen}
-            className={'lg:6/12 h-full w-full lg:h-1/2 xl:w-7/12'}
+            className={'h-full w-full lg:h-1/2 xl:w-7/12'}
             Body={
                 <form
                     className="space-y-4"
@@ -81,10 +62,7 @@ export default function DownloadSqlFileModal(props: IDownloadSqlFileModal) {
                         />
                     </div>
                     <div className="flex w-full space-x-2">
-                        <EditorContainer
-                            value={fileContent}
-                            setValue={setFileContent}
-                        />
+                        <EditorContainer value={data} setValue={setData} />
                     </div>
                 </form>
             }

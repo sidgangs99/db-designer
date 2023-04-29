@@ -10,6 +10,8 @@ import { downloadPngImageOfWorkbook } from '../../util/helper';
 
 import useAuthStore from '../../store/firebase/state';
 import useWorkbookStore, { IWorkbookStore } from '../../store/workbook/state';
+import { useGenerateMigrationSqlFile } from '../hooks/useGenerateMigrationSqlFile';
+import { useGenerateSqlFile } from '../hooks/useGenerateSqlFile';
 import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import HeaderComponent from './component';
 import CommitWorkbookModalComponent from './migration/commit-workbook-modal';
@@ -30,10 +32,6 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const { setOpenSaveWorkbook, workbookSynced }: IWorkbookStore =
         useWorkbookStore();
 
-    useEffect(() => {
-        console.log(workbookSynced);
-    }, [workbookSynced]);
-
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openMigrationModal, setOpenMigrationModal] = useState(false);
     const [openProfileModal, setOpenProfileModal] = useState(false);
@@ -41,13 +39,18 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
         useState(false);
     const [openDownloadFastApiModal, setOpenDownloadFastApiModal] =
         useState(false);
+    const [sqlEditorData, setSqlEditorData] = useState('');
 
     const { onVersionUpdate, isSuccess } = useSaveWorkbook();
+
+    useEffect(() => {
+        if (!openDownloadSqlFileModal) setSqlEditorData('');
+    }, [openDownloadSqlFileModal]);
 
     function exportDropdownOption(selectedOption: any) {
         switch (selectedOption?.value) {
             case SQL_FILE_OPTION:
-                setOpenDownloadSqlFileModal(true);
+                mutateSqlFile();
                 break;
             case FAST_API_DATA_MODAL_OPTION:
                 setOpenDownloadFastApiModal(true);
@@ -72,6 +75,38 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
         { label: 'Logout', onClick: () => logout(user) }
     ];
 
+    const errorMessage =
+        'Error: 500 Internal Server Error, will be fixed soon...';
+
+    const onGenerateSqlFileSuccess = ({ data }: any) => {
+        setSqlEditorData(data.fileContent);
+        setOpenDownloadSqlFileModal(true);
+    };
+
+    const onGenerateSqlFileError = () => {
+        setSqlEditorData(errorMessage);
+    };
+
+    const { mutate: mutateSqlFile } = useGenerateSqlFile(
+        onGenerateSqlFileSuccess,
+        onGenerateSqlFileError
+    );
+
+    const onGenerateMigrationSqlFileSuccess = ({ data }: any) => {
+        setSqlEditorData(data.fileContent);
+        setOpenMigrationModal(false);
+        setOpenDownloadSqlFileModal(true);
+    };
+
+    const onGenerateMigrationSqlFileError = () => {
+        setSqlEditorData(errorMessage);
+    };
+
+    const { mutate } = useGenerateMigrationSqlFile(
+        onGenerateMigrationSqlFileSuccess,
+        onGenerateMigrationSqlFileError
+    );
+
     return (
         <>
             <HeaderComponent
@@ -90,6 +125,8 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
             )}
             {openDownloadSqlFileModal && (
                 <DownloadSqlFileModal
+                    data={sqlEditorData}
+                    setData={setSqlEditorData}
                     open={openDownloadSqlFileModal}
                     setOpen={setOpenDownloadSqlFileModal}
                 />
@@ -112,6 +149,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                         open={openMigrationModal}
                         setOpen={setOpenMigrationModal}
                         isSuccess={isSuccess}
+                        mutate={mutate}
                     />
                 ) : (
                     <CommitWorkbookModalComponent

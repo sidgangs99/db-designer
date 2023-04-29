@@ -16,17 +16,18 @@ interface IMigrateModal {
     open: boolean;
     setOpen: any;
     isSuccess: boolean;
+    mutate: any;
 }
 
 export default function MigrateModalComponent(props: IMigrateModal) {
-    const { open, setOpen } = props;
+    const { open, setOpen, mutate } = props;
 
     const { workbookId } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
     const [snapshots, setSnapshots] = useState([]);
-    const [migrateFrom, setMigrateFrom] = useState({});
-    const [migrateTo, setMigrateTo] = useState([]);
+    const [migrateFrom, setMigrateFrom] = useState<any>({});
+    const [migrateTo, setMigrateTo] = useState<any>({});
     const { data: responseData, isFetching }: any = useQuery(
         `get-snapshots`,
         () =>
@@ -65,6 +66,9 @@ export default function MigrateModalComponent(props: IMigrateModal) {
                             Icon={MdOutlineDifference}
                             type={'submit'}
                             form={'migrate'}
+                            onClick={() => {
+                                mutate({ migrateFrom, migrateTo });
+                            }}
                         />
                     )}
                 </div>

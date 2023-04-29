@@ -53,11 +53,11 @@ export default function ModalComponent(props: IModalComponentProps) {
                                     {Header}
                                 </Dialog.Title>
                             )}
-                            <div className="accent-coral-darker my-4 pt-2 text-sm text-white focus:accent-coral-light">
+                            <div className="accent-coral-darker my-4 h-full w-full p-2 text-sm text-white focus:accent-coral-light">
                                 {Body}
                             </div>
 
-                            {Footer && <div className="mt-4">{Footer}</div>}
+                            <div className="mt-8">{Footer}</div>
                         </div>
                     </Transition.Child>
                 </div>
