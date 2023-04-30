@@ -1,11 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 
 import useWorkbookStore from '../../store/workbook/state';
-import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import ReactFlowComponent from './component';
 
 export default function ReactFlowContainer() {
-    useSaveWorkbook();
     const { dropNewTable } = useWorkbookStore();
     const reactFlowWrapper = useRef<any>();
     const [reactFlowInstance, setReactFlowInstance] = useState<any>();

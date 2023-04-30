@@ -17,10 +17,8 @@ export function useSaveWorkbook() {
         edges,
         workbookId,
         v,
-        setOpenSaveWorkbook,
-        setEdges,
-        setNodes,
         setVersion,
+        setOpenSaveWorkbook,
         setWorkbookSynced
     } = useWorkbookStore();
     const { user }: any = useAuthStore();
@@ -37,10 +35,7 @@ export function useSaveWorkbook() {
 
     const onSuccessFn = ({ data }: any) => {
         const { nodes = [], edges = [], v } = data || {};
-        setEdges(edges),
-            //     setNodes(nodes),
-            //     setVersion(v),
-            setWorkbookSynced(true);
+        setWorkbookSynced(true);
 
         darkToast({
             message: MESSAGE_SAVED_WORKBOOK,
@@ -67,6 +62,7 @@ export function useSaveWorkbook() {
     };
 
     const onVersionUpdate = (data: { v: string; commitMessage: string }) => {
+        setVersion(data.v);
         mutate(data);
     };
 

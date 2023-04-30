@@ -80,7 +80,7 @@ export default function MigrateModalComponent(props: IMigrateModal) {
                         speedMultiplier={0.4}
                         className="bg-transparent"
                     />
-                ) : snapshots.length > 1 ? (
+                ) : snapshots.length >= 0 ? (
                     <div className="my-6 flex flex-col justify-center space-y-6">
                         <div className="flex items-center space-x-4">
                             <label className="flex w-1/12  items-center justify-start">
