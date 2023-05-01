@@ -7,7 +7,7 @@ export interface IDropdownOptions {
 export interface ISingleSelectDropdownContainerProps {
     values: IDropdownOptions[];
     setValue: any;
-    value: Record<string, any>;
+    value?: Record<string, any>;
     className?: string;
     Icon?: any;
     optionsClassName?: string;

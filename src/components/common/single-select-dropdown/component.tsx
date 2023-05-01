@@ -25,9 +25,11 @@ export default function SingleSelectDropdownComponent(
                         className={`relative flex w-full items-center justify-between space-x-1 border-b px-2 py-1 text-left text-sm transition duration-150 ease-in-out sm:leading-5 ${className}`}
                     >
                         {Icon ? <Icon className="text-lg" /> : <></>}
-                        <div className="block truncate text-sm">
-                            {getLabel(value)}
-                        </div>
+                        {value && (
+                            <div className="block truncate text-sm">
+                                {getLabel(value)}
+                            </div>
+                        )}
                         <div className="flex h-full items-center justify-center text-sm">
                             <HiSelector />
                         </div>

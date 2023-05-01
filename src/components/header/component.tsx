@@ -17,7 +17,8 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
         avatarMenuOptions,
         setOpenResetViewModal,
         exportDropdownOption,
-        setOpenMigrationModal
+        setOpenMigrationModal,
+        setOpenSaveNewVersionModal
     } = props;
 
     const { onSubmit } = useSaveWorkbook();
@@ -25,7 +26,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
     return (
         <>
             <div className="flex w-full items-center justify-between px-6">
-                <div className="flex items-center space-x-4">
+                <div className="flex w-full items-center space-x-4">
                     <div className="flex items-center space-x-4">
                         <IconButtonContainer
                             label={'Reset'}
@@ -51,13 +52,28 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                         />
                     </div>
 
-                    <div className="flex items-center space-x-4 border-l border-grey-light px-4">
-                        <IconButtonContainer
-                            label={'Save'}
-                            className={''}
-                            Icon={BiSave}
-                            onClick={() => onSubmit()}
-                        />
+                    <div className="flex w-full items-center space-x-4 border-l border-grey-light px-4">
+                        <div className="flex">
+                            <IconButtonContainer
+                                label={'Save'}
+                                className={'rounded-l-md rounded-r-none'}
+                                Icon={BiSave}
+                                onClick={() => onSubmit()}
+                            />
+                            <SingleSelectDropdownContainer
+                                setValue={(e: any) => {
+                                    setOpenSaveNewVersionModal(true);
+                                }}
+                                values={[
+                                    {
+                                        label: 'New version',
+                                        value: 'new_version'
+                                    }
+                                ]}
+                                className="w-4 rounded-l-none rounded-r-md border border-grey-main hover:border-coral-light hover:text-coral-light"
+                                optionsClassName={'bg-grey-darker -ml-18'}
+                            />
+                        </div>
                         <div
                             data-tooltip-id={`new-table-button`}
                             data-tooltip-content={

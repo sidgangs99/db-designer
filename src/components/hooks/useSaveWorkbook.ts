@@ -16,7 +16,6 @@ export function useSaveWorkbook() {
         nodes,
         edges,
         workbookId,
-        v,
         setVersion,
         setOpenSaveWorkbook,
         setWorkbookSynced
@@ -28,7 +27,6 @@ export function useSaveWorkbook() {
             nodes,
             edges,
             workbookId,
-            v,
             ...data
         });
     };

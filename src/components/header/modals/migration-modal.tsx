@@ -22,7 +22,7 @@ interface IMigrateModal {
 export default function MigrateModalComponent(props: IMigrateModal) {
     const { open, setOpen, mutate } = props;
 
-    const { workbookId } = useWorkbookStore();
+    const { workbookId, workbookSynced } = useWorkbookStore();
     const { user }: any = useAuthStore();
 
     const [snapshots, setSnapshots] = useState([]);
@@ -41,9 +41,9 @@ export default function MigrateModalComponent(props: IMigrateModal) {
 
     useEffect(() => {
         setSnapshots(data);
-        if (data.length > 1) {
+        if (data) {
             setMigrateTo(data?.[0]);
-            setMigrateFrom(data?.[1]);
+            setMigrateFrom(data?.[1] || data?.[0]);
         }
     }, [responseData]);
 
@@ -58,19 +58,17 @@ export default function MigrateModalComponent(props: IMigrateModal) {
             Header={
                 <div className="flex items-center justify-between">
                     <div className="flex whitespace-nowrap text-gray-300">
-                        Select versions in which you want to migrate
+                        Select versions for diff
                     </div>
-                    {snapshots.length > 1 && (
-                        <IconButtonContainer
-                            label={'Migrate'}
-                            Icon={MdOutlineDifference}
-                            type={'submit'}
-                            form={'migrate'}
-                            onClick={() => {
-                                mutate({ migrateFrom, migrateTo });
-                            }}
-                        />
-                    )}
+                    <IconButtonContainer
+                        label={'Diff'}
+                        Icon={MdOutlineDifference}
+                        type={'submit'}
+                        form={'migrate'}
+                        onClick={() => {
+                            mutate({ migrateFrom, migrateTo });
+                        }}
+                    />
                 </div>
             }
             Body={
@@ -80,11 +78,11 @@ export default function MigrateModalComponent(props: IMigrateModal) {
                         speedMultiplier={0.4}
                         className="bg-transparent"
                     />
-                ) : snapshots.length >= 0 ? (
+                ) : (
                     <div className="my-6 flex flex-col justify-center space-y-6">
                         <div className="flex items-center space-x-4">
                             <label className="flex w-1/12  items-center justify-start">
-                                Migrate To :
+                                Target :
                             </label>
                             <div className="flex w-7/12">
                                 <SingleSelectDropdownComponent
@@ -97,7 +95,7 @@ export default function MigrateModalComponent(props: IMigrateModal) {
                         </div>
                         <div className="flex items-center space-x-4">
                             <label className="flex w-1/12 items-center justify-start">
-                                Migrate From :
+                                Source :
                             </label>
                             <div className="flex w-7/12">
                                 <SingleSelectDropdownComponent
@@ -108,11 +106,12 @@ export default function MigrateModalComponent(props: IMigrateModal) {
                                 />
                             </div>
                         </div>
-                    </div>
-                ) : (
-                    <div className="text-2xl text-grey-lighter">
-                        Create at least two versions of your schema to enable
-                        this
+                        {!workbookSynced && (
+                            <div className="text-grey-lighter">
+                                Note: The current changes are not saved, please
+                                save it if you are comparing it.
+                            </div>
+                        )}
                     </div>
                 )
             }

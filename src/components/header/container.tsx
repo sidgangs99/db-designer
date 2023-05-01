@@ -14,10 +14,10 @@ import { useGenerateMigrationSqlFile } from '../hooks/useGenerateMigrationSqlFil
 import { useGenerateSqlFile } from '../hooks/useGenerateSqlFile';
 import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import HeaderComponent from './component';
-import CommitWorkbookModalComponent from './migration/commit-workbook-modal';
-import MigrateModalComponent from './migration/migration-modal';
+import CommitWorkbookModalComponent from './modals/commit-workbook-modal';
 import DownloadFastApiModal from './modals/download-fast-api-modal';
 import DownloadSqlFileModal from './modals/download-sql';
+import MigrateModalComponent from './modals/migration-modal';
 import ProfileViewModal from './modals/profile';
 import ResetViewModal from './modals/reset-view';
 import { IHeaderContainerProps } from './types';
@@ -35,6 +35,8 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
     const [openResetViewModal, setOpenResetViewModal] = useState(false);
     const [openMigrationModal, setOpenMigrationModal] = useState(false);
     const [openProfileModal, setOpenProfileModal] = useState(false);
+    const [openSaveNewVersionModal, setOpenSaveNewVersionModal] =
+        useState(false);
     const [openDownloadSqlFileModal, setOpenDownloadSqlFileModal] =
         useState(false);
     const [openDownloadFastApiModal, setOpenDownloadFastApiModal] =
@@ -116,6 +118,7 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                 exportDropdownOption={exportDropdownOption}
                 setOpenMigrationModal={setOpenMigrationModal}
                 setOpenSaveWorkbookModal={setOpenSaveWorkbook}
+                setOpenSaveNewVersionModal={setOpenSaveNewVersionModal}
             />
             {openResetViewModal && (
                 <ResetViewModal
@@ -143,21 +146,20 @@ export default function HeaderContainer(props: IHeaderContainerProps) {
                     setOpen={setOpenProfileModal}
                 />
             )}
-            {openMigrationModal &&
-                (workbookSynced ? (
-                    <MigrateModalComponent
-                        open={openMigrationModal}
-                        setOpen={setOpenMigrationModal}
-                        isSuccess={isSuccess}
-                        mutate={mutate}
-                    />
-                ) : (
-                    <CommitWorkbookModalComponent
-                        open={openMigrationModal}
-                        setOpen={setOpenMigrationModal}
-                        onVersionUpdate={onVersionUpdate}
-                    />
-                ))}
+            {openMigrationModal && (
+                <MigrateModalComponent
+                    open={openMigrationModal}
+                    setOpen={setOpenMigrationModal}
+                    isSuccess={isSuccess}
+                    mutate={mutate}
+                />
+            )}
+            {openSaveNewVersionModal && (
+                <CommitWorkbookModalComponent
+                    open={openSaveNewVersionModal}
+                    setOpen={setOpenSaveNewVersionModal}
+                />
+            )}
         </>
     );
 }

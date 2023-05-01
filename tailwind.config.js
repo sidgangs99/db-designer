@@ -61,6 +61,9 @@ module.exports = {
             zIndex: {
                 100: '100',
                 200: '200'
+            },
+            margin: {
+                18: '4.5rem'
             }
         }
     },

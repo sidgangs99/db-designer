@@ -7,4 +7,5 @@ export interface IHeaderComponentProps extends IHeaderContainerProps {
     exportDropdownOption: any;
     setOpenMigrationModal: any;
     setOpenSaveWorkbookModal: any;
+    setOpenSaveNewVersionModal: any;
 }

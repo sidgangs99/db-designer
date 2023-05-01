@@ -6,18 +6,19 @@ import { Tooltip } from 'react-tooltip';
 import useWorkbookStore from '../../../store/workbook/state';
 import IconButtonContainer from '../../common/icon-button/container';
 import ModalContainer from '../../common/modal/container';
+import { useSaveWorkbook } from '../../hooks/useSaveWorkbook';
 
 interface ICommitWorkbookModal {
     open: boolean;
     setOpen: any;
-    onVersionUpdate: any;
 }
 
 export default function CommitWorkbookModalComponent(
     props: ICommitWorkbookModal
 ) {
-    const { open, setOpen, onVersionUpdate } = props;
+    const { open, setOpen } = props;
     const { v } = useWorkbookStore();
+    const { onVersionUpdate } = useSaveWorkbook();
 
     const { register, handleSubmit, formState } = useForm({
         mode: 'onChange',
@@ -61,9 +62,10 @@ export default function CommitWorkbookModalComponent(
             Body={
                 <form
                     className="mt-4 flex w-full flex-col justify-between space-y-8 text-xs md:pr-2 md:text-base"
-                    onSubmit={handleSubmit((data: any) =>
-                        onVersionUpdate(data)
-                    )}
+                    onSubmit={handleSubmit((data: any) => {
+                        setOpen(false);
+                        onVersionUpdate(data);
+                    })}
                     id="save-workbook"
                 >
                     <div className="flex w-full items-end space-x-4">
