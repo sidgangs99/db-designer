@@ -196,6 +196,13 @@ export const postgresDataTypeInputTypeMapping: any[] = [
         label: 'UUID'
     },
     {
+        id: 'varchar',
+        type: 'text',
+        dataType: 'varchar',
+        regex: /.*/,
+        label: 'Varchar'
+    },
+    {
         id: 'xml',
         type: 'textarea',
         dataType: 'xml',
