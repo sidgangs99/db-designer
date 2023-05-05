@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { Connection, Edge, XYPosition } from 'reactflow';
+import { Edge, XYPosition } from 'reactflow';
 import { ECustomNodeTypes } from '../../components/react-flow/types';
 import { defaultValuesOptions } from '../../constants/column.constants';
 import { postgresDataTypeInputTypeMapping } from '../../constants/postgres.constants';
@@ -105,28 +105,6 @@ export const deleteEdgesForTable = (
 };
 
 // *************************************
-// Check for a valid edge
-// *************************************
-export const isValidEdge = (connection: Connection, nodes: INode[]) => {
-    let sourceTableId: string = '',
-        targetTableId: string = '';
-
-    const { source, target } = connection;
-    nodes.some((node) => {
-        if (node.id === source) {
-            sourceTableId = node.data.tableId;
-        }
-        if (node.id === target) {
-            targetTableId = node.data.tableId;
-        }
-
-        return sourceTableId && targetTableId;
-    });
-
-    return sourceTableId !== targetTableId;
-};
-
-// *************************************
 // Add a new table with custom fields
 // *************************************
 const defaultTable = (
@@ -158,7 +136,12 @@ const defaultNode = (
         columnName,
         dataType: postgresDataTypeInputTypeMapping[0],
         defaultValueOption: defaultValuesOptions[0],
-        defaultValue: ''
+        defaultValue: '',
+        constraints: {
+            primaryKey: false,
+            unique: false,
+            notNull: true
+        }
     },
     type: ECustomNodeTypes.ColumnNode,
     parentNode: tableId,

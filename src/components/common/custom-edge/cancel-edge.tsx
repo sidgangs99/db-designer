@@ -3,7 +3,7 @@ import { getBezierPath, useReactFlow } from 'reactflow';
 
 import './glow-edge.css';
 
-const foreignObjectSize = 26;
+const foreignObjectSize = 28;
 export default function CustomCancelEdge(props: any) {
     const {
         id,
@@ -59,7 +59,9 @@ export default function CustomCancelEdge(props: any) {
                 <div>
                     <button
                         onClick={(event) => onDeleteButtonClick(event, id)}
-                        className={'rounded-full bg-grey-dark p-1 text-lg'}
+                        className={
+                            'rounded-full border border-grey-main bg-grey-dark p-1 text-lg hover:border-coral-main'
+                        }
                     >
                         <RxCross2 />
                     </button>

@@ -19,7 +19,6 @@ import {
     addNewTable,
     deleteEdgesForTable,
     deleteNodesAndUpdatePosition,
-    isValidEdge,
     newColumnNode
 } from './helper';
 import { INode, INodeData } from './types';
@@ -102,15 +101,13 @@ const useWorkbookStore = create<IWorkbookStore>()(
             onConnect: (connection: Connection) => {
                 set({
                     workbookSynced: false,
-                    edges: isValidEdge(connection, get().nodes)
-                        ? addEdge(
-                              {
-                                  ...connection,
-                                  type: ECustomEdgeTypes.ReferenceKey
-                              },
-                              get().edges
-                          )
-                        : get().edges
+                    edges: addEdge(
+                        {
+                            ...connection,
+                            type: ECustomEdgeTypes.ReferenceKey
+                        },
+                        get().edges
+                    )
                 });
             },
 

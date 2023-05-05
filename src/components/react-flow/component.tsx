@@ -35,6 +35,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
                     onDrop={onDrop}
                     onDragOver={onDragOver}
                     onInit={setReactFlowInstance}
+                    defaultEdgeOptions={{ zIndex: 2000 }}
                 >
                     <MiniMap
                         nodeColor={customColors.grey.main}
