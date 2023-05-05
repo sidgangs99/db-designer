@@ -110,8 +110,12 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             updateTheme(newTheme);
                         }}
                     /> */}
-                    <div className="self-end text-lg text-grey-lighter">
+
+                    <div className="flex self-end text-lg text-grey-lighter">
                         v: {v}
+                        <div className="items-center self-end px-4 pb-0.5 text-base">
+                            | PostgreSQL
+                        </div>
                     </div>
                     <div>
                         <AvatarDropdownComponent values={avatarMenuOptions} />
