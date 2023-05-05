@@ -6,7 +6,9 @@ export default function HomeComponent() {
             <div className="flex h-full w-full flex-col items-center justify-center">
                 <Parallax scale={[1, 0]} easing="easeInSine">
                     <div className="flex h-screen flex-col items-center justify-center space-x-2 space-y-8 text-4xl md:text-5xl lg:text-6xl 2xl:text-8xl">
-                        <div>Worried about designing your DB</div>
+                        <div className="bg-gradient-to-r from-coral-main to-pink-600 bg-clip-text text-transparent">
+                            Worried about maintaining your DB
+                        </div>
                         <div className="text-2xl text-grey-lighter md:text-4xl">
                             One stop solution for all your needs.
                         </div>
@@ -26,11 +28,11 @@ export default function HomeComponent() {
                 <Parallax scale={[0.5, 1]} easing="easeInSine">
                     <div className="flex h-screen flex-col items-center justify-center text-4xl md:text-6xl">
                         <div>
-                            Say goodbye to DB distress, with designs that
-                            impress!
+                            Bid farewell to migration pains and strife, let
+                            automation simplify your life!
                         </div>
                         <div className="flex w-full justify-end pr-10 pt-10 text-2xl text-grey-lighter md:text-4xl">
-                            - Nikhil Lad
+                            - Developers
                         </div>
                     </div>
                 </Parallax>

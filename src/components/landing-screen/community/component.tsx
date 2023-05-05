@@ -1,7 +1,7 @@
 export default function CommunityComponent() {
     return (
         <div className="flex h-screen w-full flex-col items-center justify-center space-y-8 text-center">
-            <p className="w-2/3 text-6xl">
+            <p className="w-2/3 bg-gradient-to-r from-coral-main to-pink-600 bg-clip-text text-6xl text-transparent">
                 We're busy constructing homes where our community can thrive and
                 find happiness in every corner
             </p>

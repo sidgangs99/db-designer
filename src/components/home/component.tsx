@@ -19,7 +19,7 @@ export default function HomeComponent(props: IHomeComponentProps) {
                 rel="noopener noreferrer"
                 href={'https://sidgangs99.github.io/resume/'}
             >
-                <p className="text-sm font-light tracking-wider text-coral-main">
+                <p className="bg-gradient-to-t from-pink-600 to-coral-light bg-clip-text text-sm font-light tracking-wider text-transparent">
                     Made with ❤️ by Siddharth Gangwar 🚀
                 </p>
             </a>
