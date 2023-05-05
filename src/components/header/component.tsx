@@ -7,6 +7,7 @@ import IconButtonContainer from '../common/icon-button/container';
 import SingleSelectDropdownContainer from '../common/single-select-dropdown/container';
 
 import { Tooltip } from 'react-tooltip';
+import useWorkbookStore from '../../store/workbook/state';
 import AvatarDropdownComponent from '../common/single-select-dropdown/avatar.component';
 import { useSaveWorkbook } from '../hooks/useSaveWorkbook';
 import { IHeaderComponentProps } from './types';
@@ -22,6 +23,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
     } = props;
 
     const { onSubmit } = useSaveWorkbook();
+    const { v } = useWorkbookStore();
 
     return (
         <>
@@ -99,7 +101,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex h-full items-center justify-center space-x-4">
+                <div className="h-5/7 flex w-full items-center justify-end space-x-4">
                     {/* <DarkModeBulbComponent
                         theme={theme}
                         onClick={() => {
@@ -108,8 +110,12 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
                             updateTheme(newTheme);
                         }}
                     /> */}
-
-                    <AvatarDropdownComponent values={avatarMenuOptions} />
+                    <div className="self-end text-lg text-grey-lighter">
+                        v: {v}
+                    </div>
+                    <div>
+                        <AvatarDropdownComponent values={avatarMenuOptions} />
+                    </div>
                 </div>
             </div>
         </>

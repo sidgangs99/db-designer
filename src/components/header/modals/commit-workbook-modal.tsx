@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiSave } from 'react-icons/bi';
+import { FaLongArrowAltRight } from 'react-icons/fa';
 import { Tooltip } from 'react-tooltip';
 
 import useWorkbookStore from '../../../store/workbook/state';
@@ -102,8 +103,9 @@ export default function CommitWorkbookModalComponent(
                         <label className="flex w-1/6 font-semibold text-grey-lighter">
                             Version<p className="text-coral-light">*</p>
                         </label>
+
                         <div
-                            className="flex w-1/6 space-x-2 font-normal"
+                            className="flex w-2/6 space-x-2 font-normal"
                             data-tooltip-id={`tooltip-v`}
                             data-tooltip-content={
                                 errors['v']?.type === 'required'
@@ -111,6 +113,12 @@ export default function CommitWorkbookModalComponent(
                                     : 'No space allowed'
                             }
                         >
+                            <div className="flex flex-row items-center space-x-3 text-grey-lighter">
+                                <div>{v}</div>
+                                <div>
+                                    <FaLongArrowAltRight />
+                                </div>
+                            </div>
                             <input
                                 {...register('v', {
                                     required: true,
@@ -121,6 +129,7 @@ export default function CommitWorkbookModalComponent(
                                 className="outline-border-coral-dark focus:border-coral-darkest border-b border-grey-main bg-stone-900 px-2 font-normal tracking-wider text-white focus:outline-none focus:ring-0"
                             />
                         </div>
+
                         <Tooltip
                             id={`tooltip-v`}
                             place="bottom"

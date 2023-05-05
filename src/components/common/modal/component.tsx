@@ -48,7 +48,7 @@ export default function ModalComponent(props: IModalComponentProps) {
                             {Header && (
                                 <Dialog.Title
                                     as="h3"
-                                    className="mb-2 text-lg font-medium leading-6 text-white"
+                                    className="mb-2 px-2 text-lg font-medium leading-6 text-white"
                                 >
                                     {Header}
                                 </Dialog.Title>
