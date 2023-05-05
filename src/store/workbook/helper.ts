@@ -125,6 +125,7 @@ const defaultNode = (
     tableId: string,
     tableName: string,
     columnName: string,
+    dataType: Record<string, any>,
     yAxis: number
 ): INode => ({
     id: uuid(),
@@ -134,7 +135,7 @@ const defaultNode = (
         tableName,
         tableId,
         columnName,
-        dataType: postgresDataTypeInputTypeMapping[0],
+        dataType,
         defaultValueOption: defaultValuesOptions[0],
         defaultValue: '',
         constraints: {
@@ -158,8 +159,26 @@ export const addNewTable = (position: XYPosition) => {
 
     return [
         defaultTable(tableId, tableName, position),
-        defaultNode(tableId, tableName, columnNameId, 1),
-        defaultNode(tableId, tableName, columnNameCreatedAt, 2),
-        defaultNode(tableId, tableName, columnNameUpdatedAt, 3)
+        defaultNode(
+            tableId,
+            tableName,
+            columnNameId,
+            postgresDataTypeInputTypeMapping[12],
+            1
+        ),
+        defaultNode(
+            tableId,
+            tableName,
+            columnNameCreatedAt,
+            postgresDataTypeInputTypeMapping[3],
+            2
+        ),
+        defaultNode(
+            tableId,
+            tableName,
+            columnNameUpdatedAt,
+            postgresDataTypeInputTypeMapping[3],
+            3
+        )
     ];
 };
