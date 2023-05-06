@@ -113,7 +113,7 @@ const HeaderComponent = (props: IHeaderComponentProps) => {
 
                     <div className="flex self-end text-lg text-grey-lighter">
                         v: {v}
-                        <div className="items-center self-end px-4 pb-0.5 text-base">
+                        <div className="items-center self-end px-4 pb-1 text-sm">
                             | PostgreSQL
                         </div>
                     </div>
