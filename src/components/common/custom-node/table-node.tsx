@@ -3,14 +3,14 @@ import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { useLayoutStore } from '../../../store/layout/store';
 import { INodeData } from '../../../store/workbook/types';
 
-const CustomTableNodeComponent = ({
-    id,
-    data
+export default function CustomTableNodeComponent({
+    data,
+    id
 }: {
     data: INodeData;
     id: string;
-}) => {
-    const { tableName, tableId } = data;
+}) {
+    const { tableName } = data;
     const { setOpenRightSideBar } = useLayoutStore();
 
     const handleOnNodeClick = () => {
@@ -34,4 +34,3 @@ const CustomTableNodeComponent = ({
     );
 };
 
-export default CustomTableNodeComponent;

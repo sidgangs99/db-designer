@@ -1,22 +1,45 @@
 import { RxCross2 } from 'react-icons/rx';
-import { getBezierPath, useReactFlow } from 'reactflow';
 
+import { getBezierPath, useReactFlow, useStore } from 'reactflow';
+
+import { useCallback } from 'react';
 import './glow-edge.css';
+import { getEdgeParams } from './helper';
 
 const foreignObjectSize = 28;
+
 export default function CustomCancelEdge(props: any) {
+    const { id, source, target, style = {}, markerEnd, markerStart } = props;
+
+    const { setEdges } = useReactFlow();
+
+    const sourceNode = useStore(
+        useCallback((store) => store.nodeInternals.get(source), [source])
+    );
+    const targetNode = useStore(
+        useCallback((store) => store.nodeInternals.get(target), [target])
+    );
+
+    if (!sourceNode || !targetNode) {
+        return null;
+    }
+
     const {
-        id,
-        sourceX,
-        sourceY,
-        targetX,
-        targetY,
-        sourcePosition,
-        targetPosition,
-        style = {},
-        markerEnd,
-        markerStart
-    } = props;
+        sx: sourceX,
+        sy: sourceY,
+        tx: targetX,
+        ty: targetY,
+        sourcePos: sourcePosition,
+        targetPos: targetPosition
+    } = getEdgeParams(sourceNode, targetNode);
+
+    const onDeleteButtonClick = (evt: any, id: any) => {
+        setEdges((_edges) => {
+            return _edges.filter((_edge) => {
+                return _edge.id !== id;
+            });
+        });
+    };
 
     const [edgePath, labelX, labelY] = getBezierPath({
         sourceX,
@@ -26,16 +49,6 @@ export default function CustomCancelEdge(props: any) {
         targetY,
         targetPosition
     });
-
-    const { setEdges } = useReactFlow();
-
-    const onDeleteButtonClick = (evt: any, id: any) => {
-        setEdges((_edges) => {
-            return _edges.filter((_edge) => {
-                return _edge.id !== id;
-            });
-        });
-    };
 
     return (
         <>
@@ -47,6 +60,7 @@ export default function CustomCancelEdge(props: any) {
                 markerEnd={markerEnd}
                 markerStart={markerStart}
                 strokeWidth={2}
+                type="floating"
             />
             <foreignObject
                 width={foreignObjectSize}

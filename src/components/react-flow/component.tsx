@@ -3,13 +3,11 @@ import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { customColors } from '../../colors';
 import { useLayoutStore } from '../../store/layout/store';
-import RightHeaderContainer from '../right-sidebar/container';
-import { IReactFlowComponentProps } from './types';
-
-import { useStore } from 'zustand';
 import useWorkbookStore from '../../store/workbook/state';
+import RightHeaderContainer from '../right-sidebar/container';
 import { customEdgeTypes, nodeTypes } from './constant';
 import './controls.styles.css';
+import { IReactFlowComponentProps } from './types';
 
 export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { reactFlowWrapper, setReactFlowInstance, onDrop, onDragOver } =
@@ -17,7 +15,7 @@ export default function ReactFlowComponent(props: IReactFlowComponentProps) {
     const { nodes, edges, onEdgesChange, onNodesChange, onConnect } =
         useWorkbookStore();
 
-    const { openRightSideBar } = useStore(useLayoutStore);
+    const { openRightSideBar } = useLayoutStore();
 
     return (
         <div className="flex h-full w-full flex-grow" ref={reactFlowWrapper}>

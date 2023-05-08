@@ -1,6 +1,5 @@
-import { memo } from 'react';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, useStore } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import { sqlTypeColor } from '../../../constants/column.constants';
@@ -9,10 +8,22 @@ import { useLayoutStore } from '../../../store/layout/store';
 import useWorkbookStore from '../../../store/workbook/state';
 import { INodeData } from '../../../store/workbook/types';
 
-export default memo(({ data, id }: { data: INodeData; id: string }) => {
+const connectionNodeIdSelector = (state: any) => state.connectionNodeId;
+
+export default function CustomColumnNodeComponent({
+    data,
+    id
+}: {
+    data: INodeData;
+    id: string;
+}) {
     const { columnName, dataType = postgresDataTypeInputTypeMapping[0] } = data;
     const { setOpenRightSideBar } = useLayoutStore();
     const { edges } = useWorkbookStore();
+
+    const connectionNodeId = useStore(connectionNodeIdSelector);
+    const isTarget = connectionNodeId && connectionNodeId !== id;
+    const targetHandleStyle = { zIndex: isTarget ? 3 : 1 };
 
     const handleOnNodeClick = () => {
         setOpenRightSideBar(id);
@@ -67,16 +78,52 @@ export default memo(({ data, id }: { data: INodeData; id: string }) => {
                     <HiOutlinePencilSquare className="rounded-sm border border-grey-main bg-grey-dark p-0.5 text-base" />
                 </div>
             </div>
-            <Handle
-                type="source"
-                position={Position.Right}
-                className={`p-1 ${isParentKey && 'border-coral-main'}`}
-            />
-            <Handle
-                type="target"
-                position={Position.Left}
-                className={`p-1 ${isForeignKey && 'border-coral-main'}`}
-            />
+            <>
+                <Handle
+                    className={`border-coral-light p-1 ${
+                        isForeignKey && 'border-coral-main'
+                    }`}
+                    style={targetHandleStyle}
+                    position={Position.Right}
+                    isValidConnection={(connection) =>
+                        connection.source !== connection?.target
+                    }
+                    type="target"
+                    id="target-right"
+                />
+                <Handle
+                    className={`border-coral-light p-1 ${
+                        isForeignKey && 'border-coral-main'
+                    }`}
+                    style={targetHandleStyle}
+                    position={Position.Left}
+                    isValidConnection={(connection) =>
+                        connection.source !== connection?.target
+                    }
+                    type="target"
+                    id="target-left"
+                />
+                <Handle
+                    className={`p-1 ${isForeignKey && 'border-coral-main'}`}
+                    style={{ zIndex: 2 }}
+                    position={Position.Left}
+                    isValidConnection={(connection) =>
+                        connection.source !== connection?.target
+                    }
+                    type="source"
+                    id="source-left"
+                />
+                <Handle
+                    className={`p-1 ${isForeignKey && 'border-coral-main'}`}
+                    style={{ zIndex: 2 }}
+                    position={Position.Right}
+                    isValidConnection={(connection) =>
+                        connection.source !== connection?.target
+                    }
+                    type="source"
+                    id="source-right"
+                />
+            </>
         </>
     );
-});
+}

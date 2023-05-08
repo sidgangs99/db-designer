@@ -76,6 +76,7 @@
         "react-query-devtools": "^2.6.3",
         "tailwindcss": "^3.3.1",
         "vite": "^4.2.1",
+        "vite-plugin-checker": "^0.6.0",
         "vite-plugin-svgr": "^2.4.0",
         "vite-tsconfig-paths": "^4.1.0"
     },
