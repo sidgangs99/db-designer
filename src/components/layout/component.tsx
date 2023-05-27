@@ -41,7 +41,7 @@ export default function LayoutComponent(props: ILayoutComponentProps) {
                     />
 
                     <Route
-                        path="/design"
+                        path="/design/*"
                         element={<ProtectedRoute Component={HomeContainer} />}
                     />
                     <Route path="*" element={<Navigate replace to="/" />} />
