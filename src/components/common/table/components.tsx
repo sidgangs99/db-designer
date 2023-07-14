@@ -41,9 +41,9 @@ export default function TableComponent(props: any) {
                         selectedColumn?._id === row?.original?._id;
                     return (
                         <tr
-                            className={`p-2 group-hover:cursor-pointer group-hover:bg-grey-dark ${
-                                isSelected && 'bg-grey-dark'
-                            }`}
+                            className={`p-2 group-hover:cursor-pointer ${
+                                isSelected && 'bg-grey-main'
+                            } hover:bg-grey-dark`}
                             {...row.getRowProps()}
                             onClick={() => setSelectedColumn(row?.original)}
                         >

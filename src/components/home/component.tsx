@@ -12,7 +12,6 @@ export default function HomeComponent(props: IHomeComponentProps) {
             <div className="flex h-92/100 w-full bg-grey-darker">
                 <ReactFlowContainer />
             </div>
-            {/* <div className=""> */}
             <a
                 className="flex h-3/100 w-full items-center justify-center bg-neutral-900"
                 target="_blank"
@@ -23,7 +22,6 @@ export default function HomeComponent(props: IHomeComponentProps) {
                     Made with ❤️ by Siddharth Gangwar 🚀
                 </p>
             </a>
-            {/* </div> */}
         </div>
     );
 }

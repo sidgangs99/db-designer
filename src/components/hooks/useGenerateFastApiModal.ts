@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
 
 import { API_FAST_API_MODAL_GENERATE } from '../../api/workbook';
 import useAuthStore from '../../store/firebase/state';
@@ -13,7 +13,7 @@ export function useGenerateFastApiModal() {
     const { user }: any = useAuthStore();
 
     const { data, isFetching, isError }: any = useQuery<any>(
-        'fast-api-modal-generator',
+        ['fast-api-modal-generator'],
         () =>
             authenticatePostAPI(user.accessToken, API_FAST_API_MODAL_GENERATE, {
                 nodes,

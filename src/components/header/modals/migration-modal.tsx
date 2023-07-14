@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
 import { MdOutlineDifference } from 'react-icons/md';
-import { useQuery } from 'react-query';
 import { HashLoader } from 'react-spinners';
 
 import { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ export default function MigrateModalComponent(props: IMigrateModal) {
     const [migrateFrom, setMigrateFrom] = useState<any>({});
     const [migrateTo, setMigrateTo] = useState<any>({});
     const { data: responseData, isFetching }: any = useQuery(
-        `get-snapshots`,
+        [`get-snapshots`],
         () =>
             authenticateGetAPI(
                 user.accessToken,

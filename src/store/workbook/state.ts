@@ -29,6 +29,7 @@ export type IWorkbookStore = {
     edges: Edge[];
     setEdges: (edges: Edge[]) => void;
     workbookId: string;
+    setWorkbookId: (workbookId: string) => void;
     v: string;
     setVersion: (v: string) => void;
     openSaveWorkbook: boolean;
@@ -55,6 +56,12 @@ const useWorkbookStore = create<IWorkbookStore>()(
             v: '',
             openSaveWorkbook: false,
             workbookSynced: true,
+
+            setWorkbookId: (workbookId: string) => {
+                set({
+                    workbookId
+                });
+            },
 
             setWorkbookSynced: (workbookSynced: boolean) => {
                 set({

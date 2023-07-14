@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { API_SQL_GENERATE } from '../../api/workbook';
 import useAuthStore from '../../store/firebase/state';

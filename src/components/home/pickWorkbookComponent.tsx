@@ -1,40 +1,54 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ButtonContainer from '../common/button/container';
 import LoaderComponent from '../common/loader/component';
 import TableComponent from '../common/table/components';
 import { columns } from './constants';
+import { useCreateWorkbook } from './hooks/useCreateWorkbook';
 import { useGetUserWorkbooks } from './hooks/useGetUserWorkbooks';
 
 export default function PickWorkbookComponent() {
     const navigate = useNavigate();
+
     const [selectedColumn, setSelectedColumn] = useState<Record<string, any>>(
         {}
     );
+    const newWorkbook = { _id: 'Create new workbook', isNew: true };
 
     const { isFetching, tableData } = useGetUserWorkbooks();
+    const {
+        isFetching: isCreatingWorkbook,
+        data,
+        refetch
+    } = useCreateWorkbook();
 
-    const NewWorkbook = () => <div>Create new workbook</div>;
-    const RenderListOfWorkbooks = () => (
-        <div className="flex flex-col">
-            <TableComponent
-                columns={columns}
-                data={tableData}
-                selectedColumn={selectedColumn}
-                setSelectedColumn={setSelectedColumn}
-            />
-        </div>
-    );
+    useEffect(() => {
+        if (data?._id) navigate('/design/' + data?._id);
+    }, [data]);
+
+    const RenderListOfWorkbooks = () => {
+        const listOfWorkbooks: any = [...tableData];
+        if (listOfWorkbooks.length < 3) listOfWorkbooks.push(newWorkbook);
+
+        return (
+            <div className="flex flex-col">
+                <TableComponent
+                    columns={columns}
+                    data={listOfWorkbooks}
+                    selectedColumn={selectedColumn}
+                    setSelectedColumn={setSelectedColumn}
+                />
+            </div>
+        );
+    };
 
     const Body = () =>
-        isFetching ? (
+        isFetching || isCreatingWorkbook ? (
             <LoaderComponent Component={HashLoader} speedMultiplier={0.4} />
-        ) : tableData.length ? (
-            <RenderListOfWorkbooks />
         ) : (
-            <NewWorkbook />
+            <RenderListOfWorkbooks />
         );
 
     return (
@@ -45,11 +59,12 @@ export default function PickWorkbookComponent() {
                 </div>
                 <div>
                     <ButtonContainer
-                        label="Open"
+                        label="Next"
                         disabled={!selectedColumn?._id}
-                        onClick={() =>
-                            navigate('/design/' + selectedColumn?._id)
-                        }
+                        onClick={() => {
+                            if (selectedColumn?.isNew) refetch();
+                            else navigate('/design/' + selectedColumn?._id);
+                        }}
                     />
                 </div>
             </div>

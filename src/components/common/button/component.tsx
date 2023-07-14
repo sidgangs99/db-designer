@@ -8,7 +8,8 @@ const ButtonComponent = (props: IButtonComponentProps) => {
         type = 'button',
         disabled = false,
         primary = false,
-        secondary = false
+        secondary = false,
+        className
     } = props;
     return (
         <button
@@ -21,7 +22,7 @@ const ButtonComponent = (props: IButtonComponentProps) => {
             } ${
                 secondary &&
                 'border-grey-main text-yellow-light hover:border-yellow-main  hover:bg-yellow-200 hover:bg-opacity-10'
-            }`}
+            } ${className}`}
             onClick={onClick}
             form={form}
             disabled={disabled}
